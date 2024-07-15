@@ -7,8 +7,6 @@ import com.lavacorp.modules.transaction.TransactionLogger;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import java.util.ArrayList;
-
 
 public class Inventory {
     protected Database database;
