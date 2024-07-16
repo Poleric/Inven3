@@ -5,7 +5,9 @@ import com.lavacorp.Item;
 import com.lavacorp.modules.DatabaseModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Range;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.NoSuchElementException;
 public class DatabaseStorage extends DatabaseModule implements Storage {
     private final static Logger LOGGER = LogManager.getLogger(DatabaseStorage.class);
 
+    @Language("sqlite")
     private final static String INIT_SCRIPTS = """
             CREATE TABLE IF NOT EXISTS Item (
                 item_id   INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,6 +40,7 @@ public class DatabaseStorage extends DatabaseModule implements Storage {
 
     @Override
     public void addItemInfo(@NotNull String ... itemNames) {
+        @Language("sqlite")
         final String CREATE_ITEM = "INSERT OR REPLACE INTO Item (item_name) VALUES (?);";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(CREATE_ITEM)) {
@@ -50,7 +54,8 @@ public class DatabaseStorage extends DatabaseModule implements Storage {
     }
 
     @Override
-    public void deleteItemInfo(@NotNull int ... itemIds) {
+    public void deleteItemInfo(int ... itemIds) {
+        @Language("sqlite")
         final String DELETE_ITEM = "DELETE FROM Item WHERE item_id = ?;";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(DELETE_ITEM)) {
@@ -65,6 +70,7 @@ public class DatabaseStorage extends DatabaseModule implements Storage {
 
     @Override
     public Item queryItemInfo(int itemId) {
+        @Language("sqlite")
         final String QUERY_ITEM = "SELECT item_id, item_name FROM Item WHERE item_id = ?;";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(QUERY_ITEM)) {
@@ -80,7 +86,8 @@ public class DatabaseStorage extends DatabaseModule implements Storage {
     }
 
     @Override
-    public ArrayList<Item> queryItemInfo(String itemName) {
+    public ArrayList<Item> queryItemInfo(@NotNull String itemName) {
+        @Language("sqlite")
         final String QUERY_ITEM = "SELECT item_id, item_name FROM Item WHERE item_name LIKE ?;";
 
         ArrayList<Item> results = new ArrayList<>();
@@ -100,7 +107,8 @@ public class DatabaseStorage extends DatabaseModule implements Storage {
     }
 
     @Override
-    public void addItem(int itemId, int quantity) {
+    public void addItem(int itemId, @Range(from = 0, to = Integer.MAX_VALUE) int quantity) {
+        @Language("sqlite")
         final String ADD_ITEM = "UPDATE Inventory SET count = count + ? WHERE item_id = ?";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(ADD_ITEM)) {
@@ -114,7 +122,8 @@ public class DatabaseStorage extends DatabaseModule implements Storage {
     }
 
     @Override
-    public void removeItem(int itemId, int quantity) {
+    public void removeItem(int itemId, @Range(from = 0, to = Integer.MAX_VALUE) int quantity) {
+        @Language("sqlite")
         final String REMOVE_ITEM = "UPDATE Inventory SET count = count - ? WHERE item_id = ?;";
 
         // TODO: raise error when quantity exceed inventory
@@ -129,7 +138,8 @@ public class DatabaseStorage extends DatabaseModule implements Storage {
     }
 
     @Override
-    public int queryItemCount(int itemId) {
+    public @Range(from = 0, to = Integer.MAX_VALUE) int queryItemCount(int itemId) {
+        @Language("sqlite")
         final String QUERY_ITEM = "SELECT count FROM Inventory WHERE item_id = ?;";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(QUERY_ITEM)) {
