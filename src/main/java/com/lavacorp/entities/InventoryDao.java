@@ -12,7 +12,7 @@ public interface InventoryDao {
     @SqlScript("""
     CREATE TABLE IF NOT EXISTS Inventory (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        item_id      INTEGER NOT NULL UNIQUE REFERENCES Item (item_id),
+        item_id      INTEGER NOT NULL UNIQUE REFERENCES Item (id),
         count        INTEGER NOT NULL DEFAULT 0 CHECK (count >= 0)
     );
     """)
