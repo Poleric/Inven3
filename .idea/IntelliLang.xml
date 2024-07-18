@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LanguageInjectionConfiguration">
+    <injection language="SQL" injector-id="java">
+      <display-name>SqlQuery.value (org.jdbi.v3.sqlobject.statement)</display-name>
+      <ignore-pattern>&lt;[a-zA-Z0-9_]+&gt;</ignore-pattern>
+      <single-file value="true" />
+      <place><![CDATA[psiMethod().withName("value").withParameters().definedInClass("org.jdbi.v3.sqlobject.statement.SqlQuery")]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("add").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.statement.Batch"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("prepareBatch", "createQuery", "createCall", "createScript", "createUpdate").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("select", "execute").withParameterCount(2).definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+    </injection>
+    <injection language="SQL" injector-id="java">
+      <display-name>SqlUpdate.value (org.jdbi.v3.sqlobject.statement)</display-name>
+      <ignore-pattern>&lt;[a-zA-Z0-9_]+&gt;</ignore-pattern>
+      <single-file value="true" />
+      <place><![CDATA[psiMethod().withName("value").withParameters().definedInClass("org.jdbi.v3.sqlobject.statement.SqlUpdate")]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("add").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.statement.Batch"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("prepareBatch", "createQuery", "createCall", "createScript", "createUpdate").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("select", "execute").withParameterCount(2).definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+    </injection>
+    <injection language="SQL" injector-id="java">
+      <display-name>SqlScript.value (org.jdbi.v3.sqlobject.statement)</display-name>
+      <ignore-pattern>&lt;[a-zA-Z0-9_]+&gt;</ignore-pattern>
+      <single-file value="true" />
+      <place><![CDATA[psiMethod().withName("value").withParameters().definedInClass("org.jdbi.v3.sqlobject.statement.SqlUpdate")]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("add").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.statement.Batch"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("prepareBatch", "createQuery", "createCall", "createScript", "createUpdate").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("select", "execute").withParameterCount(2).definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+    </injection>
+    <injection language="SQL" injector-id="java">
+      <display-name>SqlBatch.value (org.jdbi.v3.sqlobject.statement)</display-name>
+      <ignore-pattern>&lt;[a-zA-Z0-9_]+&gt;</ignore-pattern>
+      <single-file value="true" />
+      <place><![CDATA[psiMethod().withName("value").withParameters().definedInClass("org.jdbi.v3.sqlobject.statement.SqlUpdate")]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("add").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.statement.Batch"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("prepareBatch", "createQuery", "createCall", "createScript", "createUpdate").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("select", "execute").withParameterCount(2).definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+    </injection>
+    <injection language="SQL" injector-id="java">
+      <display-name>SqlCall.value (org.jdbi.v3.sqlobject.statement)</display-name>
+      <ignore-pattern>&lt;[a-zA-Z0-9_]+&gt;</ignore-pattern>
+      <single-file value="true" />
+      <place><![CDATA[psiMethod().withName("value").withParameters().definedInClass("org.jdbi.v3.sqlobject.statement.SqlUpdate")]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("add").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.statement.Batch"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("prepareBatch", "createQuery", "createCall", "createScript", "createUpdate").withParameters("java.lang.String").definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+      <place disabled="true"><![CDATA[psiParameter().ofMethod(0, psiMethod().withName("select", "execute").withParameterCount(2).definedInClass("org.jdbi.v3.core.Handle"))]]></place>
+    </injection>
+  </component>
+</project>
