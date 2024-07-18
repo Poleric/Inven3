@@ -27,21 +27,6 @@ public interface InventoryDao {
     """)
     void createTable();
 
-    @CreateSqlObject
-    ItemDao itemDao();
-
-    @SqlUpdate("INSERT INTO Inventory (item_id) VALUES (:itemId)")
-    void initItem(int itemId);
-
-    default int initItem(Item item) {
-        int itemId = itemDao().getItemId(item)
-                .orElseGet(() -> itemDao().create(item));
-
-        initItem(itemId);
-
-        return itemId;
-    }
-
     @SqlUpdate("UPDATE Inventory SET count = count + :count WHERE item_id = :itemId")
     void increaseCount(int itemId, @Range(from = 1, to = Integer.MAX_VALUE) int count);
 
