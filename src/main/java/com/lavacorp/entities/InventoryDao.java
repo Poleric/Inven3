@@ -11,13 +11,13 @@ import java.util.OptionalInt;
 public interface InventoryDao {
     @SqlScript("""
     CREATE TABLE IF NOT EXISTS Inventory (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        item_id      INTEGER NOT NULL UNIQUE REFERENCES Item (id),
-        count        INTEGER NOT NULL DEFAULT 0 CHECK (count >= 0)
+        id      INTEGER PRIMARY KEY AUTOINCREMENT,
+        item_id INTEGER NOT NULL UNIQUE REFERENCES Item (id),
+        count   INTEGER NOT NULL DEFAULT 0 CHECK (count >= 0)
     );
     """)
     @SqlScript("""
-    CREATE TRIGGER createInventoryRecord
+    CREATE TRIGGER IF NOT EXISTS createInventoryRecord
         AFTER INSERT
         ON Item
         FOR EACH ROW
