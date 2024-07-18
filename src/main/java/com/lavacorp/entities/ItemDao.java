@@ -21,7 +21,7 @@ public interface ItemDao {
     """)
     void createTable();
 
-    @SqlUpdate("INSERT OR REPLACE INTO Item (name) VALUES (:name)")
+    @SqlUpdate("INSERT INTO Item (name) VALUES (:name)")
     @GetGeneratedKeys
     int create(@NotNull String name);
 
