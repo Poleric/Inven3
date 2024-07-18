@@ -19,15 +19,23 @@ public class InventoryManagementSystem {
                 .connect("inventory.db");
 
         try (Handle handle = Database.getInstance().getJdbi().open()) {
+            handle.execute("""
+            PRAGMA writable_schema = 1;
+            delete from sqlite_master where type in ('table', 'index', 'trigger');
+            PRAGMA writable_schema = 0;
+            
+            VACUUM;
+            """);
+
             ItemDao itemDao = handle.attach(ItemDao.class);
             itemDao.createTable();
             InventoryDao inventoryDao = handle.attach(InventoryDao.class);
             inventoryDao.createTable();
 
             Item[] items = {
-                    new Item("Lava Cup Noodle"),
-                    new Item("Magma Cup Noodle"),
-                    new Item("LAVA Lava Cake")
+                    new Item("Lava Cup Noodle", 3.0),
+                    new Item("Magma Cup Noodle", 3.5),
+                    new Item("LAVA Lava Cake", 4.0)
             };
             for (Item item : items)
                 try {
