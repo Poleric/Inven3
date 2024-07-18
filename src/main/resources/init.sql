@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS Item (
     item_id   INTEGER PRIMARY KEY AUTOINCREMENT,
-    item_name TEXT NOT NULL
+    item_name TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Inventory (
     inventory_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    item_id      INTEGER NOT NULL REFERENCES Item (item_id),
-    count        INTEGER NOT NULL CHECK (count >= 0)
+    item_id      INTEGER NOT NULL UNIQUE REFERENCES Item (item_id),
+    count        INTEGER NOT NULL DEFAULT 0 CHECK (count >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS ItemTransactionType (
@@ -23,11 +23,3 @@ CREATE TABLE IF NOT EXISTS ItemTransaction (
     reference              TEXT, -- additional information to go with itemtransactiontype
     UNIQUE (item_id, itemtransaction_id, timestamp) ON CONFLICT REPLACE
 );
-
-CREATE TRIGGER createInventoryRecord
-    AFTER INSERT
-    ON Item
-    FOR EACH ROW
-BEGIN
-    INSERT INTO Inventory (item_id, count) VALUES (new.item_id, 0);
-END;
