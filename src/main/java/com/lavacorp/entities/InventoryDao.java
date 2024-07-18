@@ -30,9 +30,7 @@ public interface InventoryDao {
     @CreateSqlObject
     ItemDao itemDao();
 
-    @SqlUpdate("""
-    INSERT INTO Inventory (item_id) VALUES (:itemId)
-    """)
+    @SqlUpdate("INSERT INTO Inventory (item_id) VALUES (:itemId)")
     void initItem(int itemId);
 
     default int initItem(Item item) {
@@ -44,18 +42,12 @@ public interface InventoryDao {
         return itemId;
     }
 
-    @SqlUpdate("""
-    UPDATE Inventory SET count = count + :count WHERE item_id = :itemId
-    """)
+    @SqlUpdate("UPDATE Inventory SET count = count + :count WHERE item_id = :itemId")
     void increaseCount(int itemId, @Range(from = 1, to = Integer.MAX_VALUE) int count);
 
-    @SqlUpdate("""
-    UPDATE Inventory SET count = count - :count WHERE item_id = :itemId
-    """)
+    @SqlUpdate("UPDATE Inventory SET count = count - :count WHERE item_id = :itemId")
     void decreaseCount(int itemId, @Range(from = 1, to = Integer.MAX_VALUE) int count);
 
-    @SqlQuery("""
-    SELECT count FROM Inventory WHERE item_id = :itemId
-    """)
+    @SqlQuery("SELECT count FROM Inventory WHERE item_id = :itemId")
     OptionalInt queryCount(int itemId);
 }

@@ -21,9 +21,7 @@ public interface ItemDao {
     """)
     void createTable();
 
-    @SqlUpdate("""
-    INSERT OR REPLACE INTO Item (name) VALUES (:name)
-    """)
+    @SqlUpdate("INSERT OR REPLACE INTO Item (name) VALUES (:name)")
     @GetGeneratedKeys
     int create(@NotNull String name);
 
@@ -31,52 +29,36 @@ public interface ItemDao {
         return create(item.name());
     }
 
-    @SqlUpdate("""
-    DELETE FROM Item WHERE id = :id
-    """)
+    @SqlUpdate("DELETE FROM Item WHERE id = :id")
     void delete(int id);
 
-    @SqlUpdate("""
-    DELETE FROM Item WHERE name = :name
-    """)
+    @SqlUpdate("DELETE FROM Item WHERE name = :name")
     void delete(@NotNull String name);
 
     default void delete(@NotNull Item item) {
         delete(item.name());
     }
 
-    @SqlUpdate("""
-    DELETE FROM Item WHERE name LIKE :pattern
-    """)
+    @SqlUpdate("DELETE FROM Item WHERE name LIKE :pattern")
     void deleteLike(@NotNull String pattern);
 
-    @SqlQuery("""
-    SELECT name FROM Item WHERE id = :id
-    """)
+    @SqlQuery("SELECT name FROM Item WHERE id = :id")
     @RegisterConstructorMapper(Item.class)
     Optional<Item> getItem(int id);
 
-    @SqlQuery("""
-    SELECT name FROM Item WHERE name = :name
-    """)
+    @SqlQuery("SELECT name FROM Item WHERE name = :name")
     @RegisterConstructorMapper(Item.class)
     Optional<Item> getItem(@NotNull String name);
 
-    @SqlQuery("""
-    SELECT name FROM Item WHERE name LIKE :pattern
-    """)
+    @SqlQuery("SELECT name FROM Item WHERE name LIKE :pattern")
     @RegisterConstructorMapper(Item.class)
     List<Item> getItemLike(@NotNull String pattern);
 
-    @SqlQuery("""
-    SELECT name FROM Item
-    """)
+    @SqlQuery("SELECT name FROM Item")
     @RegisterConstructorMapper(Item.class)
     List<Item> getAllItem();
 
-    @SqlQuery("""
-    SELECT id FROM Item WHERE name = :name
-    """)
+    @SqlQuery("SELECT id FROM Item WHERE name = :name")
     OptionalInt getItemId(String name);
 
     default OptionalInt getItemId(@NotNull Item item) {

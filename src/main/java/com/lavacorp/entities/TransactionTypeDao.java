@@ -20,9 +20,7 @@ public interface TransactionTypeDao {
     """)
     void createTable();
 
-    @SqlUpdate("""
-    INSERT OR REPLACE INTO ItemTransactionType (name) VALUES (:name)
-    """)
+    @SqlUpdate("INSERT OR REPLACE INTO ItemTransactionType (name) VALUES (:name)")
     @GetGeneratedKeys
     int create(@NotNull String name);
 
@@ -30,52 +28,36 @@ public interface TransactionTypeDao {
         return create(transactionType.name());
     }
 
-    @SqlUpdate("""
-    DELETE FROM ItemTransactionType WHERE id = :id
-    """)
+    @SqlUpdate("DELETE FROM ItemTransactionType WHERE id = :id")
     void delete(int id);
 
-    @SqlUpdate("""
-    DELETE FROM ItemTransactionType WHERE name = :name
-    """)
+    @SqlUpdate("DELETE FROM ItemTransactionType WHERE name = :name")
     void delete(@NotNull String name);
 
     default void delete(@NotNull TransactionType transactionType) {
         delete(transactionType.name());
     }
 
-    @SqlUpdate("""
-    DELETE FROM ItemTransactionType WHERE name LIKE :pattern
-    """)
+    @SqlUpdate("DELETE FROM ItemTransactionType WHERE name LIKE :pattern")
     void deleteLike(@NotNull String pattern);
 
-    @SqlQuery("""
-    SELECT name from ItemTransactionType WHERE id = :id
-    """)
+    @SqlQuery("SELECT name from ItemTransactionType WHERE id = :id")
     @RegisterConstructorMapper(TransactionType.class)
     Optional<TransactionType> getType(int id);
 
-    @SqlQuery("""
-    SELECT name from ItemTransactionType WHERE name = :name
-    """)
+    @SqlQuery("SELECT name from ItemTransactionType WHERE name = :name")
     @RegisterConstructorMapper(TransactionType.class)
     Optional<TransactionType> getType(@NotNull String name);
 
-    @SqlQuery("""
-    SELECT name from ItemTransactionType WHERE name LIKE :name
-    """)
+    @SqlQuery("SELECT name from ItemTransactionType WHERE name LIKE :name")
     @RegisterConstructorMapper(TransactionType.class)
     Optional<TransactionType> getTypeLike(@NotNull String pattern);
 
-    @SqlQuery("""
-    SELECT name from ItemTransactionType
-    """)
+    @SqlQuery("SELECT name from ItemTransactionType")
     @RegisterConstructorMapper(TransactionType.class)
     List<TransactionType> getAllType();
 
-    @SqlQuery("""
-    SELECT id FROM ItemTransactionType WHERE name = :name
-    """)
+    @SqlQuery("SELECT id FROM ItemTransactionType WHERE name = :name")
     OptionalInt getTypeId(@NotNull String name);
 
     default OptionalInt getTypeId(@NotNull TransactionType transactionType) {
