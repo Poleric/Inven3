@@ -4,16 +4,14 @@ import org.jdbi.v3.sqlobject.CreateSqlObject;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlScript;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
-import java.util.Optional;
 import java.util.OptionalInt;
 
 public interface InventoryDao {
     @SqlScript("""
     CREATE TABLE IF NOT EXISTS Inventory (
-        inventory_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         item_id      INTEGER NOT NULL UNIQUE REFERENCES Item (item_id),
         count        INTEGER NOT NULL DEFAULT 0 CHECK (count >= 0)
     );
@@ -24,7 +22,7 @@ public interface InventoryDao {
         ON Item
         FOR EACH ROW
     BEGIN
-        INSERT INTO Inventory (item_id, count) VALUES (new.item_id, 0);
+        INSERT INTO Inventory (item_id, count) VALUES (new.id, 0);
     END;
     """)
     void createTable();
@@ -35,7 +33,7 @@ public interface InventoryDao {
     @SqlUpdate("""
     INSERT INTO Inventory (item_id) VALUES (:itemId)
     """)
-    void initItem(int item_id);
+    void initItem(int itemId);
 
     default int initItem(Item item) {
         int itemId = itemDao().getItemId(item)

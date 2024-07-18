@@ -1,7 +1,6 @@
 package com.lavacorp.entities;
 
 import org.jdbi.v3.sqlobject.config.RegisterConstructorMapper;
-import org.jdbi.v3.sqlobject.customizer.BindMethods;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlScript;
@@ -16,14 +15,14 @@ import java.util.OptionalInt;
 public interface ItemDao {
     @SqlScript("""
     CREATE TABLE IF NOT EXISTS Item (
-        item_id   INTEGER PRIMARY KEY AUTOINCREMENT,
-        item_name TEXT UNIQUE NOT NULL
+        id   INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE NOT NULL
     )
     """)
     void createTable();
 
     @SqlUpdate("""
-    INSERT OR REPLACE INTO Item (item_name) VALUES (:name)
+    INSERT OR REPLACE INTO Item (name) VALUES (:name)
     """)
     @GetGeneratedKeys
     int create(@NotNull String name);
@@ -33,12 +32,12 @@ public interface ItemDao {
     }
 
     @SqlUpdate("""
-    DELETE FROM Item WHERE item_id = :id
+    DELETE FROM Item WHERE id = :id
     """)
     void delete(int id);
 
     @SqlUpdate("""
-    DELETE FROM Item WHERE item_name = :name
+    DELETE FROM Item WHERE name = :name
     """)
     void delete(@NotNull String name);
 
@@ -47,36 +46,36 @@ public interface ItemDao {
     }
 
     @SqlUpdate("""
-    DELETE FROM Item WHERE item_name LIKE :pattern
+    DELETE FROM Item WHERE name LIKE :pattern
     """)
     void deleteLike(@NotNull String pattern);
 
     @SqlQuery("""
-    SELECT item_name FROM Item WHERE item_id = :id
+    SELECT name FROM Item WHERE id = :id
     """)
     @RegisterConstructorMapper(Item.class)
     Optional<Item> getItem(int id);
 
     @SqlQuery("""
-    SELECT item_name FROM Item WHERE item_name = :name
+    SELECT name FROM Item WHERE name = :name
     """)
     @RegisterConstructorMapper(Item.class)
     Optional<Item> getItem(@NotNull String name);
 
     @SqlQuery("""
-    SELECT item_name FROM Item WHERE item_name LIKE :pattern
+    SELECT name FROM Item WHERE name LIKE :pattern
     """)
     @RegisterConstructorMapper(Item.class)
     List<Item> getItemLike(@NotNull String pattern);
 
     @SqlQuery("""
-    SELECT item_name FROM Item
+    SELECT name FROM Item
     """)
     @RegisterConstructorMapper(Item.class)
     List<Item> getAllItem();
 
     @SqlQuery("""
-    SELECT item_id FROM Item WHERE item_name = :name
+    SELECT id FROM Item WHERE name = :name
     """)
     OptionalInt getItemId(String name);
 
