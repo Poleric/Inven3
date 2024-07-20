@@ -33,9 +33,9 @@ public class InventoryManagementSystem {
             inventoryDao.createTable();
 
             Item[] items = {
-                    new Item("Lava Cup Noodle", 3.0),
-                    new Item("Magma Cup Noodle", 3.5),
-                    new Item("LAVA Lava Cake", 4.0)
+                    new Item("Lava Cup Noodle", "Lava Cup Noodle 1pc", 3.0),
+                    new Item("Magma Cup Noodle", "Magma Cup Noodle 1pc", 3.5),
+                    new Item("LAVA Lava Cake", "LAVA Lava Cake 1packet", 4.0)
             };
             for (Item item : items)
                 try {
