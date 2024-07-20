@@ -16,14 +16,15 @@ import java.util.OptionalInt;
 public interface ItemDao {
     @SqlScript("""
     CREATE TABLE IF NOT EXISTS Item (
-        id         INTEGER PRIMARY KEY AUTOINCREMENT,
-        name       TEXT UNIQUE NOT NULL,
-        base_price REAL
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        name        TEXT UNIQUE NOT NULL,
+        description TEXT,
+        base_price  REAL
     )
     """)
     void createTable();
 
-    @SqlUpdate("INSERT INTO Item (name, base_price) VALUES (:name, :basePrice)")
+    @SqlUpdate("INSERT INTO Item (name, description, base_price) VALUES (:name, :description, :basePrice)")
     @GetGeneratedKeys
     int create(@BindMethods @NotNull Item item);
 
@@ -40,19 +41,19 @@ public interface ItemDao {
     @SqlUpdate("DELETE FROM Item WHERE name LIKE :pattern")
     void deleteLike(@NotNull String pattern);
 
-    @SqlQuery("SELECT name, base_price FROM Item WHERE id = :id")
+    @SqlQuery("SELECT name, description, base_price FROM Item WHERE id = :id")
     @RegisterConstructorMapper(Item.class)
     Optional<Item> getItem(int id);
 
-    @SqlQuery("SELECT name, base_price FROM Item WHERE name = :name")
+    @SqlQuery("SELECT name, description, base_price FROM Item WHERE name = :name")
     @RegisterConstructorMapper(Item.class)
     Optional<Item> getItem(@NotNull String name);
 
-    @SqlQuery("SELECT name, base_price FROM Item WHERE name LIKE :pattern")
+    @SqlQuery("SELECT name, description, base_price FROM Item WHERE name LIKE :pattern")
     @RegisterConstructorMapper(Item.class)
     List<Item> getItemLike(@NotNull String pattern);
 
-    @SqlQuery("SELECT name, base_price FROM Item")
+    @SqlQuery("SELECT name, description, base_price FROM Item")
     @RegisterConstructorMapper(Item.class)
     List<Item> getAllItem();
 
