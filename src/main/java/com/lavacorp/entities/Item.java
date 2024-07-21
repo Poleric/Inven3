@@ -1,34 +1,34 @@
 package com.lavacorp.entities;
 
-import org.jdbi.v3.core.mapper.reflect.ColumnName;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 
 public class Item implements Serializable {
-    @ColumnName("id") @Nullable private Integer id;
-    @ColumnName("name") private String name;
-    @ColumnName("description") @Nullable private String description;
-    @ColumnName("base_price") private float basePrice;
+    private int id;
+    private String name;
+    @Nullable private String description;
+    private double basePrice;
 
     public Item() {}
 
-    public Item(String name, @Nullable String description, float basePrice) {
+    public Item(@NotNull String name, @Nullable String description, double basePrice) {
         this.name = name;
         this.description = description;
         this.basePrice = basePrice;
     }
 
-    public Item(@Nullable Integer id, String name, @Nullable String description, float basePrice) {
+    public Item(int id, @NotNull String name, @Nullable String description, double basePrice) {
         this(name, description, basePrice);
         this.id = id;
     }
 
-    public @Nullable Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@Nullable Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,11 +48,11 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public float getBasePrice() {
+    public double getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(float basePrice) {
+    public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
     }
 
