@@ -1,0 +1,3 @@
+SELECT name
+FROM SQLITE_SCHEMA
+WHERE type = 'table'
