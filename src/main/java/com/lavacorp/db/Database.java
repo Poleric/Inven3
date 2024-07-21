@@ -1,8 +1,11 @@
-package com.lavacorp.database;
+package com.lavacorp.db;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.UnableToCreateStatementException;
+import org.jdbi.v3.freemarker.FreemarkerEngine;
 import org.jdbi.v3.sqlite3.SQLitePlugin;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
@@ -14,7 +17,8 @@ public class Database {
     public void connect(String filepath) {
         jdbi = Jdbi.create("jdbc:sqlite:" + filepath)
                 .installPlugin(new SQLitePlugin())
-                .installPlugin(new SqlObjectPlugin());
+                .installPlugin(new SqlObjectPlugin())
+                .setTemplateEngine(FreemarkerEngine.instance());
 
         LOGGER.info("Connected to SQLite database");
     }
@@ -33,5 +37,18 @@ public class Database {
             throw new IllegalStateException("Database not connected.");
 
         return jdbi;
+    }
+
+    public void dropAll() {
+        try (Handle handle = jdbi.open()) {
+            DatabaseDao dao = handle.attach(DatabaseDao.class);
+
+            for (String tableName : dao.getTables())
+                try {
+                    handle.execute("DROP TABLE IF EXISTS " + tableName);
+                } catch (UnableToCreateStatementException e) {
+                    LOGGER.warn(e.getMessage());
+                }
+        }
     }
 }
