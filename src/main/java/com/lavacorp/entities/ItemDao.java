@@ -1,7 +1,7 @@
 package com.lavacorp.entities;
 
-import org.jdbi.v3.sqlobject.config.RegisterConstructorMapper;
-import org.jdbi.v3.sqlobject.customizer.BindMethods;
+import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
+import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlScript;
@@ -26,7 +26,7 @@ public interface ItemDao {
 
     @SqlUpdate("INSERT INTO Item (name, description, base_price) VALUES (:name, :description, :basePrice)")
     @GetGeneratedKeys
-    int create(@BindMethods @NotNull Item item);
+    int create(@BindBean @NotNull Item item);
 
     @SqlUpdate("DELETE FROM Item WHERE id = :id")
     void delete(int id);
@@ -34,33 +34,33 @@ public interface ItemDao {
     @SqlUpdate("DELETE FROM Item WHERE name = :name")
     void delete(@NotNull String name);
 
-    default void delete(@BindMethods @NotNull Item item) {
-        delete(item.name());
+    default void delete(@BindBean @NotNull Item item) {
+        delete(item.getName());
     }
 
     @SqlUpdate("DELETE FROM Item WHERE name LIKE :pattern")
     void deleteLike(@NotNull String pattern);
 
     @SqlQuery("SELECT name, description, base_price FROM Item WHERE id = :id")
-    @RegisterConstructorMapper(Item.class)
+    @RegisterBeanMapper(Item.class)
     Optional<Item> getItem(int id);
 
     @SqlQuery("SELECT name, description, base_price FROM Item WHERE name = :name")
-    @RegisterConstructorMapper(Item.class)
+    @RegisterBeanMapper(Item.class)
     Optional<Item> getItem(@NotNull String name);
 
     @SqlQuery("SELECT name, description, base_price FROM Item WHERE name LIKE :pattern")
-    @RegisterConstructorMapper(Item.class)
+    @RegisterBeanMapper(Item.class)
     List<Item> getItemLike(@NotNull String pattern);
 
     @SqlQuery("SELECT name, description, base_price FROM Item")
-    @RegisterConstructorMapper(Item.class)
+    @RegisterBeanMapper(Item.class)
     List<Item> getAllItem();
 
     @SqlQuery("SELECT id FROM Item WHERE name = :name")
     OptionalInt getItemId(String name);
 
     default OptionalInt getItemId(@NotNull Item item) {
-        return getItemId(item.name());
+        return getItemId(item.getName());
     }
 }
