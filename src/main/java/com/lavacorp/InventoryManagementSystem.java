@@ -1,9 +1,9 @@
 package com.lavacorp;
 
-import com.lavacorp.database.Database;
-import com.lavacorp.entities.InventoryDao;
+import com.lavacorp.db.Database;
+import com.lavacorp.db.InventoryDao;
 import com.lavacorp.entities.Item;
-import com.lavacorp.entities.ItemDao;
+import com.lavacorp.db.ItemDao;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,15 +18,9 @@ public class InventoryManagementSystem {
         Database.getInstance()
                 .connect("inventory.db");
 
-        try (Handle handle = Database.getInstance().getJdbi().open()) {
-            handle.execute("""
-            PRAGMA writable_schema = 1;
-            delete from sqlite_master where type in ('table', 'index', 'trigger');
-            PRAGMA writable_schema = 0;
-            
-            VACUUM;
-            """);
+        Database.getInstance().dropAll();
 
+        try (Handle handle = Database.getInstance().getJdbi().open()) {
             ItemDao itemDao = handle.attach(ItemDao.class);
             itemDao.createTable();
             InventoryDao inventoryDao = handle.attach(InventoryDao.class);
@@ -39,13 +33,13 @@ public class InventoryManagementSystem {
             };
             for (Item item : items)
                 try {
-                    itemDao.create(item);
+                    itemDao.create(item.getName(), item.getDescription(), item.getBasePrice());
                 } catch (UnableToExecuteStatementException e) {
                     LOGGER.error(e.getMessage());
                 }
 
-            for (Item item : itemDao.getAllItem())
-                System.out.println("item_id = " + itemDao.getItemId(item) + " item = " + item);
+            for (Item item : itemDao.retrieveAll())
+                System.out.println("item = " + item);
 
             inventoryDao.increaseCount(1, 2);
             inventoryDao.increaseCount(2, 4);
