@@ -1,6 +1,6 @@
 package com.lavacorp;
 
-import com.lavacorp.database.Database;
+import com.lavacorp.db.Database;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
