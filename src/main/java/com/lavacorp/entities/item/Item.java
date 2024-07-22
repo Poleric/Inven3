@@ -22,15 +22,15 @@ public class Item implements Serializable {
     private String description;
     @ColumnName("base_price")
     private double basePrice;
+    @ColumnName("unit") @Nested @Nullable
+    private Unit<?> unit;
+    @ColumnName("category") @Nested @Nullable
+    private Category category;
     @ColumnName("created_at") @Nullable
     private LocalDateTime createdAt;
     @ColumnName("last_update_at") @Nullable
     private LocalDateTime lastUpdatedAt;
-    @ColumnName("category") @Nested @Nullable
-    private Category category;
 
-    @ColumnName("unit") @Nested @Nullable
-    private Unit<?> unit;
     @Nullable
     private List<Tag> tags;
 }
