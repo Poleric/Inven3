@@ -1,15 +1,26 @@
 package com.lavacorp.entities.item;
 
+import com.lavacorp.entities.item.category.Category;
+import com.lavacorp.entities.tag.Tag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.measure.Unit;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class Item implements Serializable {
     private int id;
     private String name;
     @Nullable private String description;
     private double basePrice;
+
+    @Nullable private LocalDateTime creationDate;
+    @Nullable private LocalDateTime updatedDate;
+    @Nullable private Category category;
+    @Nullable private Unit<?> unit;
+    @Nullable private List<Tag> tags;
 
     public Item() {}
 
