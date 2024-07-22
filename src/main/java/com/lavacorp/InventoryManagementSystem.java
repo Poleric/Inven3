@@ -2,7 +2,7 @@ package com.lavacorp;
 
 import com.lavacorp.db.Database;
 import com.lavacorp.db.InventoryDao;
-import com.lavacorp.entities.Item;
+import com.lavacorp.entities.item.Item;
 import com.lavacorp.db.ItemDao;
 
 import org.apache.logging.log4j.LogManager;

@@ -1,4 +1,4 @@
-package com.lavacorp.entities;
+package com.lavacorp.entities.item;
 
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;

@@ -1,6 +1,6 @@
 package com.lavacorp.db;
 
-import com.lavacorp.entities.TransactionType;
+import com.lavacorp.entities.transaction.TransactionType;
 import org.jdbi.v3.sqlobject.config.RegisterConstructorMapper;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;

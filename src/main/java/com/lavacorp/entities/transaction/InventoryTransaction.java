@@ -1,5 +1,6 @@
-package com.lavacorp.entities;
+package com.lavacorp.entities.transaction;
 
+import com.lavacorp.entities.item.Item;
 import org.jdbi.v3.core.mapper.Nested;
 
 import java.time.LocalDateTime;

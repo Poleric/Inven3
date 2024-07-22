@@ -1,4 +1,4 @@
-package com.lavacorp.entities;
+package com.lavacorp.entities.item;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

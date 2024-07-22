@@ -1,7 +1,7 @@
 package com.lavacorp.db;
 
-import com.lavacorp.entities.Item;
-import com.lavacorp.entities.ItemMapper;
+import com.lavacorp.entities.item.Item;
+import com.lavacorp.entities.item.ItemMapper;
 import org.jdbi.v3.freemarker.UseFreemarkerSqlLocator;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
