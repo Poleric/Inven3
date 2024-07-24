@@ -41,7 +41,7 @@ public class Database {
 
     public void initTables() {
         try (Handle handle = jdbi.open()) {
-            handle.attach(ItemDao.class).createTable();
+            handle.attach(DatabaseDao.class).initTables();
         }
     }
 

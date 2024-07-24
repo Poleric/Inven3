@@ -20,10 +20,6 @@ import java.util.Optional;
 @RegisterRowMapper(ItemMapper.class)
 public interface ItemDao {
     @SqlUpdate
-    @UseClasspathSqlLocator
-    void createTable();
-
-    @SqlUpdate
     @GetGeneratedKeys("id")
     int create(@NotNull String name, @Nullable String description, double basePrice);
 
