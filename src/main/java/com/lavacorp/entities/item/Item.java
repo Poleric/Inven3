@@ -1,5 +1,6 @@
 package com.lavacorp.entities.item;
 
+import com.lavacorp.entities.company.Supplier;
 import com.lavacorp.entities.tag.Taggable;
 import com.lavacorp.entities.category.Category;
 
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.measure.Unit;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class Item extends Taggable implements Serializable {
@@ -21,4 +23,6 @@ public class Item extends Taggable implements Serializable {
     @Nested @Nullable private Category category;
     @Nullable private LocalDateTime createdAt;
     @Nullable private LocalDateTime lastUpdatedAt;
+
+    @Nullable private List<Supplier> suppliers;
 }
