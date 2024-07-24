@@ -1,17 +1,13 @@
 package com.lavacorp.entities.location;
 
-import com.lavacorp.entities.tag.Tag;
+import com.lavacorp.entities.tag.Taggable;
 import lombok.Data;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.io.Serializable;
 
 @Data
-public class Location {
+public class Location extends Taggable implements Serializable {
     private String name;
     private String description;
     private LocationType type;
-
-    @Nullable
-    private List<Tag> tags;
 }
