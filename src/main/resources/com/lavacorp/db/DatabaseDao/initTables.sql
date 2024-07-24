@@ -66,7 +66,8 @@ CREATE TABLE IF NOT EXISTS LocationType (
 CREATE TABLE IF NOT EXISTS Location (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     name        TEXT UNIQUE NOT NULL,
-    description TEXT
+    description TEXT,
+    location_type_id INTEGER REFERENCES LocationType(id)
 );
 
 CREATE TABLE IF NOT EXISTS LocationTag (
