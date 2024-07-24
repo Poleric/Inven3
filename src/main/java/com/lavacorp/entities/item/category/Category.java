@@ -1,10 +1,12 @@
 package com.lavacorp.entities.item.category;
 
-import com.lavacorp.entities.tag.Tag;
+import lombok.Data;
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
-import java.util.List;
-
+@Data
 public class Category {
+    @ColumnName("name")
     private String name;
-    private List<Tag> tags;
+    @ColumnName("description")
+    private String description;
 }
