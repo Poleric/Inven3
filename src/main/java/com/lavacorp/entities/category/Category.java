@@ -1,4 +1,4 @@
-package com.lavacorp.entities.item.category;
+package com.lavacorp.entities.category;
 
 import lombok.Data;
 import org.jdbi.v3.core.mapper.reflect.ColumnName;

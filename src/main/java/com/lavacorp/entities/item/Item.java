@@ -1,7 +1,7 @@
 package com.lavacorp.entities.item;
 
 import com.lavacorp.entities.tag.Taggable;
-import com.lavacorp.entities.item.category.Category;
+import com.lavacorp.entities.category.Category;
 
 import lombok.Data;
 import org.jdbi.v3.core.mapper.Nested;
