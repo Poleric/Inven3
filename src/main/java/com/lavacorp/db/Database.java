@@ -25,18 +25,25 @@ public class Database {
 
     private Database() {}
 
-    public static Database getInstance() {
+    public static Database instance() {
         if (instance == null)
             instance = new Database();
 
         return instance;
     }
 
-    public Jdbi getJdbi() {
+    public Jdbi jdbi() {
         if (jdbi == null)
             throw new IllegalStateException("Database not connected.");
 
         return jdbi;
+    }
+
+    public void initTables() {
+        try (Handle handle = jdbi.open()) {
+            handle.attach(ItemDao.class).createTable();
+            handle.attach(InventoryDao.class).createTable();
+        }
     }
 
     public void dropAll() {

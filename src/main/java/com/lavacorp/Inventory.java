@@ -9,7 +9,7 @@ public class Inventory {
     protected final static Logger LOGGER = LogManager.getLogger(Inventory.class);
 
     public Inventory() {
-        Database.getInstance()
+        Database.instance()
                 .connect("inventory.db");
 
     }
