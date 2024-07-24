@@ -5,20 +5,123 @@ CREATE TABLE IF NOT EXISTS Item (
     base_price      REAL,
     unit            TEXT,
     category_id     TEXT REFERENCES Category (id),
+
+    created_at      DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated_at DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS Category (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name        TEXT UNIQUE NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Tag (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name        TEXT UNIQUE NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ItemTag (
+    item_id    INTEGER  NOT NULL REFERENCES Item (id),
+    tag_id     INTEGER  NOT NULL REFERENCES Tag (id),
+    last_added DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (item_id, tag_id)
+);
+
+CREATE TABLE IF NOT EXISTS Supplier (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    name          TEXT UNIQUE NOT NULL,
+    address       TEXT,
+    contact_no    TEXT,
+    contact_email TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Customer (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    name          TEXT UNIQUE NOT NULL,
+    address       TEXT,
+    contact_no    TEXT,
+    contact_email TEXT
+);
+
+CREATE TABLE IF NOT EXISTS PurchaseOrder (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+CREATE TABLE IF NOT EXISTS SalesOrder (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+CREATE TABLE IF NOT EXISTS ReturnOrder (
+    id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+CREATE TABLE IF NOT EXISTS LocationType (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name        TEXT NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Location (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name        TEXT UNIQUE NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS LocationTag (
+    location_id    INTEGER  NOT NULL REFERENCES Location (id),
+    tag_id     INTEGER  NOT NULL REFERENCES Tag (id),
+    last_added DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (location_id, tag_id)
+);
+
+CREATE TABLE IF NOT EXISTS Stock (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    item_id         INTEGER  NOT NULL REFERENCES Item (id),
+    supplier_id     INTEGER  NOT NULL REFERENCES Supplier (id),
+    location_id     INTEGER  NOT NULL REFERENCES Location (id),
+    quantity        INTEGER  NOT NULL,
+    status          TEXT     NOT NULL,
+    expiry_date     DATETIME,
+    notes           TEXT,
+
     created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     last_updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS Category (
-
+CREATE TABLE IF NOT EXISTS StockSupplier (
+    item_id     INTEGER NOT NULL REFERENCES Item (id),
+    supplier_id INTEGER NOT NULL REFERENCES Supplier (id),
+    sold_price  REAL NOT NULL,
+    last_added  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (item_id, supplier_id)
 );
 
-CREATE TRIGGER IF NOT EXISTS updateLastUpdate
+CREATE TABLE IF NOT EXISTS StockTransaction (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    item_id    INTEGER  NOT NULL REFERENCES Item (id),
+    quantity   INTEGER  NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    reference  TEXT
+);
+
+CREATE TRIGGER IF NOT EXISTS updateItemLastUpdate
     AFTER UPDATE
     ON Item
     FOR EACH ROW
 BEGIN
     UPDATE Item
+    SET last_updated_at = CURRENT_TIMESTAMP
+    WHERE id = new.id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS updateStockLastUpdate
+    AFTER UPDATE
+    ON Stock
+    FOR EACH ROW
+BEGIN
+    UPDATE Stock
     SET last_updated_at = CURRENT_TIMESTAMP
     WHERE id = new.id;
 END;
