@@ -10,12 +10,11 @@ import org.jdbi.v3.core.mapper.Nested;
 import org.jetbrains.annotations.Nullable;
 
 import javax.measure.Unit;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class Item implements Serializable, Taggable {
+public class Item implements Taggable {
     private final int id;
     private String name;
     @Nullable private String description;
