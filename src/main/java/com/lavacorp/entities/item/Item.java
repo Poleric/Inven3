@@ -1,6 +1,7 @@
 package com.lavacorp.entities.item;
 
 import com.lavacorp.entities.company.Supplier;
+import com.lavacorp.entities.tag.Tag;
 import com.lavacorp.entities.tag.Taggable;
 import com.lavacorp.entities.category.Category;
 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class Item extends Taggable implements Serializable {
+public class Item implements Serializable, Taggable {
     private final int id;
     private String name;
     @Nullable private String description;
@@ -24,5 +25,6 @@ public class Item extends Taggable implements Serializable {
     @Nullable private LocalDateTime createdAt;
     @Nullable private LocalDateTime lastUpdatedAt;
 
+    @Nullable List<Tag> tags;
     @Nullable private List<Supplier> suppliers;
 }
