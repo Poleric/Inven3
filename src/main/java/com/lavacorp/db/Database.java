@@ -1,7 +1,6 @@
 package com.lavacorp.db;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.UnableToCreateStatementException;
@@ -9,10 +8,10 @@ import org.jdbi.v3.freemarker.FreemarkerEngine;
 import org.jdbi.v3.sqlite3.SQLitePlugin;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
+@Log4j2
 public class Database {
     private static Database instance = null;
     private Jdbi jdbi = null;
-    private final static Logger LOGGER = LogManager.getLogger(Database.class);
 
     public void connect(String filepath) {
         jdbi = Jdbi.create("jdbc:sqlite:" + filepath)
@@ -20,7 +19,7 @@ public class Database {
                 .installPlugin(new SqlObjectPlugin())
                 .setTemplateEngine(FreemarkerEngine.instance());
 
-        LOGGER.info("Connected to SQLite database");
+        log.info("Connected to SQLite database");
     }
 
     private Database() {}
@@ -53,7 +52,7 @@ public class Database {
                 try {
                     handle.execute("DROP TABLE IF EXISTS " + tableName);
                 } catch (UnableToCreateStatementException e) {
-                    LOGGER.warn(e.getMessage());
+                    log.warn(e.getMessage());
                 }
         }
     }
