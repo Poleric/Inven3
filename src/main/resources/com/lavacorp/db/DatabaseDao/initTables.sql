@@ -46,15 +46,33 @@ CREATE TABLE IF NOT EXISTS Customer (
 );
 
 CREATE TABLE IF NOT EXISTS PurchaseOrder (
-    id INTEGER PRIMARY KEY AUTOINCREMENT
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    stock_id          INTEGER  NOT NULL REFERENCES Stock (id),
+    purchase_date    DATETIME NOT NULL,
+    amount           INTEGER  NOT NULL,
+    quantity         INTEGER  NOT NULL,
+    supplier_name    TEXT     NOT NULL REFERENCES Supplier(name),
+    supplier_contact INTEGER REFERENCES Supplier(contact_no)
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrder (
-    id INTEGER PRIMARY KEY AUTOINCREMENT
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    sales_date       DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status           TEXT    NOT NULL,
+    amount           INTEGER NOT NULL,
+    item_id          INTEGER NOT NULL REFERENCES Item (id),
+    pay_method       TEXT    NOT NULL,
+    customer_id      INTEGER NOT NULL REFERENCES Customer (id),
+    customer_contact INTEGER NOT NULL REFERENCES Customer (contact_no)
 );
 
 CREATE TABLE IF NOT EXISTS ReturnOrder (
-    id INTEGER PRIMARY KEY AUTOINCREMENT
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL REFERENCES SalesOrder(id),
+    item_id INTEGER NOT NULL,
+    return_amount INTEGER,
+    customer_id INTEGER REFERENCES Customer(id),
+    status TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS LocationType (
@@ -64,16 +82,16 @@ CREATE TABLE IF NOT EXISTS LocationType (
 );
 
 CREATE TABLE IF NOT EXISTS Location (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    name        TEXT UNIQUE NOT NULL,
-    description TEXT,
-    location_type_id INTEGER REFERENCES LocationType(id)
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    name             TEXT UNIQUE NOT NULL,
+    description      TEXT,
+    location_type_id INTEGER REFERENCES LocationType (id)
 );
 
 CREATE TABLE IF NOT EXISTS LocationTag (
-    location_id    INTEGER  NOT NULL REFERENCES Location (id),
-    tag_id     INTEGER  NOT NULL REFERENCES Tag (id),
-    last_added DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    location_id INTEGER  NOT NULL REFERENCES Location (id),
+    tag_id      INTEGER  NOT NULL REFERENCES Tag (id),
+    last_added  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (location_id, tag_id)
 );
 
@@ -92,9 +110,9 @@ CREATE TABLE IF NOT EXISTS Stock (
 );
 
 CREATE TABLE IF NOT EXISTS StockSupplier (
-    item_id     INTEGER NOT NULL REFERENCES Item (id),
-    supplier_id INTEGER NOT NULL REFERENCES Supplier (id),
-    sold_price  REAL NOT NULL,
+    item_id     INTEGER  NOT NULL REFERENCES Item (id),
+    supplier_id INTEGER  NOT NULL REFERENCES Supplier (id),
+    sold_price  REAL     NOT NULL,
     last_added  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (item_id, supplier_id)
 );
