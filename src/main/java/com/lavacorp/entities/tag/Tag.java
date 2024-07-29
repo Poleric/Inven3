@@ -1,12 +1,12 @@
 package com.lavacorp.entities.tag;
 
+import com.lavacorp.entities.DatabaseObj;
 import lombok.Data;
-import org.jdbi.v3.core.mapper.reflect.ColumnName;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class Tag {
-    @ColumnName("name")
+public class Tag extends DatabaseObj {
     private String name;
-    @ColumnName("description")
     private String description;
 }

@@ -1,5 +1,6 @@
 package com.lavacorp.entities.item;
 
+import com.lavacorp.entities.DatabaseObj;
 import com.lavacorp.entities.company.Suppliable;
 import com.lavacorp.entities.company.Supplier;
 import com.lavacorp.entities.tag.Tag;
@@ -7,6 +8,7 @@ import com.lavacorp.entities.tag.Taggable;
 import com.lavacorp.entities.category.Category;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,9 +18,9 @@ import javax.measure.spi.ServiceProvider;
 import java.time.Instant;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class Item implements Taggable, Suppliable {
-    @Nullable private Integer id;
+public class Item extends DatabaseObj implements Taggable, Suppliable {
     @NonNull private String name;
     @Nullable private String description;
     @Nullable private Double basePrice;
