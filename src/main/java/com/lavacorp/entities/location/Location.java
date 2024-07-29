@@ -3,15 +3,16 @@ package com.lavacorp.entities.location;
 import com.lavacorp.entities.tag.Tag;
 import com.lavacorp.entities.tag.Taggable;
 import lombok.Data;
+import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 @Data
 public class Location implements Taggable {
-    private String name;
-    private String description;
-    private LocationType type;
+    @NonNull private String name;
+    @Nullable private String description;
+    @NonNull private LocationType type;
 
     @Nullable List<Tag> tags;
 }
