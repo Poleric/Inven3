@@ -8,6 +8,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 @UseFreemarkerSqlLocator
@@ -21,4 +22,7 @@ public interface CategoryDao {
 
     @SqlQuery
     Optional<Category> retrieve(@NotNull String name);
+
+    @SqlQuery("retrieve")
+    List<Category> retrieveAll();
 }
