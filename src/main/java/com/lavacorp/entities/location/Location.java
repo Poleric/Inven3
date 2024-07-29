@@ -14,5 +14,18 @@ public class Location implements Taggable {
     @Nullable private String description;
     @NonNull private LocationType type;
 
-    @Nullable List<Tag> tags;
+    @Override
+    public List<Tag> getTags() {
+        return List.of();
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+
+    }
+
+    @Override
+    public void removeTag(Tag tag) {
+
+    }
 }

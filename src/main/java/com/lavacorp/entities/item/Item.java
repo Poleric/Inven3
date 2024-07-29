@@ -47,6 +47,18 @@ public class Item implements Taggable, Suppliable {
 
     }
 
-    @Nullable List<Tag> tags;
-    @Nullable private List<Supplier> suppliers;
+    @Override
+    public List<Tag> getTags() {
+        return List.of();
+    }
+
+    @Override
+    public void addTag(Tag tag) {
+
+    }
+
+    @Override
+    public void removeTag(Tag tag) {
+
+    }
 }
