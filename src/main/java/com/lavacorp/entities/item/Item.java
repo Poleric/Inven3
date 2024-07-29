@@ -10,19 +10,41 @@ import lombok.Data;
 import org.jetbrains.annotations.Nullable;
 
 import javax.measure.Unit;
+import javax.measure.format.UnitFormat;
+import javax.measure.spi.ServiceProvider;
 import java.time.Instant;
 import java.util.List;
 
 @Data
 public class Item implements Taggable, Suppliable {
-    private final int id;
     private String name;
+    @Nullable private Integer id;
     @Nullable private String description;
-    private double basePrice;
+    @Nullable private Double basePrice;
     @Nullable private Unit<?> unit;
     @Nullable private Category category;
     @Nullable private Instant createdAt;
     @Nullable private Instant lastUpdatedAt;
+
+    public void setUnit(String unit) {
+        UnitFormat uf = ServiceProvider.current().getFormatService().getUnitFormat();
+        this.unit = uf.parse(unit);
+    }
+
+    @Override
+    public List<Supplier> getSuppliers() {
+        return List.of();
+    }
+
+    @Override
+    public void addSupplier(Supplier supplier) {
+
+    }
+
+    @Override
+    public void removeSupplier(Supplier supplier) {
+
+    }
 
     @Nullable List<Tag> tags;
     @Nullable private List<Supplier> suppliers;
