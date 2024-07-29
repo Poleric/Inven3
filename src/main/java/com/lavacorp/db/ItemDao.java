@@ -10,7 +10,6 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +19,7 @@ import java.util.Optional;
 public interface ItemDao {
     @SqlUpdate
     @GetGeneratedKeys("id")
-    int create(@NotNull String name, @Nullable String description, double basePrice);
+    int create(@BindBean Item item);
 
     @SqlQuery
     Optional<Item> retrieve(int id);
@@ -30,12 +29,6 @@ public interface ItemDao {
 
     @SqlQuery("retrieve")
     List<Item> retrieveAll();
-
-    @SqlQuery("retrieve")
-    List<Item> retrieveAll(List<Integer> ids);
-
-    @SqlQuery("retrieve")
-    List<Item> retrieveAll(@NotNull String nameLike);
 
     @SqlUpdate
     void update(@BindBean Item item);
