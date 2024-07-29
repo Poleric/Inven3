@@ -1,12 +1,11 @@
 package com.lavacorp.entities.category;
 
 import lombok.Data;
-import org.jdbi.v3.core.mapper.reflect.ColumnName;
+import lombok.NonNull;
+import org.jetbrains.annotations.Nullable;
 
 @Data
 public class Category {
-    @ColumnName("name")
-    private String name;
-    @ColumnName("description")
-    private String description;
+    @NonNull String name;
+    @Nullable private String description;
 }
