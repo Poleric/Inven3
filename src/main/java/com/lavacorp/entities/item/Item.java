@@ -10,7 +10,7 @@ import lombok.Data;
 import org.jetbrains.annotations.Nullable;
 
 import javax.measure.Unit;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -21,8 +21,8 @@ public class Item implements Taggable, Suppliable {
     private double basePrice;
     @Nullable private Unit<?> unit;
     @Nullable private Category category;
-    @Nullable private LocalDateTime createdAt;
-    @Nullable private LocalDateTime lastUpdatedAt;
+    @Nullable private Instant createdAt;
+    @Nullable private Instant lastUpdatedAt;
 
     @Nullable List<Tag> tags;
     @Nullable private List<Supplier> suppliers;
