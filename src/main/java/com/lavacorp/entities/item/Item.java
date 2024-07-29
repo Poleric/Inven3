@@ -7,6 +7,7 @@ import com.lavacorp.entities.tag.Taggable;
 import com.lavacorp.entities.category.Category;
 
 import lombok.Data;
+import lombok.NonNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.measure.Unit;
@@ -17,8 +18,8 @@ import java.util.List;
 
 @Data
 public class Item implements Taggable, Suppliable {
-    private String name;
     @Nullable private Integer id;
+    @NonNull private String name;
     @Nullable private String description;
     @Nullable private Double basePrice;
     @Nullable private Unit<?> unit;
