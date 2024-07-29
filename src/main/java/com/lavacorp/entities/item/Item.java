@@ -10,6 +10,7 @@ import com.lavacorp.entities.category.Category;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import org.jdbi.v3.core.mapper.Nested;
 import org.jetbrains.annotations.Nullable;
 
 import javax.measure.Unit;
@@ -25,7 +26,7 @@ public class Item extends DatabaseObj implements Taggable, Suppliable {
     @Nullable private String description;
     @Nullable private Double basePrice;
     @Nullable private Unit<?> unit;
-    @Nullable private Category category;
+    @Nullable @Nested private Category category;
     @Nullable private Instant createdAt;
     @Nullable private Instant lastUpdatedAt;
 
