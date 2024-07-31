@@ -4,6 +4,7 @@ import com.lavacorp.entities.item.Item;
 import com.lavacorp.mapper.ItemMapper;
 import org.jdbi.v3.freemarker.UseFreemarkerSqlLocator;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
+import org.jdbi.v3.sqlobject.customizer.AllowUnusedBindings;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @UseFreemarkerSqlLocator
+@AllowUnusedBindings
 @RegisterRowMapper(ItemMapper.class)
 public interface ItemDao {
     @SqlUpdate

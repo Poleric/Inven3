@@ -2,6 +2,7 @@ package com.lavacorp.db;
 
 import com.lavacorp.entities.category.Category;
 import org.jdbi.v3.freemarker.UseFreemarkerSqlLocator;
+import org.jdbi.v3.sqlobject.customizer.AllowUnusedBindings;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @UseFreemarkerSqlLocator
+@AllowUnusedBindings
 public interface CategoryDao {
     @SqlUpdate
     @GetGeneratedKeys("id")
