@@ -10,5 +10,3 @@ SELECT
     item.last_updated_at
 FROM Item
     LEFT JOIN Category category ON Item.category_id = Category.id
-WHERE
-<#include "conditionals.ftl">

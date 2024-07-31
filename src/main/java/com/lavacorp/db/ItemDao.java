@@ -23,10 +23,10 @@ public interface ItemDao {
     @GetGeneratedKeys("id")
     int create(@BindBean Item item);
 
-    @SqlQuery
+    @SqlQuery("retrieveById")
     Optional<Item> retrieve(int id);
 
-    @SqlQuery
+    @SqlQuery("retrieveByName")
     Optional<Item> retrieve(@NotNull String name);
 
     @SqlQuery("retrieve")
@@ -35,9 +35,9 @@ public interface ItemDao {
     @SqlUpdate
     void update(@BindBean Item item);
 
-    @SqlUpdate
+    @SqlUpdate("deleteById")
     void delete(int id);
 
-    @SqlUpdate
+    @SqlUpdate("deleteByName")
     void delete(String name);
 }

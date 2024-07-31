@@ -21,10 +21,10 @@ public interface CategoryDao {
     @GetGeneratedKeys("id")
     int create(@BindBean Category category);
 
-    @SqlQuery
+    @SqlQuery("retrieveById")
     Category retrieve(int id);
 
-    @SqlQuery
+    @SqlQuery("retrieveByName")
     Category retrieve(@NotNull String name);
 
     @SqlQuery("retrieve")
