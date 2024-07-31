@@ -9,6 +9,7 @@ import com.lavacorp.entities.category.Category;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.jdbi.v3.core.mapper.Nested;
 import org.jetbrains.annotations.Nullable;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
+@NoArgsConstructor
 public class Item extends DatabaseObj implements Taggable, Suppliable {
     @NonNull private String name;
     @Nullable private String description;
@@ -29,6 +31,17 @@ public class Item extends DatabaseObj implements Taggable, Suppliable {
     @Nullable @Nested private Category category;
     @Nullable private Instant createdAt;
     @Nullable private Instant lastUpdatedAt;
+
+    public Item(@Nullable Integer id, @NonNull String name, @Nullable String description, @Nullable Double basePrice, @Nullable Unit<?> unit, @Nullable Category category, @Nullable Instant createdAt, @Nullable Instant lastUpdatedAt) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.basePrice = basePrice;
+        this.unit = unit;
+        this.category = category;
+        this.createdAt = createdAt;
+        this.lastUpdatedAt = lastUpdatedAt;
+    }
 
     public void setUnit(String unit) {
         UnitFormat uf = ServiceProvider.current().getFormatService().getUnitFormat();
