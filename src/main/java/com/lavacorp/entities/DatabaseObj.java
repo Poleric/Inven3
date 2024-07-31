@@ -5,5 +5,5 @@ import org.jetbrains.annotations.Nullable;
 
 @Data
 abstract public class DatabaseObj {
-    @Nullable private Integer id;
+    @Nullable protected Integer id;
 }
