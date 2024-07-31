@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(DatabaseExtension.class)
 public class CategoryDaoTests {
     private static final Category[] DATA = {
-            new Category("CPU"),
-            new Category("Graphics card"),
-            new Category("SSD"),
-            new Category("USB Sticks"),
-            new Category("Mouse"),
-            new Category("Keyboard"),
+            new Category(1, "CPU", null),
+            new Category(2, "Graphics card", null),
+            new Category(3, "SSD", null),
+            new Category(4, "USB Sticks", null),
+            new Category(5, "Mouse", null),
+            new Category(6, "Keyboard", null),
     };
 
     @BeforeAll
@@ -41,7 +41,7 @@ public class CategoryDaoTests {
                 Category expected = DATA[i];
                 Category actual = result.get(i);
 
-                assertEquals(expected.getName(), actual.getName());
+                assertEquals(expected, actual);
             }
         }
     }
@@ -54,7 +54,7 @@ public class CategoryDaoTests {
             for (Category expected : DATA) {
                 Category actual = dao.retrieve(expected.getName());
 
-                assertEquals(expected.getName(), actual.getName());
+                assertEquals(expected, actual);
             }
         }
     }
