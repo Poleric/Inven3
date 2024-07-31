@@ -4,6 +4,7 @@ SELECT
     item.description,
     item.base_price,
     item.unit,
+    category.id,
     category.name,
     category.description,
     item.created_at,
