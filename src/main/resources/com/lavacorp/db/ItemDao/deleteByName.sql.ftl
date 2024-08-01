@@ -1,2 +1,2 @@
-<#include "retrieve.sql.ftl">
+<#include "delete.ftl">
 WHERE name = :name;
