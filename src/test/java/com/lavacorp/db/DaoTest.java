@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestMethodOrder(OrderAnnotation.class)
 @ExtendWith(DatabaseExtension.class)
@@ -53,6 +54,8 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
         K dao = getDao();
 
         for (T expected : DATA) {
+            assertNotNull(expected.getId());
+
             T actual = dao.retrieve(expected.getId());
 
             assertEquals(expected, actual);
