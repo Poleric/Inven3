@@ -1,19 +1,12 @@
 package com.lavacorp.db;
 
 import com.lavacorp.entities.category.Category;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestMethodOrder(OrderAnnotation.class)
-@ExtendWith(DatabaseExtension.class)
-public class CategoryDaoTests {
+public class CategoryDaoTests extends DaoTest<Category, CategoryDao> {
     public static final Category[] DATA = {
             new Category(1, "CPU", null),
             new Category(2, "Graphics card", null),
@@ -27,32 +20,10 @@ public class CategoryDaoTests {
             new Category(10, "Console", null),
             new Category(11, "Smartwatch", null)
     };
+    public static final Class<CategoryDao> DAO = CategoryDao.class;
 
-    static CategoryDao getDao() {
-        return Database.getJdbi().onDemand(CategoryDao.class);
-    }
-
-    @Test
-    @Order(0)
-    void testCreate() {
-        CategoryDao dao = getDao();
-
-        for (Category category : DATA)
-            dao.create(category);
-    }
-
-    @Test
-    @Order(1)
-    void testRetrieveAll() {
-        CategoryDao dao = getDao();
-
-        List<Category> result = dao.retrieveAll();
-        for (int i = 0; i < DATA.length; i++) {
-            Category expected = DATA[i];
-            Category actual = result.get(i);
-
-            assertEquals(expected, actual);
-        }
+    public CategoryDaoTests() {
+        super(DATA, DAO);
     }
 
     @Test
@@ -68,21 +39,11 @@ public class CategoryDaoTests {
     }
 
     @Test
-    @Order(2)
-    void testDeleteById() {
-        CategoryDao dao = getDao();
-
-        dao.delete(1);
-        assertNull(dao.retrieve(1));
-    }
-
-    @Test
-    @Order(2)
+    @Order(3)
     void testDeleteByName() {
         CategoryDao dao = getDao();
 
         dao.delete("Graphics Card");
         assertNull(dao.retrieve("Graphics Card"));
     }
-
 }
