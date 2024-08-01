@@ -214,3 +214,6 @@ nbdist/
 .DS_Store
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij+all,netbeans,eclipse
+
+*.iml
+*.db
