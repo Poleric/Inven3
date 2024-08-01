@@ -2,14 +2,17 @@ package com.lavacorp.db;
 
 import com.lavacorp.entities.category.Category;
 import org.jdbi.v3.core.Handle;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(OrderAnnotation.class)
 @ExtendWith(DatabaseExtension.class)
 public class CategoryDaoTests {
     public static final Category[] DATA = {
@@ -26,8 +29,9 @@ public class CategoryDaoTests {
             new Category(11, "Smartwatch", null)
     };
 
-    @BeforeAll
-    static void setUp() {
+    @Test
+    @Order(0)
+    void testCreate() {
         try (Handle handle = Database.instance().jdbi().open()) {
             CategoryDao dao = handle.attach(CategoryDao.class);
 
