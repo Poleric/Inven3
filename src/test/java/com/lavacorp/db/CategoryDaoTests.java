@@ -1,7 +1,6 @@
 package com.lavacorp.db;
 
 import com.lavacorp.entities.category.Category;
-import org.jdbi.v3.core.Handle;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -29,42 +28,40 @@ public class CategoryDaoTests {
             new Category(11, "Smartwatch", null)
     };
 
+    static CategoryDao getDao() {
+        return Database.getJdbi().onDemand(CategoryDao.class);
+    }
+
     @Test
     @Order(0)
     void testCreate() {
-        try (Handle handle = Database.getJdbi().open()) {
-            CategoryDao dao = handle.attach(CategoryDao.class);
+        CategoryDao dao = getDao();
 
-            for (Category category : DATA)
-                dao.create(category);
-        }
+        for (Category category : DATA)
+            dao.create(category);
     }
 
     @Test
     void testRetrieveAll() {
-        try (Handle handle = Database.getJdbi().open()) {
-            CategoryDao dao = handle.attach(CategoryDao.class);
+        CategoryDao dao = getDao();
 
-            List<Category> result = dao.retrieveAll();
-            for (int i = 0; i < DATA.length; i++) {
-                Category expected = DATA[i];
-                Category actual = result.get(i);
+        List<Category> result = dao.retrieveAll();
+        for (int i = 0; i < DATA.length; i++) {
+            Category expected = DATA[i];
+            Category actual = result.get(i);
 
-                assertEquals(expected, actual);
-            }
+            assertEquals(expected, actual);
         }
     }
 
     @Test
     void testRetrieveByName() {
-        try (Handle handle = Database.getJdbi().open()) {
-            CategoryDao dao = handle.attach(CategoryDao.class);
+        CategoryDao dao = getDao();
 
-            for (Category expected : DATA) {
-                Category actual = dao.retrieve(expected.getName());
+        for (Category expected : DATA) {
+            Category actual = dao.retrieve(expected.getName());
 
-                assertEquals(expected, actual);
-            }
+            assertEquals(expected, actual);
         }
     }
 }
