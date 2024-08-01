@@ -47,12 +47,20 @@ CREATE TABLE IF NOT EXISTS Customer (
 
 CREATE TABLE IF NOT EXISTS PurchaseOrder (
     id               INTEGER PRIMARY KEY AUTOINCREMENT,
-    stock_id          INTEGER  NOT NULL REFERENCES Stock (id),
+    stock_id         INTEGER  NOT NULL REFERENCES Stock (id),
     purchase_date    DATETIME NOT NULL,
     amount           INTEGER  NOT NULL,
     quantity         INTEGER  NOT NULL,
-    supplier_name    TEXT     NOT NULL REFERENCES Supplier(name),
-    supplier_contact INTEGER REFERENCES Supplier(contact_no)
+    supplier_name    TEXT     NOT NULL REFERENCES Supplier (name),
+    supplier_contact INTEGER REFERENCES Supplier (contact_no)
+);
+
+CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder(id),
+    stock_id    INTEGER NOT NULL REFERENCES Stock (id),
+    supplier_name    TEXT     NOT NULL REFERENCES Supplier (name),
+    supplier_contact INTEGER REFERENCES Supplier (contact_no)
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrder (
@@ -66,13 +74,23 @@ CREATE TABLE IF NOT EXISTS SalesOrder (
     customer_contact INTEGER NOT NULL REFERENCES Customer (contact_no)
 );
 
-CREATE TABLE IF NOT EXISTS ReturnOrder (
+CREATE TABLE IF NOT EXISTS SalesOrderLine (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    order_id INTEGER NOT NULL REFERENCES SalesOrder(id),
-    item_id INTEGER NOT NULL,
+    sales_order_id INTEGER NOT NULL REFERENCES SalesOrder(id),
+    stock_id    INTEGER NOT NULL REFERENCES Stock (id),
+    amount           INTEGER NOT NULL,
+    item_id          INTEGER NOT NULL REFERENCES Item (id),
+    customer_id      INTEGER NOT NULL REFERENCES Customer (id),
+    customer_contact INTEGER NOT NULL REFERENCES Customer (contact_no)
+);
+
+CREATE TABLE IF NOT EXISTS ReturnOrder (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id      INTEGER NOT NULL REFERENCES SalesOrder (id),
+    item_id       INTEGER NOT NULL,
     return_amount INTEGER,
-    customer_id INTEGER REFERENCES Customer(id),
-    status TEXT NOT NULL
+    customer_id   INTEGER REFERENCES Customer (id),
+    status        TEXT    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS LocationType (
