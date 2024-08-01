@@ -27,7 +27,7 @@ public class ItemDaoTests {
 
     @BeforeAll
     static void setUp() {
-        try (Handle handle = Database.instance().jdbi().open()) {
+        try (Handle handle = Database.getJdbi().open()) {
             CategoryDao dao = handle.attach(CategoryDao.class);
 
             for (Category category : CategoryDaoTests.DATA)
@@ -38,7 +38,7 @@ public class ItemDaoTests {
     @Test
     @Order(0)
     void testCreate() {
-        try (Handle handle = Database.instance().jdbi().open()) {
+        try (Handle handle = Database.getJdbi().open()) {
             ItemDao itemDao = handle.attach(ItemDao.class);
 
             for (Item item : DATA)
@@ -48,7 +48,7 @@ public class ItemDaoTests {
 
     @Test
     void testRetrieveAll() {
-        try (Handle handle = Database.instance().jdbi().open()) {
+        try (Handle handle = Database.getJdbi().open()) {
             ItemDao dao = handle.attach(ItemDao.class);
 
             List<Item> result = dao.retrieveAll();
@@ -63,7 +63,7 @@ public class ItemDaoTests {
 
     @Test
     void testRetrieveByName() {
-        try (Handle handle = Database.instance().jdbi().open()) {
+        try (Handle handle = Database.getJdbi().open()) {
             ItemDao dao = handle.attach(ItemDao.class);
 
             for (Item expected : DATA) {

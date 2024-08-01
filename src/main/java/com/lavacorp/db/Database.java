@@ -1,5 +1,8 @@
 package com.lavacorp.db;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
@@ -9,8 +12,9 @@ import org.jdbi.v3.sqlite3.SQLitePlugin;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 @Log4j2
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Database {
-    private static Database instance = null;
+    @Getter private static final Database instance = new Database();
     private Jdbi jdbi = null;
 
     public void connect(String filepath) {
@@ -22,20 +26,11 @@ public class Database {
         log.info("Connected to SQLite database");
     }
 
-    private Database() {}
-
-    public static Database instance() {
-        if (instance == null)
-            instance = new Database();
-
-        return instance;
-    }
-
-    public Jdbi jdbi() {
-        if (jdbi == null)
+    public static Jdbi getJdbi() {
+        if (instance.jdbi == null)
             throw new IllegalStateException("Database not connected.");
 
-        return jdbi;
+        return instance.jdbi;
     }
 
     public void initTables() {

@@ -32,7 +32,7 @@ public class CategoryDaoTests {
     @Test
     @Order(0)
     void testCreate() {
-        try (Handle handle = Database.instance().jdbi().open()) {
+        try (Handle handle = Database.getJdbi().open()) {
             CategoryDao dao = handle.attach(CategoryDao.class);
 
             for (Category category : DATA)
@@ -42,7 +42,7 @@ public class CategoryDaoTests {
 
     @Test
     void testRetrieveAll() {
-        try (Handle handle = Database.instance().jdbi().open()) {
+        try (Handle handle = Database.getJdbi().open()) {
             CategoryDao dao = handle.attach(CategoryDao.class);
 
             List<Category> result = dao.retrieveAll();
@@ -57,7 +57,7 @@ public class CategoryDaoTests {
 
     @Test
     void testRetrieveByName() {
-        try (Handle handle = Database.instance().jdbi().open()) {
+        try (Handle handle = Database.getJdbi().open()) {
             CategoryDao dao = handle.attach(CategoryDao.class);
 
             for (Category expected : DATA) {
