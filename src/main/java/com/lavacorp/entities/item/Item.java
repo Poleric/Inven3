@@ -43,6 +43,10 @@ public class Item extends DatabaseObj implements Taggable, Suppliable {
         this.lastUpdatedAt = lastUpdatedAt;
     }
 
+    public void setUnit(@Nullable Unit<?> unit) {
+        this.unit = unit;
+    }
+
     public void setUnit(String unit) {
         UnitFormat uf = ServiceProvider.current().getFormatService().getUnitFormat();
         this.unit = uf.parse(unit);
