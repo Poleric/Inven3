@@ -42,6 +42,7 @@ public class CategoryDaoTests {
     }
 
     @Test
+    @Order(1)
     void testRetrieveAll() {
         CategoryDao dao = getDao();
 
@@ -55,6 +56,7 @@ public class CategoryDaoTests {
     }
 
     @Test
+    @Order(1)
     void testRetrieveByName() {
         CategoryDao dao = getDao();
 
@@ -64,4 +66,23 @@ public class CategoryDaoTests {
             assertEquals(expected, actual);
         }
     }
+
+    @Test
+    @Order(2)
+    void testDeleteById() {
+        CategoryDao dao = getDao();
+
+        dao.delete(1);
+        assertNull(dao.retrieve(1));
+    }
+
+    @Test
+    @Order(2)
+    void testDeleteByName() {
+        CategoryDao dao = getDao();
+
+        dao.delete("Graphics Card");
+        assertNull(dao.retrieve("Graphics Card"));
+    }
+
 }
