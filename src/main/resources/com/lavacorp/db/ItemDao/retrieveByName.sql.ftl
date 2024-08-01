@@ -1,2 +1,2 @@
 <#include "retrieve.sql.ftl">
-WHERE name = :name;
+WHERE item.name = :name;
