@@ -29,4 +29,10 @@ public interface CategoryDao {
 
     @SqlQuery("retrieve")
     List<Category> retrieveAll();
+
+    @SqlUpdate("deleteById")
+    void delete(int id);
+
+    @SqlUpdate("deleteByName")
+    void delete(@NotNull String name);
 }
