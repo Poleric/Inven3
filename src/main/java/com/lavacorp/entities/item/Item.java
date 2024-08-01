@@ -8,31 +8,27 @@ import com.lavacorp.entities.tag.Taggable;
 import com.lavacorp.entities.category.Category;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.jdbi.v3.core.mapper.Nested;
 import org.jetbrains.annotations.Nullable;
 
-import javax.measure.Unit;
-import javax.measure.format.UnitFormat;
-import javax.measure.spi.ServiceProvider;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class Item extends DatabaseObj implements Taggable, Suppliable {
     @NonNull private String name;
     @Nullable private String description;
     @Nullable private Double basePrice;
-    @Nullable private Unit<?> unit;
+    @Nullable private String unit;
     @Nullable @Nested private Category category;
     @Nullable private Instant createdAt;
     @Nullable private Instant lastUpdatedAt;
 
-    public Item(@Nullable Integer id, @NonNull String name, @Nullable String description, @Nullable Double basePrice, @Nullable Unit<?> unit, @Nullable Category category, @Nullable Instant createdAt, @Nullable Instant lastUpdatedAt) {
+    public Item(@Nullable Integer id, @NonNull String name, @Nullable String description, @Nullable Double basePrice, @Nullable String unit, @Nullable Category category, @Nullable Instant createdAt, @Nullable Instant lastUpdatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -43,13 +39,12 @@ public class Item extends DatabaseObj implements Taggable, Suppliable {
         this.lastUpdatedAt = lastUpdatedAt;
     }
 
-    public void setUnit(@Nullable Unit<?> unit) {
-        this.unit = unit;
-    }
-
-    public void setUnit(String unit) {
-        UnitFormat uf = ServiceProvider.current().getFormatService().getUnitFormat();
-        this.unit = uf.parse(unit);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item item)) return false;
+        if (!super.equals(o)) return false;
+        return Objects.equals(name, item.name) && Objects.equals(description, item.description) && Objects.equals(basePrice, item.basePrice) && Objects.equals(unit, item.unit);
     }
 
     @Override
