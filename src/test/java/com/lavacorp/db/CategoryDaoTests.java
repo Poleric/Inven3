@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(DatabaseExtension.class)
 public class CategoryDaoTests {
-    private static final Category[] DATA = {
+    public static final Category[] DATA = {
             new Category(1, "CPU", null),
             new Category(2, "Graphics card", null),
             new Category(3, "SSD", null),
