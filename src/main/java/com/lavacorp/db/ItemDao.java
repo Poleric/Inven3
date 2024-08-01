@@ -13,7 +13,6 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Optional;
 
 @UseFreemarkerSqlLocator
 @AllowUnusedBindings
@@ -24,10 +23,10 @@ public interface ItemDao {
     int create(@BindBean Item item);
 
     @SqlQuery("retrieveById")
-    Optional<Item> retrieve(int id);
+    Item retrieve(int id);
 
     @SqlQuery("retrieveByName")
-    Optional<Item> retrieve(@NotNull String name);
+    Item retrieve(@NotNull String name);
 
     @SqlQuery("retrieve")
     List<Item> retrieveAll();
