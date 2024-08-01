@@ -48,6 +48,11 @@ public class Item extends DatabaseObj implements Taggable, Suppliable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name, description, basePrice, unit, category, createdAt, lastUpdatedAt);
+    }
+
+    @Override
     public List<Supplier> getSuppliers() {
         return List.of();
     }
