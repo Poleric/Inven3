@@ -26,8 +26,8 @@ public class ItemMapper implements RowMapper<Item> {
                 rs.getObject("item_base_price", Double.class),
                 rs.getString("item_unit"),
                 category,
-                rs.getObject("item_created_at", Instant.class),
-                rs.getObject("item_last_updated_at", Instant.class)
+                rs.getTimestamp("item_created_at").toInstant(),
+                rs.getTimestamp("item_last_updated_at").toInstant()
         );
     }
 }
