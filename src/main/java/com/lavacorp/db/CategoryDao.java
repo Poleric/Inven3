@@ -6,5 +6,5 @@ import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 
 
 @RegisterRowMapper(CategoryMapper.class)
-public interface CategoryDao extends Dao<Category> {
+public interface CategoryDao extends DaoNamed<Category> {
 }

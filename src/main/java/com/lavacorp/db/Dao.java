@@ -22,9 +22,6 @@ public interface Dao<T extends DatabaseObj> {
     @SqlQuery("retrieveById")
     T retrieve(int id);
 
-    @SqlQuery("retrieveByName")
-    T retrieve(@NotNull String name);
-
     @SqlQuery("retrieve")
     List<T> retrieveAll();
 
@@ -33,7 +30,4 @@ public interface Dao<T extends DatabaseObj> {
 
     @SqlUpdate("deleteById")
     void delete(int id);
-
-    @SqlUpdate("deleteByName")
-    void delete(@NotNull String name);
 }

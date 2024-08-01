@@ -5,5 +5,5 @@ import com.lavacorp.mapper.ItemMapper;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 
 @RegisterRowMapper(ItemMapper.class)
-public interface ItemDao extends Dao<Item> {
+public interface ItemDao extends DaoNamed<Item> {
 }
