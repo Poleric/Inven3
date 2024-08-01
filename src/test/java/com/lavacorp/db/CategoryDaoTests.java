@@ -19,6 +19,11 @@ public class CategoryDaoTests {
             new Category(4, "USB Sticks", null),
             new Category(5, "Mouse", null),
             new Category(6, "Keyboard", null),
+            new Category(7, "Laptop", null),
+            new Category(8, "Television", null),
+            new Category(9, "Smartphone", null),
+            new Category(10, "Console", null),
+            new Category(11, "Smartwatch", null)
     };
 
     @BeforeAll
