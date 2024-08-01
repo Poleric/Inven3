@@ -56,28 +56,28 @@ CREATE TABLE IF NOT EXISTS PurchaseOrder (
 );
 
 CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder(id),
-    stock_id    INTEGER NOT NULL REFERENCES Stock (id),
-    supplier_name    TEXT     NOT NULL REFERENCES Supplier (name),
-    supplier_contact INTEGER REFERENCES Supplier (contact_no)
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id),
+    stock_id          INTEGER NOT NULL REFERENCES Stock (id),
+    supplier_name     TEXT    NOT NULL REFERENCES Supplier (name),
+    supplier_contact  INTEGER REFERENCES Supplier (contact_no)
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrder (
     id               INTEGER PRIMARY KEY AUTOINCREMENT,
     sales_date       DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
-    status           TEXT    NOT NULL,
-    amount           INTEGER NOT NULL,
-    item_id          INTEGER NOT NULL REFERENCES Item (id),
-    pay_method       TEXT    NOT NULL,
-    customer_id      INTEGER NOT NULL REFERENCES Customer (id),
-    customer_contact INTEGER NOT NULL REFERENCES Customer (contact_no)
+    status           TEXT     NOT NULL,
+    amount           INTEGER  NOT NULL,
+    item_id          INTEGER  NOT NULL REFERENCES Item (id),
+    pay_method       TEXT     NOT NULL,
+    customer_id      INTEGER  NOT NULL REFERENCES Customer (id),
+    customer_contact INTEGER  NOT NULL REFERENCES Customer (contact_no)
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrderLine (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    sales_order_id INTEGER NOT NULL REFERENCES SalesOrder(id),
-    stock_id    INTEGER NOT NULL REFERENCES Stock (id),
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    sales_order_id   INTEGER NOT NULL REFERENCES SalesOrder (id),
+    stock_id         INTEGER NOT NULL REFERENCES Stock (id),
     amount           INTEGER NOT NULL,
     item_id          INTEGER NOT NULL REFERENCES Item (id),
     customer_id      INTEGER NOT NULL REFERENCES Customer (id),
