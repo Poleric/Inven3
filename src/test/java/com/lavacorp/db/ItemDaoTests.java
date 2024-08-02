@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ItemDaoTests extends DaoTest<Item, ItemDao> {
     public static final Item[] DATA = {
@@ -44,6 +45,26 @@ public class ItemDaoTests extends DaoTest<Item, ItemDao> {
 
             assertEquals(expected, actual);
         }
+    }
+
+    @Test
+    @Order(2)
+    void testUpdateName() {
+        ItemDao dao = getDao();
+
+        Item expected = DATA[0];
+        assertNotNull(expected.getId());
+
+        String before = expected.getName();
+        expected.setName("AAAAA");
+
+        dao.update(expected);
+
+        Item actual = dao.retrieve(expected.getId());
+        assertEquals(expected, actual);
+
+        expected.setName(before);
+        dao.update(expected);
     }
 
     @Test

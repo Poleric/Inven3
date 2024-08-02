@@ -39,6 +39,26 @@ public class CategoryDaoTests extends DaoTest<Category, CategoryDao> {
     }
 
     @Test
+    @Order(2)
+    void testUpdateName() {
+        CategoryDao dao = getDao();
+
+        Category expected = DATA[0];
+        assertNotNull(expected.getId());
+
+        String before = expected.getName();
+        expected.setName("AAAAA");
+
+        dao.update(expected);
+
+        Category actual = dao.retrieve(expected.getId());
+        assertEquals(expected, actual);
+
+        expected.setName(before);
+        dao.update(expected);
+    }
+
+    @Test
     @Order(3)
     void testDeleteByName() {
         CategoryDao dao = getDao();
