@@ -30,11 +30,11 @@ CREATE TABLE IF NOT EXISTS ItemTag (
 );
 
 CREATE TABLE IF NOT EXISTS Supplier (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    name          TEXT UNIQUE NOT NULL,
-    address       TEXT,
-    contact_no    TEXT,
-    contact_email TEXT
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    name         TEXT UNIQUE NOT NULL,
+    address      TEXT,
+    phone_number TEXT,
+    email        TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Customer (
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS PurchaseOrder (
     amount           INTEGER  NOT NULL,
     quantity         INTEGER  NOT NULL,
     supplier_name    TEXT     NOT NULL REFERENCES Supplier (name),
-    supplier_contact INTEGER REFERENCES Supplier (contact_no)
+    supplier_contact INTEGER REFERENCES Supplier (phone_number)
 );
 
 CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
     purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id),
     stock_id          INTEGER NOT NULL REFERENCES Stock (id),
     supplier_name     TEXT    NOT NULL REFERENCES Supplier (name),
-    supplier_contact  INTEGER REFERENCES Supplier (contact_no)
+    supplier_contact  INTEGER REFERENCES Supplier (phone_number)
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrder (

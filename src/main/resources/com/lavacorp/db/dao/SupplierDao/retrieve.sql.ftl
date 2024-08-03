@@ -1,2 +1,2 @@
-SELECT id, name, address, contact_no, contact_email
+SELECT id, name, address, phone_number, email
 FROM Supplier
