@@ -1,6 +1,6 @@
 package com.lavacorp.db.dao;
 
-import com.lavacorp.entities.category.Category;
+import com.lavacorp.entities.Category;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 

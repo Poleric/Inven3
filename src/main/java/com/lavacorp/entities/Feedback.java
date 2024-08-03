@@ -1,4 +1,4 @@
-package com.lavacorp.entities.feedback;
+package com.lavacorp.entities;
 
 import java.util.Date;
 

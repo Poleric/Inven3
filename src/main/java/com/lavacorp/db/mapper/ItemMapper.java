@@ -1,13 +1,12 @@
 package com.lavacorp.db.mapper;
 
-import com.lavacorp.entities.category.Category;
-import com.lavacorp.entities.item.Item;
+import com.lavacorp.entities.Category;
+import com.lavacorp.entities.Item;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 
 public class ItemMapper implements RowMapper<Item> {
 

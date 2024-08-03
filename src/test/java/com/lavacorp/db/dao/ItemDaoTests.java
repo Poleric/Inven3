@@ -1,8 +1,8 @@
 package com.lavacorp.db.dao;
 
 import com.lavacorp.db.Database;
-import com.lavacorp.entities.category.Category;
-import com.lavacorp.entities.item.Item;
+import com.lavacorp.entities.Category;
+import com.lavacorp.entities.Item;
 import org.jdbi.v3.core.Handle;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;

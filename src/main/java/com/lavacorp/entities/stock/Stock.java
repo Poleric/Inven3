@@ -2,7 +2,7 @@ package com.lavacorp.entities.stock;
 
 import com.lavacorp.entities.DatabaseObj;
 import com.lavacorp.entities.company.Supplier;
-import com.lavacorp.entities.item.Item;
+import com.lavacorp.entities.Item;
 import com.lavacorp.entities.location.Location;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
