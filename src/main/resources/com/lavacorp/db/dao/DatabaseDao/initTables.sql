@@ -122,7 +122,6 @@ CREATE TABLE IF NOT EXISTS Stock (
     status          TEXT     NOT NULL,
     expiry_date     DATETIME,
     notes           TEXT,
-
     created_at      DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
     last_updated_at DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP
 );
