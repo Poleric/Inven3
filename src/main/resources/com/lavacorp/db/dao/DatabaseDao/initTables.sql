@@ -38,35 +38,30 @@ CREATE TABLE IF NOT EXISTS Supplier (
 );
 
 CREATE TABLE IF NOT EXISTS PurchaseOrder (
-    id               INTEGER PRIMARY KEY AUTOINCREMENT,
-    stock_id         INTEGER  NOT NULL REFERENCES Stock (id),
-    purchase_date    DATETIME NOT NULL,
-    amount           INTEGER  NOT NULL,
-    quantity         INTEGER  NOT NULL,
-    supplier_id INTEGER NOT NULL REFERENCES Supplier(id)
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    purchase_date DATETIME NOT NULL,
+    amount        INTEGER  NOT NULL,
+    supplier_id   INTEGER  NOT NULL REFERENCES Supplier (id)
 );
 
 CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
     id                INTEGER PRIMARY KEY AUTOINCREMENT,
     purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id),
-    stock_id          INTEGER NOT NULL REFERENCES Stock (id)
+    stock_id          INTEGER NOT NULL REFERENCES Stock (id),
+    quantity          INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrder (
-    id               INTEGER PRIMARY KEY AUTOINCREMENT,
-    sales_date       DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
-    status           TEXT     NOT NULL,
-    amount           INTEGER  NOT NULL,
-    item_id          INTEGER  NOT NULL REFERENCES Item (id),
-    pay_method       TEXT     NOT NULL
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    sales_date DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
+    status     TEXT     NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrderLine (
-    id               INTEGER PRIMARY KEY AUTOINCREMENT,
-    sales_order_id   INTEGER NOT NULL REFERENCES SalesOrder (id),
-    stock_id         INTEGER NOT NULL REFERENCES Stock (id),
-    amount           INTEGER NOT NULL,
-    item_id          INTEGER NOT NULL REFERENCES Item (id)
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    sales_order_id INTEGER NOT NULL REFERENCES SalesOrder (id),
+    stock_id       INTEGER NOT NULL REFERENCES Stock (id),
+    amount         INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ReturnOrder (
