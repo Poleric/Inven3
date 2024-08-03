@@ -67,7 +67,6 @@ CREATE TABLE IF NOT EXISTS SalesOrderLine (
 CREATE TABLE IF NOT EXISTS ReturnOrder (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
     order_id      INTEGER NOT NULL REFERENCES SalesOrder (id),
-    item_id       INTEGER NOT NULL,
     return_amount INTEGER,
     status        TEXT    NOT NULL
 );
