@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS SalesOrder (
     item_id          INTEGER  NOT NULL REFERENCES Item (id),
     pay_method       TEXT     NOT NULL,
     customer_id      INTEGER  NOT NULL REFERENCES Customer (id),
-    customer_contact INTEGER  NOT NULL REFERENCES Customer (contact_no)
+    customer_contact INTEGER  NOT NULL REFERENCES Customer (phone_number)
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrderLine (
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS SalesOrderLine (
     amount           INTEGER NOT NULL,
     item_id          INTEGER NOT NULL REFERENCES Item (id),
     customer_id      INTEGER NOT NULL REFERENCES Customer (id),
-    customer_contact INTEGER NOT NULL REFERENCES Customer (contact_no)
+    customer_contact INTEGER NOT NULL REFERENCES Customer (phone_number)
 );
 
 CREATE TABLE IF NOT EXISTS ReturnOrder (
