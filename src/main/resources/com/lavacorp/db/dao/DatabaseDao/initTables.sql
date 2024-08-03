@@ -38,11 +38,11 @@ CREATE TABLE IF NOT EXISTS Supplier (
 );
 
 CREATE TABLE IF NOT EXISTS Customer (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    name          TEXT UNIQUE NOT NULL,
-    address       TEXT,
-    contact_no    TEXT,
-    contact_email TEXT
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    name         TEXT UNIQUE NOT NULL,
+    address      TEXT,
+    phone_number TEXT,
+    email        TEXT
 );
 
 CREATE TABLE IF NOT EXISTS PurchaseOrder (
