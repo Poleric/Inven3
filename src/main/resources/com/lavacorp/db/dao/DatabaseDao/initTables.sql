@@ -37,30 +37,19 @@ CREATE TABLE IF NOT EXISTS Supplier (
     email        TEXT
 );
 
-CREATE TABLE IF NOT EXISTS Customer (
-    id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    name         TEXT UNIQUE NOT NULL,
-    address      TEXT,
-    phone_number TEXT,
-    email        TEXT
-);
-
 CREATE TABLE IF NOT EXISTS PurchaseOrder (
     id               INTEGER PRIMARY KEY AUTOINCREMENT,
     stock_id         INTEGER  NOT NULL REFERENCES Stock (id),
     purchase_date    DATETIME NOT NULL,
     amount           INTEGER  NOT NULL,
     quantity         INTEGER  NOT NULL,
-    supplier_name    TEXT     NOT NULL REFERENCES Supplier (name),
-    supplier_contact INTEGER REFERENCES Supplier (phone_number)
+    supplier_id INTEGER NOT NULL REFERENCES Supplier(id)
 );
 
 CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
     id                INTEGER PRIMARY KEY AUTOINCREMENT,
     purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id),
-    stock_id          INTEGER NOT NULL REFERENCES Stock (id),
-    supplier_name     TEXT    NOT NULL REFERENCES Supplier (name),
-    supplier_contact  INTEGER REFERENCES Supplier (phone_number)
+    stock_id          INTEGER NOT NULL REFERENCES Stock (id)
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrder (
@@ -69,9 +58,7 @@ CREATE TABLE IF NOT EXISTS SalesOrder (
     status           TEXT     NOT NULL,
     amount           INTEGER  NOT NULL,
     item_id          INTEGER  NOT NULL REFERENCES Item (id),
-    pay_method       TEXT     NOT NULL,
-    customer_id      INTEGER  NOT NULL REFERENCES Customer (id),
-    customer_contact INTEGER  NOT NULL REFERENCES Customer (phone_number)
+    pay_method       TEXT     NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrderLine (
@@ -79,9 +66,7 @@ CREATE TABLE IF NOT EXISTS SalesOrderLine (
     sales_order_id   INTEGER NOT NULL REFERENCES SalesOrder (id),
     stock_id         INTEGER NOT NULL REFERENCES Stock (id),
     amount           INTEGER NOT NULL,
-    item_id          INTEGER NOT NULL REFERENCES Item (id),
-    customer_id      INTEGER NOT NULL REFERENCES Customer (id),
-    customer_contact INTEGER NOT NULL REFERENCES Customer (phone_number)
+    item_id          INTEGER NOT NULL REFERENCES Item (id)
 );
 
 CREATE TABLE IF NOT EXISTS ReturnOrder (
@@ -89,7 +74,6 @@ CREATE TABLE IF NOT EXISTS ReturnOrder (
     order_id      INTEGER NOT NULL REFERENCES SalesOrder (id),
     item_id       INTEGER NOT NULL,
     return_amount INTEGER,
-    customer_id   INTEGER REFERENCES Customer (id),
     status        TEXT    NOT NULL
 );
 
