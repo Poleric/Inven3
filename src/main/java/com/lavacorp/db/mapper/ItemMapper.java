@@ -1,4 +1,4 @@
-package com.lavacorp.mapper;
+package com.lavacorp.db.mapper;
 
 import com.lavacorp.entities.category.Category;
 import com.lavacorp.entities.item.Item;

@@ -1,5 +1,6 @@
-package com.lavacorp.db;
+package com.lavacorp.db.dao;
 
+import com.lavacorp.db.Database;
 import com.lavacorp.entities.DatabaseObj;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;

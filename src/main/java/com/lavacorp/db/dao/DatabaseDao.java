@@ -1,4 +1,4 @@
-package com.lavacorp.db;
+package com.lavacorp.db.dao;
 
 import org.jdbi.v3.core.statement.UnableToCreateStatementException;
 import org.jdbi.v3.freemarker.UseFreemarkerSqlLocator;

@@ -1,4 +1,4 @@
-package com.lavacorp.db;
+package com.lavacorp.db.dao;
 
 import com.lavacorp.entities.DatabaseObj;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;

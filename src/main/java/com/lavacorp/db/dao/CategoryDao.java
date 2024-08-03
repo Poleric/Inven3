@@ -1,7 +1,7 @@
-package com.lavacorp.db;
+package com.lavacorp.db.dao;
 
 import com.lavacorp.entities.category.Category;
-import com.lavacorp.mapper.CategoryMapper;
+import com.lavacorp.db.mapper.CategoryMapper;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 
 

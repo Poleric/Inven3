@@ -1,4 +1,4 @@
-package com.lavacorp.db;
+package com.lavacorp.db.dao;
 
 import com.lavacorp.entities.category.Category;
 import org.junit.jupiter.api.Order;

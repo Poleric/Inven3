@@ -1,5 +1,6 @@
-package com.lavacorp.db;
+package com.lavacorp.db.dao;
 
+import com.lavacorp.db.Database;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
