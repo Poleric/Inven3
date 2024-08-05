@@ -16,19 +16,6 @@ CREATE TABLE IF NOT EXISTS Category (
     description TEXT
 );
 
-CREATE TABLE IF NOT EXISTS Tag (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    name        TEXT UNIQUE NOT NULL,
-    description TEXT
-);
-
-CREATE TABLE IF NOT EXISTS ItemTag (
-    item_id    INTEGER  NOT NULL REFERENCES Item (id),
-    tag_id     INTEGER  NOT NULL REFERENCES Tag (id),
-    last_added DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (item_id, tag_id)
-);
-
 CREATE TABLE IF NOT EXISTS Supplier (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
     name         TEXT UNIQUE NOT NULL,
@@ -37,64 +24,16 @@ CREATE TABLE IF NOT EXISTS Supplier (
     email        TEXT
 );
 
-CREATE TABLE IF NOT EXISTS PurchaseOrder (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    purchase_date DATETIME NOT NULL,
-    amount        INTEGER  NOT NULL,
-    supplier_id   INTEGER  NOT NULL REFERENCES Supplier (id)
-);
-
-CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
-    id                INTEGER PRIMARY KEY AUTOINCREMENT,
-    purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id),
-    stock_id          INTEGER NOT NULL REFERENCES Stock (id),
-    quantity          INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS SalesOrder (
-    id         INTEGER PRIMARY KEY AUTOINCREMENT,
-    sales_date DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
-    status     TEXT     NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS SalesOrderLine (
-    id             INTEGER PRIMARY KEY AUTOINCREMENT,
-    sales_order_id INTEGER NOT NULL REFERENCES SalesOrder (id),
-    stock_id       INTEGER NOT NULL REFERENCES Stock (id),
-    amount         INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS ReturnOrder (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    order_id      INTEGER NOT NULL REFERENCES SalesOrder (id),
-    return_amount INTEGER,
-    status        TEXT    NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS LocationType (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    name        TEXT NOT NULL,
-    description TEXT
-);
-
 CREATE TABLE IF NOT EXISTS Location (
-    id               INTEGER PRIMARY KEY AUTOINCREMENT,
-    name             TEXT UNIQUE NOT NULL,
-    description      TEXT,
-    location_type_id INTEGER REFERENCES LocationType (id)
-);
-
-CREATE TABLE IF NOT EXISTS LocationTag (
-    location_id INTEGER  NOT NULL REFERENCES Location (id),
-    tag_id      INTEGER  NOT NULL REFERENCES Tag (id),
-    last_added  DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (location_id, tag_id)
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name        TEXT UNIQUE NOT NULL,
+    description TEXT,
+    type        TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Stock (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     item_id         INTEGER  NOT NULL REFERENCES Item (id),
-    supplier_id     INTEGER  NOT NULL REFERENCES Supplier (id),
     location_id     INTEGER  NOT NULL REFERENCES Location (id),
     quantity        INTEGER  NOT NULL,
     status          TEXT     NOT NULL,
@@ -104,7 +43,47 @@ CREATE TABLE IF NOT EXISTS Stock (
     last_updated_at DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS StockSupplier (
+CREATE TABLE IF NOT EXISTS PurchaseOrder (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    purchase_date DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
+    supplier_id   INTEGER  NOT NULL REFERENCES Supplier (id),
+    target_date   DATETIME,
+    arrived_date  DATETIME,
+    status        TEXT     NOT NULL,
+    reference     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
+    purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id),
+    stock_id          INTEGER NOT NULL REFERENCES Stock (id),
+    quantity          INTEGER NOT NULL,
+    PRIMARY KEY (purchase_order_id, stock_id)
+);
+
+CREATE TABLE IF NOT EXISTS SalesOrder (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    sales_date    DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
+    status        TEXT     NOT NULL,
+    shipment_date DATETIME,
+    reference     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS SalesOrderLine (
+    sales_order_id INTEGER NOT NULL REFERENCES SalesOrder (id),
+    stock_id       INTEGER NOT NULL REFERENCES Stock (id),
+    quantity       INTEGER NOT NULL,
+    PRIMARY KEY (sales_order_id, stock_id)
+);
+
+CREATE TABLE IF NOT EXISTS ReturnOrder (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id    INTEGER  NOT NULL REFERENCES SalesOrder (id),
+    return_date DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
+    status      TEXT     NOT NULL,
+    reference   TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ItemSupplier (
     item_id     INTEGER  NOT NULL REFERENCES Item (id),
     supplier_id INTEGER  NOT NULL REFERENCES Supplier (id),
     sold_price  REAL     NOT NULL,
@@ -112,12 +91,23 @@ CREATE TABLE IF NOT EXISTS StockSupplier (
     PRIMARY KEY (item_id, supplier_id)
 );
 
-CREATE TABLE IF NOT EXISTS StockTransaction (
-    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS Tag (
+    id   INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ItemTag (
     item_id    INTEGER  NOT NULL REFERENCES Item (id),
-    quantity   INTEGER  NOT NULL,
-    created_at DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
-    reference  TEXT
+    tag_id     INTEGER  NOT NULL REFERENCES Tag (id),
+    last_added DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (item_id, tag_id)
+);
+
+CREATE TABLE IF NOT EXISTS LocationTag (
+    location_id INTEGER  NOT NULL REFERENCES Location (id),
+    tag_id      INTEGER  NOT NULL REFERENCES Tag (id),
+    last_added  DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (location_id, tag_id)
 );
 
 CREATE TRIGGER IF NOT EXISTS updateItemLastUpdate
