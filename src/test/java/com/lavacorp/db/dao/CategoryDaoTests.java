@@ -4,17 +4,17 @@ import com.lavacorp.entities.Category;
 
 public class CategoryDaoTests extends DaoNamedTest<Category, CategoryDao> {
     final static Category[] DATA = {
-            new Category(1, "CPU", null),
-            new Category(2, "Graphics card", null),
-            new Category(3, "SSD", null),
-            new Category(4, "USB Sticks", null),
-            new Category(5, "Mouse", null),
-            new Category(6, "Keyboard", null),
-            new Category(7, "Laptop", null),
-            new Category(8, "Television", null),
-            new Category(9, "Smartphone", null),
-            new Category(10, "Console", null),
-            new Category(11, "Smartwatch", null)
+            Category.builder().id(1).name("CPU").build(),
+            Category.builder().id(2).name("Graphics card").build(),
+            Category.builder().id(3).name("SSD").build(),
+            Category.builder().id(4).name("USB Sticks").build(),
+            Category.builder().id(5).name("Mouse").build(),
+            Category.builder().id(6).name("Keyboard").build(),
+            Category.builder().id(7).name("Laptop").build(),
+            Category.builder().id(8).name("Television").build(),
+            Category.builder().id(9).name("Smartphone").build(),
+            Category.builder().id(10).name("Console").build(),
+            Category.builder().id(11).name("Smartwatch").build()
     };
 
     public CategoryDaoTests() {
