@@ -1,5 +1,6 @@
 package com.lavacorp.entities.company;
 
+import com.lavacorp.entities.NamedDatabaseObj;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,10 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class Supplier extends Company {
+public class Supplier extends NamedDatabaseObj {
+    private String address;
+    private String phoneNumber;
+    private String email;
     private String supplyHistory;
 
     public Supplier(Integer id, String name, String address, String phoneNumber, String email, String supplyHistory) {
