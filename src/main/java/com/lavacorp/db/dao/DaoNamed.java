@@ -1,6 +1,6 @@
 package com.lavacorp.db.dao;
 
-import com.lavacorp.entities.DatabaseObj;
+import com.lavacorp.entities.generic.DatabaseObj;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jetbrains.annotations.NotNull;

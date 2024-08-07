@@ -1,9 +1,9 @@
 package com.lavacorp.entities.stock;
 
-import com.lavacorp.entities.DatabaseObj;
+import com.lavacorp.entities.generic.DatabaseObj;
 import com.lavacorp.entities.company.Supplier;
 import com.lavacorp.entities.Item;
-import com.lavacorp.entities.location.Location;
+import com.lavacorp.entities.Location;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.Nullable;

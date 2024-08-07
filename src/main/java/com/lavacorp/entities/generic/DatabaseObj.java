@@ -1,4 +1,4 @@
-package com.lavacorp.entities;
+package com.lavacorp.entities.generic;
 
 import lombok.Data;
 import org.jetbrains.annotations.Nullable;
