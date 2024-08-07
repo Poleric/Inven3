@@ -4,22 +4,15 @@ import com.lavacorp.entities.generic.NamedDatabaseObj;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@SuperBuilder
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Supplier extends NamedDatabaseObj {
     private String address;
     private String phoneNumber;
     private String email;
     private String supplyHistory;
-
-    public Supplier(Integer id, String name, String address, String phoneNumber, String email, String supplyHistory) {
-        setId(id);
-        setName(name);
-        setAddress(address);
-        setPhoneNumber(phoneNumber);
-        setEmail(email);
-        setSupplyHistory(supplyHistory);
-    }
 }

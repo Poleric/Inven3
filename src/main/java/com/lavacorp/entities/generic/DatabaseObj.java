@@ -1,9 +1,13 @@
 package com.lavacorp.entities.generic;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.jetbrains.annotations.Nullable;
 
 @Data
+@SuperBuilder
+@NoArgsConstructor
 abstract public class DatabaseObj {
-    @Nullable protected Integer id;
+    @Nullable private Integer id;
 }

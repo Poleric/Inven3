@@ -4,22 +4,17 @@ import com.lavacorp.entities.generic.NamedDatabaseObj;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.experimental.SuperBuilder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
+@SuperBuilder
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Location extends NamedDatabaseObj implements Taggable {
     @Nullable private String description;
-
-    public Location(Integer id, @NonNull String name, @Nullable String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
 
     @Override
     public List<Tag> getTags() {

@@ -3,48 +3,27 @@ package com.lavacorp.entities;
 import com.lavacorp.entities.generic.NamedDatabaseObj;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.experimental.SuperBuilder;
 import org.jdbi.v3.core.mapper.Nested;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
 
 @Data
+@SuperBuilder
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Item extends NamedDatabaseObj implements Taggable, Suppliable {
     @Nullable private String description;
     @Nullable private Double basePrice;
     @Nullable private String unit;
     @Nullable @Nested private Category category;
-    @Nullable private Instant createdAt;
-    @Nullable private Instant lastUpdatedAt;
 
-    public Item(@Nullable Integer id, @NonNull String name, @Nullable String description, @Nullable Double basePrice, @Nullable String unit, @Nullable Category category, @Nullable Instant createdAt, @Nullable Instant lastUpdatedAt) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.basePrice = basePrice;
-        this.unit = unit;
-        this.category = category;
-        this.createdAt = createdAt;
-        this.lastUpdatedAt = lastUpdatedAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Item item)) return false;
-        if (!super.equals(o)) return false;
-        return Objects.equals(name, item.name) && Objects.equals(description, item.description) && Objects.equals(basePrice, item.basePrice) && Objects.equals(unit, item.unit);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), name, description, basePrice, unit, category, createdAt, lastUpdatedAt);
-    }
+    @EqualsAndHashCode.Exclude @Nullable private Instant createdAt;
+    @EqualsAndHashCode.Exclude @Nullable private Instant lastUpdatedAt;
 
     @Override
     public List<Supplier> getSuppliers() {
