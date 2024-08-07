@@ -10,10 +10,10 @@ import java.sql.SQLException;
 public class CategoryMapper implements RowMapper<Category> {
     @Override
     public Category map(ResultSet rs, StatementContext ctx) throws SQLException {
-        return new Category(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("description")
-        );
+        return Category.builder()
+                .id(rs.getInt("id"))
+                .name(rs.getString("name"))
+                .description(rs.getString("description"))
+                .build();
     }
 }

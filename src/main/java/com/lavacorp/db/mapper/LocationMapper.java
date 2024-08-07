@@ -10,10 +10,10 @@ import java.sql.SQLException;
 public class LocationMapper implements RowMapper<Location> {
     @Override
     public Location map(ResultSet rs, StatementContext ctx) throws SQLException {
-        Location location = new Location();
-        location.setId(rs.getObject("id", Integer.class));
-        location.setName(rs.getString("name"));
-        location.setDescription(rs.getString("description"));
-        return location;
+        return Location.builder()
+                .id(rs.getObject("id", Integer.class))
+                .name(rs.getString("name"))
+                .description(rs.getString("description"))
+                .build();
     }
 }

@@ -10,12 +10,12 @@ import java.sql.SQLException;
 public class SupplierMapper implements RowMapper<Supplier> {
     @Override
     public Supplier map(ResultSet rs, StatementContext ctx) throws SQLException {
-        Supplier supplier = new Supplier();
-        supplier.setId(rs.getObject("id", Integer.class));
-        supplier.setName(rs.getString("name"));
-        supplier.setAddress(rs.getString("address"));
-        supplier.setPhoneNumber(rs.getString("phone_number"));
-        supplier.setEmail(rs.getString("email"));
-        return supplier;
+        return Supplier.builder()
+                .id(rs.getObject("id", Integer.class))
+                .name(rs.getString("name"))
+                .address(rs.getString("address"))
+                .phoneNumber(rs.getString("phone_number"))
+                .email(rs.getString("email"))
+                .build();
     }
 }

@@ -12,22 +12,22 @@ public class ItemMapper implements RowMapper<Item> {
 
     @Override
     public Item map(ResultSet rs, StatementContext ctx) throws SQLException {
-        Category category = new Category(
-                rs.getObject("category_id", Integer.class),
-                rs.getString("category_name"),
-                rs.getString("category_description")
-        );
-
-        return new Item(
-                rs.getObject("item_id", Integer.class),
-                rs.getString("item_name"),
-                rs.getString("item_description"),
-                rs.getObject("item_base_price", Double.class),
-                rs.getString("item_unit"),
-                category,
-                rs.getTimestamp("item_created_at").toInstant(),
-                rs.getTimestamp("item_last_updated_at").toInstant()
-        );
+        return Item.builder()
+                .id(rs.getInt("item_id"))
+                .name(rs.getString("item_name"))
+                .description(rs.getString("item_description"))
+                .basePrice(rs.getObject("item_base_price", Double.class))
+                .unit(rs.getString("item_unit"))
+                .category(
+                        Category.builder()
+                                .id(rs.getObject("category_id", Integer.class))
+                                .name(rs.getString("category_name"))
+                                .description(rs.getString("category_description"))
+                                .build()
+                )
+                .createdAt(rs.getTimestamp("item_created_at").toInstant())
+                .lastUpdatedAt(rs.getTimestamp("item_last_updated_at").toInstant())
+                .build();
     }
 }
 
