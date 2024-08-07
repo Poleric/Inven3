@@ -27,8 +27,7 @@ CREATE TABLE IF NOT EXISTS Supplier (
 CREATE TABLE IF NOT EXISTS Location (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     name        TEXT UNIQUE NOT NULL,
-    description TEXT,
-    type        TEXT
+    description TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Stock (
