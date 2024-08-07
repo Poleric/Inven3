@@ -1,5 +1,6 @@
 package com.lavacorp.db.dao;
 
+import com.lavacorp.db.dao.generic.DaoNamedTest;
 import com.lavacorp.entities.Category;
 
 public class CategoryDaoTests extends DaoNamedTest<Category, CategoryDao> {

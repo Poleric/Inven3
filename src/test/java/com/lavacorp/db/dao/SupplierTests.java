@@ -1,5 +1,6 @@
 package com.lavacorp.db.dao;
 
+import com.lavacorp.db.dao.generic.DaoNamedTest;
 import com.lavacorp.entities.Supplier;
 
 public class SupplierTests extends DaoNamedTest<Supplier, SupplierDao> {

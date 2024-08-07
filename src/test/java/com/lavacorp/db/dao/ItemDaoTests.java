@@ -1,5 +1,6 @@
 package com.lavacorp.db.dao;
 
+import com.lavacorp.db.dao.generic.DaoNamedTest;
 import com.lavacorp.entities.Category;
 import com.lavacorp.entities.Item;
 import org.junit.jupiter.api.BeforeAll;

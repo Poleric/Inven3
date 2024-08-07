@@ -1,7 +1,7 @@
-package com.lavacorp.db.dao;
+package com.lavacorp.db.dao.generic;
 
 import com.lavacorp.db.Database;
-import com.lavacorp.db.dao.generic.Dao;
+import com.lavacorp.db.dao.DatabaseExtension;
 import com.lavacorp.entities.generic.DatabaseObj;
 import org.jdbi.v3.core.Handle;
 import org.junit.jupiter.api.*;
@@ -22,12 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestMethodOrder(OrderAnnotation.class)
 @ExtendWith(DatabaseExtension.class)
 abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
-    Handle handle;
-    K dao;
+    public Handle handle;
+    public K dao;
 
-    final T[] DATA;
-    final T[] UPDATED_DATA;
-    final Class<K> DAO_TYPE;
+    public final T[] DATA;
+    public final T[] UPDATED_DATA;
+    public final Class<K> DAO_TYPE;
 
     public DaoTest(Class<K> dao, T[] data, T[] updated_data) {
         this.DAO_TYPE = dao;
@@ -53,7 +53,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
     }
 
     @BeforeEach
-    void beforeEach() {
+    public void beforeEach() {
         handle = Database.getJdbi().open();
         dao = handle.attach(DAO_TYPE);
 
@@ -61,7 +61,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
     }
 
     @AfterEach
-    void afterEach() {
+    public void afterEach() {
         handle.commit();
         handle.close();
 
@@ -71,13 +71,13 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
     @ParameterizedTest
     @Order(0)
     @MethodSource("getData")
-    void testCreate(T data) {
+    public void testCreate(T data) {
         dao.create(data);
     }
 
     @Test
     @Order(1)
-    void testRetrieveAll() {
+    public void testRetrieveAll() {
         List<T> expected = getData().toList();
         List<T> actual = dao.retrieveAll();
 
@@ -91,7 +91,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
     @ParameterizedTest
     @Order(1)
     @MethodSource("getData")
-    void testRetrieveById(T expected) {
+    public void testRetrieveById(T expected) {
         Integer id = expected.getId();
         assertNotNull(id);
 
@@ -103,7 +103,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
     @ParameterizedTest
     @Order(2)
     @MethodSource("getToUpdateData")
-    void testUpdate(T expected, T updated) {
+    public void testUpdate(T expected, T updated) {
         assertNotNull(expected.getId());
         assertEquals(expected.getId(), updated.getId());
 
@@ -118,7 +118,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
     @ParameterizedTest
     @Order(3)
     @MethodSource("getData")
-    void testDeleteById(T expected) {
+    public void testDeleteById(T expected) {
         Integer id = expected.getId();
         assertNotNull(id);
 

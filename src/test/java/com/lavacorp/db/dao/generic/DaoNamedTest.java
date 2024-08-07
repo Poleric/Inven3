@@ -1,6 +1,5 @@
-package com.lavacorp.db.dao;
+package com.lavacorp.db.dao.generic;
 
-import com.lavacorp.db.dao.generic.DaoNamed;
 import com.lavacorp.entities.generic.NamedDatabaseObj;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.params.ParameterizedTest;
