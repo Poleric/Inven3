@@ -1,4 +1,4 @@
-package com.lavacorp.entities.company;
+package com.lavacorp.entities;
 
 import com.lavacorp.entities.generic.NamedDatabaseObj;
 import lombok.Data;

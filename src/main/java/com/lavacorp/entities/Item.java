@@ -1,10 +1,6 @@
 package com.lavacorp.entities;
 
-import com.lavacorp.entities.company.Suppliable;
-import com.lavacorp.entities.company.Supplier;
 import com.lavacorp.entities.generic.NamedDatabaseObj;
-import com.lavacorp.entities.tag.Tag;
-import com.lavacorp.entities.tag.Taggable;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

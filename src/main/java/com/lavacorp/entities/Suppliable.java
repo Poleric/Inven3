@@ -1,4 +1,4 @@
-package com.lavacorp.entities.company;
+package com.lavacorp.entities;
 
 import java.util.List;
 

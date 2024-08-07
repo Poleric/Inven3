@@ -1,6 +1,6 @@
 package com.lavacorp.db.mapper;
 
-import com.lavacorp.entities.company.Supplier;
+import com.lavacorp.entities.Supplier;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 

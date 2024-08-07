@@ -1,6 +1,6 @@
 package com.lavacorp.db.dao;
 
-import com.lavacorp.entities.company.Supplier;
+import com.lavacorp.entities.Supplier;
 
 public class SupplierTests extends DaoNamedTest<Supplier, SupplierDao> {
     static final Supplier[] DATA = {

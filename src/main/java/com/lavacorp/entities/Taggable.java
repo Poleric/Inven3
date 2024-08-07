@@ -1,4 +1,4 @@
-package com.lavacorp.entities.tag;
+package com.lavacorp.entities;
 
 import java.util.List;
 
