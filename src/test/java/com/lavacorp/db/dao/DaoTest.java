@@ -1,6 +1,7 @@
 package com.lavacorp.db.dao;
 
 import com.lavacorp.db.Database;
+import com.lavacorp.db.dao.generic.Dao;
 import com.lavacorp.entities.generic.DatabaseObj;
 import org.jdbi.v3.core.Handle;
 import org.junit.jupiter.api.*;
