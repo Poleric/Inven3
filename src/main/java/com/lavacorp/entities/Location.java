@@ -13,8 +13,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class Location extends DatabaseObj implements Taggable {
-    @NonNull private String name;
+public class Location extends NamedDatabaseObj implements Taggable {
     @Nullable private String description;
 
     public Location(Integer id, @NonNull String name, @Nullable String description) {

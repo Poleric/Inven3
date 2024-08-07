@@ -17,8 +17,7 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor
-public class Item extends DatabaseObj implements Taggable, Suppliable {
-    @NonNull private String name;
+public class Item extends NamedDatabaseObj implements Taggable, Suppliable {
     @Nullable private String description;
     @Nullable private Double basePrice;
     @Nullable private String unit;

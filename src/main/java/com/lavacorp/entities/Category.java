@@ -9,8 +9,7 @@ import org.jetbrains.annotations.Nullable;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class Category extends DatabaseObj {
-    @NonNull private String name;
+public class Category extends NamedDatabaseObj {
     @Nullable private String description;
 
     public Category(@Nullable Integer id, @NonNull String name, @Nullable String description) {
