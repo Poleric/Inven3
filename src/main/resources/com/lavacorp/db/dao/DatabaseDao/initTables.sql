@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS Item (
     description     TEXT,
     base_price      REAL,
     unit            TEXT,
-    category_id     TEXT REFERENCES Category (id),
+    category_id     INTEGER REFERENCES Category (id),
 
     created_at      DATETIME    NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
     last_updated_at DATETIME    NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP
