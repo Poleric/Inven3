@@ -20,7 +20,7 @@ public class Item extends NamedDatabaseObj implements Taggable, Suppliable {
     @Nullable private String description;
     @Nullable private Double basePrice;
     @Nullable private String unit;
-    @Nullable @Nested private Category category;
+    @Nullable @Nested("category") private Category category;
 
     @EqualsAndHashCode.Exclude @Nullable private Instant createdAt;
     @EqualsAndHashCode.Exclude @Nullable private Instant lastUpdatedAt;

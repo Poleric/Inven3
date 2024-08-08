@@ -17,12 +17,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Stock extends DatabaseObj {
-    @Nested @NonNull private Item item;
-    @Nested @Nullable private Supplier supplier;
-    @Nested @Nullable private Location location;
+    @Nested("item") @NonNull private Item item;
+    @Nested("supplier") @Nullable private Supplier supplier;
+    @Nested("location") @Nullable private Location location;
     private int quantity;
-    @Nested @NonNull private StockStatus status;
-    @Nested @Nullable private LocalDate expiryDate;
+    @Nested("status") @NonNull private StockStatus status;
+    @Nullable private LocalDate expiryDate;
     @Nullable private String notes;
     @EqualsAndHashCode.Exclude @Nullable private Instant createdAt;
     @EqualsAndHashCode.Exclude @Nullable private Instant lastUpdatedAt;
