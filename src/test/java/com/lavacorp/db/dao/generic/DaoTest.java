@@ -35,10 +35,13 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
         this.UPDATED_DATA = updated_data;
     }
 
-    public Stream<T> getData() {
-        Assumptions.assumeTrue(DATA != null);
-        Assumptions.assumeTrue(DATA.length > 0);
+    public void assumeArrayNotEmpty(Object[] arr) {
+        Assumptions.assumeTrue(arr != null);
+        Assumptions.assumeTrue(arr.length > 0);
+    }
 
+    public Stream<T> getData() {
+        assumeArrayNotEmpty(DATA);
         return Stream.of(DATA);
     }
 
