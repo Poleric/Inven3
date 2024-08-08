@@ -21,7 +21,7 @@ public class Stock extends DatabaseObj {
     @Nested("supplier") @Nullable private Supplier supplier;
     @Nested("location") @Nullable private Location location;
     private int quantity;
-    @Nested("status") @NonNull private StockStatus status;
+    @NonNull private StockStatus status;
     @Nullable private LocalDate expiryDate;
     @Nullable private String notes;
     @EqualsAndHashCode.Exclude @Nullable private Instant createdAt;
