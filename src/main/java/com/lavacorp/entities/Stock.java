@@ -4,7 +4,9 @@ import com.lavacorp.entities.generic.DatabaseObj;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
+import org.jdbi.v3.core.mapper.Nested;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
@@ -14,13 +16,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Stock extends DatabaseObj {
-    private Item item;
-    @Nullable private Supplier supplier;
-    @Nullable private Location location;
+    @NonNull Item item;
+    @Nested @Nullable private Supplier supplier;
+    @Nested @Nullable private Location location;
     private int quantity;
-    private StockStatus status;
-    @Nullable private LocalDateTime expiryDate;
+    @Nested @NonNull private StockStatus status;
+    @Nested @Nullable private LocalDateTime expiryDate;
     @Nullable private String notes;
-    @Nullable private LocalDateTime createdAt;
-    @Nullable private LocalDateTime lastUpdatedAt;
+    @EqualsAndHashCode.Exclude @Nullable private LocalDateTime createdAt;
+    @EqualsAndHashCode.Exclude @Nullable private LocalDateTime lastUpdatedAt;
 }
