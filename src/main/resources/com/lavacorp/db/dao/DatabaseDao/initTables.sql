@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS Location (
 CREATE TABLE IF NOT EXISTS Stock (
     id              INTEGER PRIMARY KEY AUTOINCREMENT,
     item_id         INTEGER  NOT NULL REFERENCES Item (id),
+    supplier_id     INTEGER  NOT NULL REFERENCES Supplier (id),
     location_id     INTEGER  NOT NULL REFERENCES Location (id),
     quantity        INTEGER  NOT NULL,
     status          TEXT     NOT NULL,
