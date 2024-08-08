@@ -9,7 +9,8 @@ import lombok.experimental.SuperBuilder;
 import org.jdbi.v3.core.mapper.Nested;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
 @SuperBuilder
@@ -21,8 +22,8 @@ public class Stock extends DatabaseObj {
     @Nested @Nullable private Location location;
     private int quantity;
     @Nested @NonNull private StockStatus status;
-    @Nested @Nullable private LocalDateTime expiryDate;
+    @Nested @Nullable private LocalDate expiryDate;
     @Nullable private String notes;
-    @EqualsAndHashCode.Exclude @Nullable private LocalDateTime createdAt;
-    @EqualsAndHashCode.Exclude @Nullable private LocalDateTime lastUpdatedAt;
+    @EqualsAndHashCode.Exclude @Nullable private Instant createdAt;
+    @EqualsAndHashCode.Exclude @Nullable private Instant lastUpdatedAt;
 }
