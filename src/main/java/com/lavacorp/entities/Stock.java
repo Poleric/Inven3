@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Stock extends DatabaseObj {
-    @NonNull Item item;
+    @NonNull private Item item;
     @Nested @Nullable private Supplier supplier;
     @Nested @Nullable private Location location;
     private int quantity;
