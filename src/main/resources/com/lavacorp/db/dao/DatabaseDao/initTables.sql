@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS Stock (
     location_id     INTEGER  NOT NULL REFERENCES Location (id),
     quantity        INTEGER  NOT NULL,
     status          TEXT     NOT NULL,
-    expiry_date     DATETIME,
+    expiry_date     DATE,
     notes           TEXT,
     created_at      DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP,
     last_updated_at DATETIME NOT NULL ON CONFLICT REPLACE DEFAULT CURRENT_TIMESTAMP
