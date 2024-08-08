@@ -3,7 +3,7 @@ package com.lavacorp.db.dao;
 import com.lavacorp.db.dao.generic.DaoNamedTest;
 import com.lavacorp.entities.Supplier;
 
-public class SupplierTests extends DaoNamedTest<Supplier, SupplierDao> {
+public class SupplierDaoTests extends DaoNamedTest<Supplier, SupplierDao> {
     static final Supplier[] DATA = {
             Supplier.builder()
                     .id(1)
@@ -19,7 +19,7 @@ public class SupplierTests extends DaoNamedTest<Supplier, SupplierDao> {
                     .email("support@logitek.com").build()
     };
 
-    public SupplierTests() {
+    public SupplierDaoTests() {
         super(SupplierDao.class, DATA, null);
     }
 }
