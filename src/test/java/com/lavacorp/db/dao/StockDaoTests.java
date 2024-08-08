@@ -2,8 +2,10 @@ package com.lavacorp.db.dao;
 
 import com.lavacorp.db.dao.generic.DaoTest;
 import com.lavacorp.entities.*;
+import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -12,6 +14,8 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StockDaoTests extends DaoTest<Stock, StockDao> {
     static final Stock[] DATA = {
@@ -114,5 +118,56 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         List<Stock> actual = dao.retrieveBySupplierId(supplier.getId());
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @Order(2)
+    public void testIncreaseStock() {
+        Stock expected = DATA[0];
+        int quantity = expected.getQuantity();
+        final int DIFF = quantity - 1;
+
+        assertTrue(DIFF > 0);
+        assertNotNull(expected.getId());
+
+        dao.increaseStock(expected.getId(), DIFF);
+        quantity += DIFF;
+
+        Stock actual = dao.retrieve(expected.getId());
+        assertEquals(quantity, actual.getQuantity());
+
+        handle.rollback();
+    }
+
+    @Test
+    @Order(2)
+    public void testDecreaseStock() {
+        Stock expected = DATA[0];
+        int quantity = expected.getQuantity();
+        final int DIFF = quantity - 1;
+
+        assertTrue(DIFF > 0);
+        assertNotNull(expected.getId());
+
+        dao.decreaseStock(expected.getId(), DIFF);
+        quantity -= DIFF;
+
+        Stock actual = dao.retrieve(expected.getId());
+        assertEquals(quantity, actual.getQuantity());
+
+        handle.rollback();
+    }
+
+    @Test
+    @Order(2)
+    public void testRaiseOnOverDecreaseStock() {
+        Stock expected = DATA[0];
+        int quantity = expected.getQuantity();
+        final int DIFF = quantity + 1;
+
+        assertTrue(DIFF > 0);
+        assertNotNull(expected.getId());
+
+        assertThrows(UnableToExecuteStatementException.class, () -> dao.decreaseStock(expected.getId(), DIFF));
     }
 }
