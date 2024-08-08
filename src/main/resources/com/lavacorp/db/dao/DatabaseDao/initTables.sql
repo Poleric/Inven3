@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS Stock (
     item_id         INTEGER  NOT NULL REFERENCES Item (id),
     supplier_id     INTEGER  NOT NULL REFERENCES Supplier (id),
     location_id     INTEGER  NOT NULL REFERENCES Location (id),
-    quantity        INTEGER  NOT NULL,
+    quantity        INTEGER  NOT NULL ON CONFLICT ABORT CHECK ( quantity >= 0 ),
     status          TEXT     NOT NULL,
     expiry_date     DATE,
     notes           TEXT,
