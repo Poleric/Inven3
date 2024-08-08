@@ -2,10 +2,9 @@ package com.lavacorp.db.dao;
 
 import com.lavacorp.db.dao.generic.DaoNamed;
 import com.lavacorp.entities.Category;
-import com.lavacorp.db.mapper.CategoryMapper;
-import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
+import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 
 
-@RegisterRowMapper(CategoryMapper.class)
+@RegisterBeanMapper(Category.class)
 public interface CategoryDao extends DaoNamed<Category> {
 }

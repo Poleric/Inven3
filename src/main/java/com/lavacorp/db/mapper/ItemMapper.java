@@ -3,6 +3,7 @@ package com.lavacorp.db.mapper;
 import com.lavacorp.entities.Category;
 import com.lavacorp.entities.Item;
 import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.mapper.reflect.BeanMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
 import java.sql.ResultSet;
@@ -18,13 +19,7 @@ public class ItemMapper implements RowMapper<Item> {
                 .description(rs.getString("item_description"))
                 .basePrice(rs.getObject("item_base_price", Double.class))
                 .unit(rs.getString("item_unit"))
-                .category(
-                        Category.builder()
-                                .id(rs.getObject("category_id", Integer.class))
-                                .name(rs.getString("category_name"))
-                                .description(rs.getString("category_description"))
-                                .build()
-                )
+                .category(BeanMapper.of(Category.class, "category").map(rs, ctx))
                 .createdAt(rs.getTimestamp("item_created_at").toInstant())
                 .lastUpdatedAt(rs.getTimestamp("item_last_updated_at").toInstant())
                 .build();
