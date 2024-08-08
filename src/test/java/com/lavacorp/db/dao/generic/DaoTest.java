@@ -81,11 +81,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
         List<T> expected = getData().toList();
         List<T> actual = dao.retrieveAll();
 
-        assertEquals(expected.size(), actual.size());
-
-        for (int i = 0; i < expected.size(); i++) {
-            assertEquals(expected.get(i), actual.get(i));
-        }
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
