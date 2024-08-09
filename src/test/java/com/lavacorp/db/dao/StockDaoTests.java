@@ -168,6 +168,10 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         assertTrue(DIFF > 0);
         assertNotNull(expected.getId());
 
-        assertThrows(UnableToExecuteStatementException.class, () -> dao.decreaseStock(expected.getId(), DIFF));
+        UnableToExecuteStatementException exc = assertThrows(UnableToExecuteStatementException.class, () -> dao.decreaseStock(expected.getId(), DIFF));
+        assertTrue(exc.getMessage().contains("SQLITE_CONSTRAINT_CHECK"));
+
+        Stock actual = dao.retrieve(expected.getId());
+        assertEquals(expected.getQuantity(), actual.getQuantity());
     }
 }
