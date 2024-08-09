@@ -110,6 +110,12 @@ CREATE TABLE IF NOT EXISTS LocationTag (
     PRIMARY KEY (location_id, tag_id)
 );
 
+CREATE TABLE IF NOT EXISTS User(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    password TEXT NOT NULL
+);
+
 CREATE TRIGGER IF NOT EXISTS updateItemLastUpdate
     AFTER UPDATE
     ON Item
