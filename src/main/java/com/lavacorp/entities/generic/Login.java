@@ -9,7 +9,7 @@ import lombok.Data;
 import java.util.Scanner;
 
 @Data
-public class login {
+public class Login {
     public void registerUser(String name, String password) {
         User user = new User();
         user.setName(name);
