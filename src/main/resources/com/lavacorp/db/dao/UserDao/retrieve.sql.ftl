@@ -1,5 +1,5 @@
 SELECT
     id,
-    username,
+    name,
     password
 FROM User

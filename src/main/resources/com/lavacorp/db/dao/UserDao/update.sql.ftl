@@ -1,6 +1,6 @@
 UPDATE User
 SET
-    username = :username,
+    name = :name,
     password = :password
 WHERE
     id = :id
