@@ -1,1 +1,1 @@
-DELETE FROM Supplier
+DELETE FROM User

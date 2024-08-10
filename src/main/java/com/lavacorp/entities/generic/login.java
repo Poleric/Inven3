@@ -6,6 +6,8 @@ import com.lavacorp.db.dao.UserDao;
 import com.lavacorp.entities.User;
 import lombok.Data;
 
+import java.util.Scanner;
+
 @Data
 public class login {
     public void registerUser(String name, String password) {
@@ -20,4 +22,12 @@ public class login {
         System.out.println("User registered: " + name);
 
     }
+
+    public void loginUser(String name, String password) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter Your Name: ");
+
+    }
+
 }
