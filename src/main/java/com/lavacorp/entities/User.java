@@ -13,5 +13,4 @@ import lombok.experimental.SuperBuilder;
 public class User extends DatabaseObj {
     private String name;
     private String password;
-
 }
