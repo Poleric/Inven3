@@ -1,6 +1,6 @@
 package com.lavacorp.entities;
 
-import com.lavacorp.entities.generic.DatabaseObj;
+import com.lavacorp.entities.generic.NamedDatabaseObj;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class User extends DatabaseObj {
-    private String name;
+public class User extends NamedDatabaseObj {
     private String password;
 }
