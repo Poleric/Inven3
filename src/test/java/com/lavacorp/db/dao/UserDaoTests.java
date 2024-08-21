@@ -5,8 +5,8 @@ import com.lavacorp.entities.User;
 
 public class UserDaoTests extends DaoNamedTest<User, UserDao> {
     static final User[] DATA = {
-            User.builder().id(1).name("Hong jun").password("minami").build(),
-            User.builder().id(2).name("Mingy").password("SHIKANOKONOKOKOSHITANTAN").build(),
+            User.builder().id(1).name("Hong jun").hashedPassword("minami").build(),
+            User.builder().id(2).name("Mingy").hashedPassword("SHIKANOKONOKOKOSHITANTAN").build(),
     };
 
     public UserDaoTests() {

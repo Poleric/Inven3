@@ -1,5 +1,5 @@
 SELECT
     id,
     name,
-    password
+    hashed_password
 FROM User

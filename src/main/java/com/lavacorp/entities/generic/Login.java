@@ -11,9 +11,10 @@ import java.util.Scanner;
 @Data
 public class Login {
     public void registerUser(String name, String password) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
+        User user = User.builder()
+                .name(name)
+                .password(password)
+                .build();
 
         try (Handle handle = Database.getJdbi().open()) {
             UserDao dao = handle.attach(UserDao.class);

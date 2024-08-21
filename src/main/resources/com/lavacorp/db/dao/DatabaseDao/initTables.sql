@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS LocationTag (
 CREATE TABLE IF NOT EXISTS User(
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    password TEXT NOT NULL
+    hashed_password TEXT NOT NULL
 );
 
 CREATE TRIGGER IF NOT EXISTS updateItemLastUpdate
