@@ -7,6 +7,7 @@ import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface Dao<T extends DatabaseObj> {
     int create(@BindBean T obj);
 
     @SqlQuery("retrieveById")
-    T retrieve(int id);
+    @Nullable T retrieve(int id);
 
     @SqlQuery("retrieve")
     List<T> retrieveAll();
