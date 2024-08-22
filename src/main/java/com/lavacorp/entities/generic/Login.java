@@ -1,6 +1,7 @@
 package com.lavacorp.entities.generic;
 
 import com.lavacorp.db.Database;
+import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 import org.jdbi.v3.core.Handle;
 import com.lavacorp.db.dao.UserDao;
@@ -8,9 +9,10 @@ import com.lavacorp.entities.User;
 import org.jetbrains.annotations.Nullable;
 
 
+@UtilityClass
 @Log4j2
 public class Login {
-    public void register(String name, String password) {
+    public static void register(String name, String password) {
         User user = User.builder()
                 .name(name)
                 .password(password)
@@ -24,7 +26,7 @@ public class Login {
         log.info("Registered user `{}`", user.getName());
     }
 
-    public @Nullable User login(String name, String password) {
+    public static @Nullable User login(String name, String password) {
         User user;
 
         try (Handle handle = Database.getJdbi().open()) {
