@@ -4,7 +4,7 @@ import com.lavacorp.db.dao.generic.DaoNamedTest;
 import com.lavacorp.entities.Location;
 
 public class LocationDaoTests extends DaoNamedTest<Location, LocationDao> {
-    static final Location[] DATA = {
+    public static final Location[] DATA = {
         Location.builder().id(1).name("Storage").build(),
         Location.builder().id(2).name("Aisle 1").build(),
         Location.builder().id(3).name("Aisle 2").build(),

@@ -4,7 +4,7 @@ import com.lavacorp.db.dao.generic.DaoNamedTest;
 import com.lavacorp.entities.Supplier;
 
 public class SupplierDaoTests extends DaoNamedTest<Supplier, SupplierDao> {
-    static final Supplier[] DATA = {
+    public static final Supplier[] DATA = {
             Supplier.builder()
                     .id(1)
                     .name("Samsen")

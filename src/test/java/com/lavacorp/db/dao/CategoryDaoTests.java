@@ -4,7 +4,7 @@ import com.lavacorp.db.dao.generic.DaoNamedTest;
 import com.lavacorp.entities.Category;
 
 public class CategoryDaoTests extends DaoNamedTest<Category, CategoryDao> {
-    final static Category[] DATA = {
+    public final static Category[] DATA = {
             Category.builder().id(1).name("CPU").build(),
             Category.builder().id(2).name("Graphics card").build(),
             Category.builder().id(3).name("SSD").build(),

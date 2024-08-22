@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StockDaoTests extends DaoTest<Stock, StockDao> {
-    static final Stock[] DATA = {
+    public static final Stock[] DATA = {
             Stock.builder()
                     .id(1)
                     .item(ItemDaoTests.DATA[0])

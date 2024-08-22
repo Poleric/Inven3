@@ -6,7 +6,7 @@ import com.lavacorp.entities.Item;
 import org.junit.jupiter.api.BeforeAll;
 
 public class ItemDaoTests extends DaoNamedTest<Item, ItemDao> {
-    final static Item[] DATA = {
+    public final static Item[] DATA = {
         Item.builder()
                 .id(1)
                 .name("Samseng FHD Smart Television")
