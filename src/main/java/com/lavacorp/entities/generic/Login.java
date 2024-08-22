@@ -4,13 +4,11 @@ import com.lavacorp.db.Database;
 import org.jdbi.v3.core.Handle;
 import com.lavacorp.db.dao.UserDao;
 import com.lavacorp.entities.User;
-import lombok.Data;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Scanner;
 
-@Data
 public class Login {
-    public void registerUser(String name, String password) {
+    public void register(String name, String password) {
         User user = User.builder()
                 .name(name)
                 .password(password)
@@ -24,11 +22,20 @@ public class Login {
 
     }
 
-    public void loginUser(String name, String password) {
-        Scanner scanner = new Scanner(System.in);
+    public @Nullable User login(String name, String password) {
+        User user;
 
-        System.out.println("Enter Your Name: ");
+        try (Handle handle = Database.getJdbi().open()) {
+            UserDao dao = handle.attach(UserDao.class);
+            user = dao.retrieve(name);
+        }
 
+        if (user == null)
+            return null;
+
+        if (user.comparePassword(password))
+            return user;
+
+        return null;
     }
-
 }
