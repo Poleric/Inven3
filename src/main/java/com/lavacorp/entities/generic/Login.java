@@ -1,12 +1,14 @@
 package com.lavacorp.entities.generic;
 
 import com.lavacorp.db.Database;
+import lombok.extern.log4j.Log4j2;
 import org.jdbi.v3.core.Handle;
 import com.lavacorp.db.dao.UserDao;
 import com.lavacorp.entities.User;
 import org.jetbrains.annotations.Nullable;
 
 
+@Log4j2
 public class Login {
     public void register(String name, String password) {
         User user = User.builder()
@@ -18,8 +20,8 @@ public class Login {
             UserDao dao = handle.attach(UserDao.class);
             dao.create(user);
         }
-        System.out.println("User registered: " + name);
 
+        log.info("Registered user `{}`", user.getName());
     }
 
     public @Nullable User login(String name, String password) {
@@ -30,12 +32,17 @@ public class Login {
             user = dao.retrieve(name);
         }
 
-        if (user == null)
+        if (user == null) {
+            log.info("User `{}` not found", name);
             return null;
+        }
 
-        if (user.comparePassword(password))
+        if (user.comparePassword(password)) {
+            log.info("User `{}` logged in", user.getName());
             return user;
+        }
 
+        log.info("`{}` is not user `{}` password", password, user.getName());
         return null;
     }
 }
