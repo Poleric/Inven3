@@ -1,6 +1,6 @@
 UPDATE User
 SET
     name = :name,
-    password = :password
+    hashed_password = :hashedPassword
 WHERE
     id = :id
