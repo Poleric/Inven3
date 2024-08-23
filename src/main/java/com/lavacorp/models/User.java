@@ -15,9 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class User extends NamedDatabaseObj {
     private String hashedPassword;
 
-    @EqualsAndHashCode.Exclude
     public static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
 
     public static String hashPassword(String password) {
         return passwordEncoder.encode(password);
