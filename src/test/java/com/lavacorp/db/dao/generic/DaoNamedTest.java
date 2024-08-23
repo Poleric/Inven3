@@ -16,10 +16,10 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
     @ParameterizedTest
     @Order(1)
     @MethodSource("getData")
-    void testRetrieveByName(T expected) {
+    void testRetrieveByIdByName(T expected) {
         String name = expected.getName();
 
-        T actual = dao.retrieve(name);
+        T actual = dao.retrieveByName(name);
 
         assertEquals(expected, actual);
     }
@@ -31,7 +31,7 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
         String name = expected.getName();
 
         dao.delete(name);
-        assertNull(dao.retrieve(name));
+        assertNull(dao.retrieveByName(name));
 
         handle.rollback();
     }

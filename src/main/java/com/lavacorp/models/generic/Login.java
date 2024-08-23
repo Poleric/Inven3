@@ -31,7 +31,7 @@ public class Login {
 
         try (Handle handle = Database.getJdbi().open()) {
             UserDao dao = handle.attach(UserDao.class);
-            user = dao.retrieve(name);
+            user = dao.retrieveByName(name);
         }
 
         if (user == null) {

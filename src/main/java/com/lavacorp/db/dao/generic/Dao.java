@@ -19,8 +19,8 @@ public interface Dao<T extends DatabaseObj> {
     @GetGeneratedKeys("id")
     int create(@BindBean T obj);
 
-    @SqlQuery("retrieveById")
-    @Nullable T retrieve(int id);
+    @SqlQuery
+    @Nullable T retrieveById(int id);
 
     @SqlQuery("retrieve")
     List<T> retrieveAll();

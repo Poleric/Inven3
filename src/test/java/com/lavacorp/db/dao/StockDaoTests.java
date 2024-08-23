@@ -133,7 +133,7 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         dao.increaseStock(expected.getId(), DIFF);
         quantity += DIFF;
 
-        Stock actual = dao.retrieve(expected.getId());
+        Stock actual = dao.retrieveById(expected.getId());
         assertEquals(quantity, actual.getQuantity());
 
         handle.rollback();
@@ -152,7 +152,7 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         dao.decreaseStock(expected.getId(), DIFF);
         quantity -= DIFF;
 
-        Stock actual = dao.retrieve(expected.getId());
+        Stock actual = dao.retrieveById(expected.getId());
         assertEquals(quantity, actual.getQuantity());
 
         handle.rollback();
@@ -171,7 +171,7 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         UnableToExecuteStatementException exc = assertThrows(UnableToExecuteStatementException.class, () -> dao.decreaseStock(expected.getId(), DIFF));
         assertTrue(exc.getMessage().contains("SQLITE_CONSTRAINT_CHECK"));
 
-        Stock actual = dao.retrieve(expected.getId());
+        Stock actual = dao.retrieveById(expected.getId());
         assertEquals(expected.getQuantity(), actual.getQuantity());
     }
 }
