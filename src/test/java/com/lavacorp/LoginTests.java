@@ -1,7 +1,7 @@
 package com.lavacorp;
 
 import com.lavacorp.db.dao.DatabaseExtension;
-import com.lavacorp.entities.generic.Login;
+import com.lavacorp.models.generic.Login;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;

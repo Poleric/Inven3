@@ -1,4 +1,4 @@
-package com.lavacorp.entities.generic;
+package com.lavacorp.models.generic;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

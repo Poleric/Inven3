@@ -1,11 +1,11 @@
-package com.lavacorp.entities.generic;
+package com.lavacorp.models.generic;
 
 import com.lavacorp.db.Database;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 import org.jdbi.v3.core.Handle;
 import com.lavacorp.db.dao.UserDao;
-import com.lavacorp.entities.User;
+import com.lavacorp.models.User;
 import org.jetbrains.annotations.Nullable;
 
 

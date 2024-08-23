@@ -1,7 +1,7 @@
 package com.lavacorp.db.dao;
 
 import com.lavacorp.db.dao.generic.DaoTest;
-import com.lavacorp.entities.*;
+import com.lavacorp.models.*;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;

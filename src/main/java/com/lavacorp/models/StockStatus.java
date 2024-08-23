@@ -1,4 +1,4 @@
-package com.lavacorp.entities;
+package com.lavacorp.models;
 
 public enum StockStatus {
     OK,

@@ -1,7 +1,7 @@
 package com.lavacorp.db.dao;
 
 import com.lavacorp.db.dao.generic.DaoNamedTest;
-import com.lavacorp.entities.User;
+import com.lavacorp.models.User;
 
 public class UserDaoTests extends DaoNamedTest<User, UserDao> {
     public static final User[] DATA = {

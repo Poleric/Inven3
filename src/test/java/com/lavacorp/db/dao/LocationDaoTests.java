@@ -1,7 +1,7 @@
 package com.lavacorp.db.dao;
 
 import com.lavacorp.db.dao.generic.DaoNamedTest;
-import com.lavacorp.entities.Location;
+import com.lavacorp.models.Location;
 
 public class LocationDaoTests extends DaoNamedTest<Location, LocationDao> {
     public static final Location[] DATA = {

@@ -1,4 +1,4 @@
-package com.lavacorp.entities;
+package com.lavacorp.models;
 
 import java.util.List;
 

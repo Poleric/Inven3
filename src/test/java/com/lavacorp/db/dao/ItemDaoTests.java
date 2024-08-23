@@ -1,8 +1,8 @@
 package com.lavacorp.db.dao;
 
 import com.lavacorp.db.dao.generic.DaoNamedTest;
-import com.lavacorp.entities.Category;
-import com.lavacorp.entities.Item;
+import com.lavacorp.models.Category;
+import com.lavacorp.models.Item;
 import org.junit.jupiter.api.BeforeAll;
 
 public class ItemDaoTests extends DaoNamedTest<Item, ItemDao> {

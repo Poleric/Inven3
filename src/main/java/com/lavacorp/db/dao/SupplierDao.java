@@ -1,7 +1,7 @@
 package com.lavacorp.db.dao;
 
 import com.lavacorp.db.dao.generic.DaoNamed;
-import com.lavacorp.entities.Supplier;
+import com.lavacorp.models.Supplier;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 

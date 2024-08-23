@@ -1,6 +1,6 @@
 package com.lavacorp.db.dao.generic;
 
-import com.lavacorp.entities.generic.DatabaseObj;
+import com.lavacorp.models.generic.DatabaseObj;
 import org.jdbi.v3.freemarker.UseFreemarkerSqlLocator;
 import org.jdbi.v3.sqlobject.customizer.AllowUnusedBindings;
 import org.jdbi.v3.sqlobject.customizer.BindBean;

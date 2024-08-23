@@ -2,7 +2,7 @@ package com.lavacorp.db.dao.generic;
 
 import com.lavacorp.db.Database;
 import com.lavacorp.db.dao.DatabaseExtension;
-import com.lavacorp.entities.generic.DatabaseObj;
+import com.lavacorp.models.generic.DatabaseObj;
 import org.jdbi.v3.core.Handle;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;

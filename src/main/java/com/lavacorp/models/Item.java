@@ -1,6 +1,6 @@
-package com.lavacorp.entities;
+package com.lavacorp.models;
 
-import com.lavacorp.entities.generic.NamedDatabaseObj;
+import com.lavacorp.models.generic.NamedDatabaseObj;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

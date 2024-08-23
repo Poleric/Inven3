@@ -1,7 +1,7 @@
 package com.lavacorp.db.dao;
 
 import com.lavacorp.db.dao.generic.DaoNamedTest;
-import com.lavacorp.entities.Category;
+import com.lavacorp.models.Category;
 
 public class CategoryDaoTests extends DaoNamedTest<Category, CategoryDao> {
     public final static Category[] DATA = {
