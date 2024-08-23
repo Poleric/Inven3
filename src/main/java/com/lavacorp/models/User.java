@@ -17,10 +17,6 @@ public class User extends NamedDatabaseObj {
 
     public static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public static String hashPassword(String password) {
-        return passwordEncoder.encode(password);
-    }
-
     public boolean comparePassword(String rawPassword) {
         return passwordEncoder.matches(rawPassword, hashedPassword);
     }
