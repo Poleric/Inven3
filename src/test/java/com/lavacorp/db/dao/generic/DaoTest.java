@@ -74,15 +74,15 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
     @ParameterizedTest
     @Order(0)
     @MethodSource("getData")
-    public void testCreate(T data) {
-        dao.create(data);
+    public void testInsert(T data) {
+        dao.insert(data);
     }
 
     @Test
     @Order(1)
     public void testRetrieveByIdAll() {
         List<T> expected = getData().toList();
-        List<T> actual = dao.retrieveAll();
+        List<T> actual = dao.selectAll();
 
         assertEquals(expected, actual);
     }
@@ -94,7 +94,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
         Integer id = expected.getId();
         assertNotNull(id);
 
-        T actual = dao.retrieveById(id);
+        T actual = dao.selectById(id);
 
         assertEquals(expected, actual);
     }
@@ -108,7 +108,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
 
         dao.update(updated);
 
-        T actual = dao.retrieveById(expected.getId());
+        T actual = dao.selectById(expected.getId());
         assertEquals(updated, actual);
 
         handle.rollback();
@@ -122,7 +122,7 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
         assertNotNull(id);
 
         dao.delete(id);
-        assertNull(dao.retrieveById(id));
+        assertNull(dao.selectById(id));
 
         handle.rollback();
     }

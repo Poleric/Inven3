@@ -62,24 +62,24 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         CategoryDaoTests categoryDaoTests = new CategoryDaoTests();
 
         categoryDaoTests.beforeEach();
-        categoryDaoTests.getData().forEach(categoryDaoTests.dao::create);
+        categoryDaoTests.getData().forEach(categoryDaoTests.dao::insert);
         categoryDaoTests.afterEach();
 
         ItemDaoTests itemDaoTests = new ItemDaoTests();
 
         itemDaoTests.beforeEach();
-        itemDaoTests.getData().forEach(itemDaoTests.dao::create);
+        itemDaoTests.getData().forEach(itemDaoTests.dao::insert);
         itemDaoTests.afterEach();
 
         SupplierDaoTests supplierDaoTests = new SupplierDaoTests();
 
         supplierDaoTests.beforeEach();
-        supplierDaoTests.getData().forEach(supplierDaoTests.dao::create);
+        supplierDaoTests.getData().forEach(supplierDaoTests.dao::insert);
         supplierDaoTests.afterEach();
 
         LocationDaoTests locationDaoTests = new LocationDaoTests();
         locationDaoTests.beforeEach();
-        locationDaoTests.getData().forEach(locationDaoTests.dao::create);
+        locationDaoTests.getData().forEach(locationDaoTests.dao::insert);
         locationDaoTests.afterEach();
     }
 
@@ -96,11 +96,11 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
     @ParameterizedTest
     @Order(1)
     @MethodSource("getItemData")
-    public void testRetrieveByItemId(Item item) {
+    public void testSelectByItemId(Item item) {
         assertNotNull(item.getId());
 
         List<Stock> expected = getData().filter((stock) -> stock.getItem().equals(item)).toList();
-        List<Stock> actual = dao.retrieveByItemId(item.getId());
+        List<Stock> actual = dao.selectByItemId(item.getId());
 
         assertEquals(expected, actual);
     }
@@ -108,14 +108,14 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
     @ParameterizedTest
     @Order(1)
     @MethodSource("getSupplierData")
-    public void testRetrieveBySupplierId(Supplier supplier) {
+    public void testSelectBySupplierId(Supplier supplier) {
         assertNotNull(supplier.getId());
 
         List<Stock> expected = getData().filter((stock) -> {
             assertNotNull(stock.getSupplier());
             return stock.getSupplier().equals(supplier);
         }).toList();
-        List<Stock> actual = dao.retrieveBySupplierId(supplier.getId());
+        List<Stock> actual = dao.selectBySupplierId(supplier.getId());
 
         assertEquals(expected, actual);
     }
@@ -133,7 +133,7 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         dao.increaseStock(expected.getId(), DIFF);
         quantity += DIFF;
 
-        Stock actual = dao.retrieveById(expected.getId());
+        Stock actual = dao.selectById(expected.getId());
         assertEquals(quantity, actual.getQuantity());
 
         handle.rollback();
@@ -152,7 +152,7 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         dao.decreaseStock(expected.getId(), DIFF);
         quantity -= DIFF;
 
-        Stock actual = dao.retrieveById(expected.getId());
+        Stock actual = dao.selectById(expected.getId());
         assertEquals(quantity, actual.getQuantity());
 
         handle.rollback();
@@ -171,7 +171,7 @@ public class StockDaoTests extends DaoTest<Stock, StockDao> {
         UnableToExecuteStatementException exc = assertThrows(UnableToExecuteStatementException.class, () -> dao.decreaseStock(expected.getId(), DIFF));
         assertTrue(exc.getMessage().contains("SQLITE_CONSTRAINT_CHECK"));
 
-        Stock actual = dao.retrieveById(expected.getId());
+        Stock actual = dao.selectById(expected.getId());
         assertEquals(expected.getQuantity(), actual.getQuantity());
     }
 }

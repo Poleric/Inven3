@@ -17,13 +17,13 @@ import java.util.List;
 public interface Dao<T extends DatabaseObj> {
     @SqlUpdate
     @GetGeneratedKeys("id")
-    int create(@BindBean T obj);
+    int insert(@BindBean T obj);
 
     @SqlQuery
-    @Nullable T retrieveById(int id);
+    @Nullable T selectById(int id);
 
-    @SqlQuery("retrieve")
-    List<T> retrieveAll();
+    @SqlQuery("select")
+    List<T> selectAll();
 
     @SqlUpdate
     void update(@BindBean T obj);

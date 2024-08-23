@@ -20,7 +20,7 @@ public class Login {
 
         try (Handle handle = Database.getJdbi().open()) {
             UserDao dao = handle.attach(UserDao.class);
-            dao.create(user);
+            dao.insert(user);
         }
 
         log.info("Registered user `{}`", user.getName());
@@ -31,7 +31,7 @@ public class Login {
 
         try (Handle handle = Database.getJdbi().open()) {
             UserDao dao = handle.attach(UserDao.class);
-            user = dao.retrieveByName(name);
+            user = dao.selectByName(name);
         }
 
         if (user == null) {

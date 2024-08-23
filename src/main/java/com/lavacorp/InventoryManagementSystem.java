@@ -12,7 +12,7 @@ public class InventoryManagementSystem {
 
         try ( Handle handle = Database.getJdbi().open()) {
             UserDao userDao = handle.attach(UserDao.class);
-            System.out.println("userDao.retrieveAll() = " + userDao.retrieveAll());
+            System.out.println("userDao.retrieveAll() = " + userDao.selectAll());
         }
     }
 }

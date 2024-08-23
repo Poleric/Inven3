@@ -19,7 +19,7 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
     void testRetrieveByIdByName(T expected) {
         String name = expected.getName();
 
-        T actual = dao.retrieveByName(name);
+        T actual = dao.selectByName(name);
 
         assertEquals(expected, actual);
     }
@@ -31,7 +31,7 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
         String name = expected.getName();
 
         dao.delete(name);
-        assertNull(dao.retrieveByName(name));
+        assertNull(dao.selectByName(name));
 
         handle.rollback();
     }

@@ -55,7 +55,7 @@ public class ItemDaoTests extends DaoNamedTest<Item, ItemDao> {
         categoryDaoTests.beforeEach();
 
         for (Category category : CategoryDaoTests.DATA)
-            categoryDaoTests.dao.create(category);
+            categoryDaoTests.dao.insert(category);
 
         categoryDaoTests.afterEach();
     }

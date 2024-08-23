@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 public interface DaoNamed<T extends DatabaseObj> extends Dao<T> {
     @SqlQuery
-    @Nullable T retrieveByName(@NotNull String name);
+    @Nullable T selectByName(@NotNull String name);
 
     @SqlUpdate("deleteByName")
     void delete(@NotNull String name);

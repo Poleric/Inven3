@@ -11,10 +11,10 @@ import java.util.List;
 @RegisterBeanMapper(Stock.class)
 public interface StockDao extends Dao<Stock> {
     @SqlQuery
-    List<Stock> retrieveByItemId(int id);
+    List<Stock> selectByItemId(int id);
 
     @SqlQuery
-    List<Stock> retrieveBySupplierId(int id);
+    List<Stock> selectBySupplierId(int id);
 
     @SqlUpdate
     void increaseStock(int id, int quantity);
