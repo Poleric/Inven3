@@ -75,7 +75,8 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
     @Order(0)
     @MethodSource("getData")
     public void testInsert(T data) {
-        dao.insert(data);
+        T result = dao.insert(data);
+        assertNotNull(result.getId());
     }
 
     @Test
