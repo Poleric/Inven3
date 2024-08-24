@@ -12,14 +12,23 @@ public class DataManagement {
 
     private static void addData(String item) {
 
+        if (true) {
+            System.out.println(item + " added.\n");
+        }
     }
 
     private static void removeData(String item) {
 
+        if (true) {
+            System.out.println(item + " removed.\n");
+        }
     }
 
     private static void updateData(String item) {
 
+        if (true) {
+            System.out.println(item + " updated.\n");
+        }
     }
 
     private static void viewData() {
@@ -33,13 +42,18 @@ public class DataManagement {
     }
 
     private static void filterData() {
-
+        System.out.print("idk how to do this?");
     }
 
     private static void searchData() {
         System.out.print("Search Item: ");
         String item = scanner.nextLine();
         searchData(item);
+    }
 
+    private static void updateData() {
+        System.out.print("Update item: ");
+        String item = scanner.nextLine();
+        updateData(item);
     }
 }
