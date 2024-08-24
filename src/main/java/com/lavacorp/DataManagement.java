@@ -45,15 +45,29 @@ public class DataManagement {
         System.out.print("idk how to do this?");
     }
 
-    private static void searchData() {
-        System.out.print("Search Item: ");
+    // UIs
+
+    private static void addData() {
+        System.out.print("Add item: ");
         String item = scanner.nextLine();
-        searchData(item);
+        addData(item);
+    }
+
+    private static void removeData() {
+        System.out.print("Remove item: ");
+        String item = scanner.nextLine();
+        removeData(item);
     }
 
     private static void updateData() {
         System.out.print("Update item: ");
         String item = scanner.nextLine();
         updateData(item);
+    }
+
+    private static void searchData() {
+        System.out.print("Search Item: ");
+        String item = scanner.nextLine();
+        searchData(item);
     }
 }
