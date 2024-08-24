@@ -4,6 +4,7 @@ import com.lavacorp.db.Database;
 import com.lavacorp.db.dao.UserDao;
 import com.lavacorp.models.User;
 import com.lavacorp.models.UserType;
+import org.springframework.security.core.parameters.P;
 
 import java.util.Scanner;
 
@@ -22,12 +23,18 @@ public class DataManagement {
         if (true) {
             System.out.println(item + " removed.\n");
         }
+        else {
+            System.out.println(item + " not found. Please try again.\n");
+        }
     }
 
     private static void updateData(String item) {
 
         if (true) {
             System.out.println(item + " updated.\n");
+        }
+        else {
+            System.out.println(item + " not found. Please try again.\n");
         }
     }
 
