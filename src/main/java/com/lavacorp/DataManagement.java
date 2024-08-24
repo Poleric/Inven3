@@ -10,10 +10,7 @@ import java.util.Scanner;
 public class DataManagement {
     private static final Scanner scanner =  new Scanner(System.in);
 
-    private static void addData() {
-        System.out.print("Insert Item Name: ");
-        String name = scanner.nextLine();
-
+    private static void addData(String item) {
 
     }
 
@@ -31,14 +28,13 @@ public class DataManagement {
 
     }
 
-    private static void searchData() {
-        System.out.print("Search: ");
-        String search = scanner.nextLine();
-
+    private static void searchData(String item) {
 
     }
 
     private static void filterData() {
 
     }
+
+    
 }
