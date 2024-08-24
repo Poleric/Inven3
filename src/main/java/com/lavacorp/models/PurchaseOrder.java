@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.jdbi.v3.core.mapper.Nested;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.Map;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseOrder extends DatabaseObj {
-    Supplier supplier;
+    @Nested("supplier") Supplier supplier;
     LocalDateTime purchaseDate;
     @Nullable LocalDateTime targetDate;
     @Nullable LocalDateTime arrivedDate;
