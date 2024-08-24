@@ -3,6 +3,7 @@ package com.lavacorp;
 import com.lavacorp.db.Database;
 import com.lavacorp.db.dao.UserDao;
 import com.lavacorp.models.User;
+import com.lavacorp.models.UserType;
 import com.lavacorp.models.generic.Login;
 
 import java.util.Scanner;
@@ -57,7 +58,7 @@ public class LoginUI {
         User loggedInUser = Login.login(username, password);
         if (loggedInUser != null) {
             System.out.println("Login successful!");
-            if (loggedInUser.isAdmin()) {
+            if (loggedInUser.getUserType() == UserType.ADMIN) {
                 System.out.println("Logged in as admin user.");
                 displayAdminMenu(loggedInUser);
             } else {
@@ -74,9 +75,9 @@ public class LoginUI {
         System.out.print("Enter new password: ");
         String password = scanner.nextLine();
         System.out.print("Is admin? (true/false): ");
-        boolean isAdmin = Boolean.parseBoolean(scanner.nextLine());
+        UserType userType = Boolean.parseBoolean(scanner.nextLine()) ? UserType.ADMIN : UserType.STAFF;
 
-        Login.register(username, password, isAdmin);
+        Login.register(username, password, userType);
         System.out.println("User registered successfully!");
     }
 
@@ -106,9 +107,7 @@ public class LoginUI {
         UserDao dao = Database.getJdbi().onDemand(UserDao.class);
 
         for (User user : dao.selectAll()) {
-            System.out.println("Username: " + user.getName() + ", Admin: " + user.isAdmin());
+            System.out.println("Username: " + user.getName() + ", Admin: " + (user.getUserType() == UserType.ADMIN));
         }
     }
-
-
 }

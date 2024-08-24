@@ -1,6 +1,7 @@
 package com.lavacorp.models.generic;
 
 import com.lavacorp.db.Database;
+import com.lavacorp.models.UserType;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 import org.jdbi.v3.core.Handle;
@@ -8,17 +9,15 @@ import com.lavacorp.db.dao.UserDao;
 import com.lavacorp.models.User;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 
 @UtilityClass
 @Log4j2
 public class Login {
-    public void register(String name, String password, boolean isAdmin) {
+    public void register(String name, String password, UserType userType) {
         User user = User.builder()
                 .name(name)
                 .password(password)
-                .isAdmin(isAdmin)
+                .userType(userType)
                 .build();
 
         try (Handle handle = Database.getJdbi().open()) {
