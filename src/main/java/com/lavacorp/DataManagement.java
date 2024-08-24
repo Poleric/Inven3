@@ -11,7 +11,10 @@ public class DataManagement {
     private static final Scanner scanner =  new Scanner(System.in);
 
     private static void addData() {
-        System.out.println("Insert : ");
+        System.out.print("Insert Item Name: ");
+        String name = scanner.nextLine();
+
+
     }
 
     private static void removeData() {
