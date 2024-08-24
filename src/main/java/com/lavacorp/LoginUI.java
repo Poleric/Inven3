@@ -4,7 +4,6 @@ import com.lavacorp.db.Database;
 import com.lavacorp.db.dao.UserDao;
 import com.lavacorp.models.User;
 import com.lavacorp.models.UserType;
-import com.lavacorp.models.generic.Login;
 
 import java.util.Scanner;
 

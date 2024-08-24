@@ -1,4 +1,4 @@
-package com.lavacorp.models.generic;
+package com.lavacorp;
 
 import com.lavacorp.db.Database;
 import com.lavacorp.models.UserType;
