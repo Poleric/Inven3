@@ -28,7 +28,13 @@ public class DataManagement {
     }
 
     private static void removeSupplier() {
+        System.out.print("Enter supplier's name: ");
+        String name = scanner.nextLine();
 
+        SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
+        dao.delete(name);
+
+        System.out.println("\nSupplier deleted successfully.\n");
     }
 
     private static void updateSupplier() {
