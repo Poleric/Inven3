@@ -29,12 +29,17 @@ public class DataManagement {
     }
 
     private static void searchData(String item) {
-
+        System.out.print("Something will come out here");
     }
 
     private static void filterData() {
 
     }
 
-    
+    private static void searchData() {
+        System.out.print("Search Item: ");
+        String item = scanner.nextLine();
+        searchData(item);
+
+    }
 }
