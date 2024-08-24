@@ -1,5 +1,6 @@
 SELECT
     id,
     name,
-    hashed_password
+    hashed_password,
+    user_type
 FROM User

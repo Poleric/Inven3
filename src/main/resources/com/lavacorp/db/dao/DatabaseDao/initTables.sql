@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS PurchaseOrder (
 CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
     purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id),
     stock_id          INTEGER NOT NULL REFERENCES Stock (id),
-    order_quantity          INTEGER NOT NULL,
+    order_quantity    INTEGER NOT NULL,
     PRIMARY KEY (purchase_order_id, stock_id)
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS SalesOrder (
 CREATE TABLE IF NOT EXISTS SalesOrderLine (
     sales_order_id INTEGER NOT NULL REFERENCES SalesOrder (id),
     stock_id       INTEGER NOT NULL REFERENCES Stock (id),
-    order_quantity       INTEGER NOT NULL,
+    order_quantity INTEGER NOT NULL,
     PRIMARY KEY (sales_order_id, stock_id)
 );
 
@@ -113,7 +113,8 @@ CREATE TABLE IF NOT EXISTS LocationTag (
 CREATE TABLE IF NOT EXISTS User (
     id              INTEGER PRIMARY KEY,
     name            TEXT UNIQUE NOT NULL,
-    hashed_password TEXT        NOT NULL
+    hashed_password TEXT        NOT NULL,
+    user_type       TEXT        NOT NULL
 );
 
 CREATE TRIGGER IF NOT EXISTS updateItemLastUpdate

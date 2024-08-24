@@ -1,3 +1,3 @@
-INSERT INTO User (name, hashed_password)
-VALUES (:name, :hashedPassword)
+INSERT INTO User (name, hashed_password, user_type)
+VALUES (:name, :hashedPassword, :userType)
 RETURNING *

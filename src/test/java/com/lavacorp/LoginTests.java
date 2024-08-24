@@ -1,6 +1,7 @@
 package com.lavacorp;
 
 import com.lavacorp.db.dao.DatabaseExtension;
+import com.lavacorp.models.UserType;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,37 +22,37 @@ import java.util.stream.Stream;
 public class LoginTests {
     public Stream<Arguments> getUsersData() {
         return Stream.of(
-                Arguments.of("Hong jun", "minami"),
-                Arguments.of("Mingy", "SHIKANOKONOKOKOSHITANTAN")
+                Arguments.of("Hong jun", "minami", UserType.STAFF),
+                Arguments.of("Mingy", "SHIKANOKONOKOKOSHITANTAN", UserType.ADMIN)
         );
     }
 
     @ParameterizedTest
     @Order(0)
     @MethodSource("getUsersData")
-    public void testRegister(String username, String password) {
-        Login.register(username, password);
+    public void testRegister(String username, String password, UserType userType) {
+        Login.register(username, password, userType);
     }
 
     @ParameterizedTest
     @Order(2)
     @MethodSource("getUsersData")
-    public void testRepeatRegister(String username, String password) {
-        UnableToExecuteStatementException exc = assertThrows(UnableToExecuteStatementException.class, () -> Login.register(username, password));
+    public void testRepeatRegister(String username, String password, UserType userType) {
+        UnableToExecuteStatementException exc = assertThrows(UnableToExecuteStatementException.class, () -> Login.register(username, password, userType));
         assertTrue(exc.getMessage().contains("[SQLITE_CONSTRAINT_UNIQUE]"));
     }
 
     @ParameterizedTest
     @Order(1)
     @MethodSource("getUsersData")
-    public void testLogin(String username, String password) {
+    public void testLogin(String username, String password, @SuppressWarnings("unused") UserType userType) {
         assertNotNull(Login.login(username, password));
     }
 
     @ParameterizedTest
     @Order(1)
     @MethodSource("getUsersData")
-    public void testInvalidLogin(String username, String password) {
+    public void testInvalidLogin(String username, String password, @SuppressWarnings("unused") UserType userType) {
         assertNull(Login.login(username, password + " "));
     }
 }
