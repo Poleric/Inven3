@@ -38,6 +38,52 @@ public class DataManagement {
     }
 
     private static void updateSupplier() {
+        System.out.print("Enter supplier's ID: ");
+        Supplier supplier = SupplierDao.selectById(scanner.nextInt());
+
+        System.out.println("Selected supplier: " + supplier.getName());
+        System.out.println("1. Update Name");
+        System.out.println("2. Update Address");
+        System.out.println("3. Update Phone Number");
+        System.out.println("4. Update Email");
+        System.out.println("5. Exit");
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                System.out.println("Current Supplier's Name: " + supplier.getName());
+                System.out.print("Enter new Supplier's Name: ");
+                supplier.setName(scanner.nextLine());
+                break;
+            case 2:
+                System.out.println("Current Supplier's Address: " + supplier.getAddress());
+                System.out.print("Enter new Supplier's Address: ");
+                supplier.setAddress(scanner.nextLine());
+                break;
+            case 3:
+                System.out.println("Current Supplier's Phone Number: " + supplier.getPhoneNumber());
+                System.out.print("Enter new Supplier's Phone Number: ");
+                supplier.setPhoneNumber(scanner.nextLine());
+                break;
+            case 4:
+                System.out.println("Current Supplier's Email: " + supplier.getEmail());
+                System.out.print("Enter new Supplier's Email: ");
+                supplier.setEmail(scanner.nextLine());
+                break;
+            case 5:
+                return;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
+
+        SupplierDao.update(supplier);
+
+    }
+
+    private static void updateChoice() {
+
 
     }
 
