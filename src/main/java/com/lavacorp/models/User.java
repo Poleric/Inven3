@@ -16,7 +16,7 @@ public class User extends NamedDatabaseObj {
     private String hashedPassword;
     private boolean isAdmin;
 
-    public static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(15);
+    public static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
     public boolean comparePassword(String rawPassword) {
         return passwordEncoder.matches(rawPassword, hashedPassword);
