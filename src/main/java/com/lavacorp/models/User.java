@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EqualsAndHashCode(callSuper = true)
 public class User extends NamedDatabaseObj {
     private String hashedPassword;
+    private boolean isAdmin;
 
     public static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

@@ -6,4 +6,5 @@ import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 
 @RegisterBeanMapper(User.class)
 public interface UserDao extends DaoNamed<User> {
+
 }
