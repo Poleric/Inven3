@@ -17,15 +17,17 @@ public class DataManagement {
 
     }
 
-    private static void removeData() {
+    private static void removeData(String item) {
 
     }
 
-    private static void updateData() {
+    private static void updateData(String item) {
 
     }
 
     private static void viewData() {
+        System.out.print("something ig");
+
 
     }
 
