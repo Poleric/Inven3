@@ -13,6 +13,7 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Database {
     @Getter private static final Database instance = new Database();
+
     private Jdbi jdbi = null;
 
     public void connect(String filepath) {
@@ -27,7 +28,6 @@ public class Database {
     public static Jdbi getJdbi() {
         if (instance.jdbi == null)
             throw new IllegalStateException("Database not connected.");
-
         return instance.jdbi;
     }
 }
