@@ -1,80 +1,49 @@
 package com.lavacorp;
 
 import com.lavacorp.db.Database;
-import com.lavacorp.db.dao.UserDao;
-import com.lavacorp.models.User;
-import com.lavacorp.models.UserType;
-import org.springframework.security.core.parameters.P;
+import com.lavacorp.db.dao.SupplierDao;
+import com.lavacorp.models.Supplier;
 
 import java.util.Scanner;
 
 public class DataManagement {
     private static final Scanner scanner =  new Scanner(System.in);
 
-    private static void addData(String item) {
+    public static void addSupplier() {
+        Supplier supplier = new Supplier();
 
-        if (true) {
-            System.out.println(item + " added.\n");
-        }
+        System.out.print("Enter supplier's name: ");
+        supplier.setName(scanner.nextLine());
+        System.out.print("Enter supplier's address: ");
+        supplier.setAddress(scanner.nextLine());
+        System.out.print("Enter supplier's phone number: ");
+        supplier.setPhoneNumber(scanner.nextLine());
+        System.out.print("Enter supplier's email: ");
+        supplier.setEmail(scanner.nextLine());
+
+        SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
+        dao.insert(supplier);
+
+        System.out.println("\nSupplier added successfully.\n");
     }
 
-    private static void removeData(String item) {
+    private static void removeSupplier() {
 
-        if (true) {
-            System.out.println(item + " removed.\n");
-        }
-        else {
-            System.out.println(item + " not found. Please try again.\n");
-        }
     }
 
-    private static void updateData(String item) {
+    private static void updateSupplier() {
 
-        if (true) {
-            System.out.println(item + " updated.\n");
-        }
-        else {
-            System.out.println(item + " not found. Please try again.\n");
-        }
     }
 
     private static void viewData() {
-        System.out.print("something ig");
-
 
     }
 
-    private static void searchData(String item) {
+    private static void searchData() {
         System.out.print("Something will come out here");
     }
 
     private static void filterData() {
         System.out.print("idk how to do this?");
-    }
-
-    // UIs
-
-    private static void addData() {
-        System.out.print("Add item: ");
-        String item = scanner.nextLine();
-        addData(item);
-    }
-
-    private static void removeData() {
-        System.out.print("Remove item: ");
-        String item = scanner.nextLine();
-        removeData(item);
-    }
-
-    private static void updateData() {
-        System.out.print("Update item: ");
-        String item = scanner.nextLine();
-        updateData(item);
-    }
-
-    private static void searchData() {
-        System.out.print("Search Item: ");
-        String item = scanner.nextLine();
-        searchData(item);
     }
 }
