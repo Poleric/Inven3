@@ -12,7 +12,7 @@ import org.jdbi.v3.core.Handle;
 public class InventoryManagementSystem {
     public static void main(String[] args) {
         Database.getInstance().connect("test.db");
-
+        LoginUI.DisplayUI();
         // Insert data
 //        Supplier[] DATA = {
 //                Supplier.builder()
@@ -34,7 +34,8 @@ public class InventoryManagementSystem {
 //            dao.insert(supplier);
 //        }
 
-        DataManagement.viewSupplier();
+//        DataManagement.viewSupplier();
+
     }
 
 }

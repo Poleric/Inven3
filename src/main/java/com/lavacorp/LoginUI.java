@@ -23,23 +23,26 @@ public class LoginUI {
                     register();
                     break;
                 case 3:
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting the program...");
                     scanner.close();
                     return;
                 default:
-                    System.out.println("Invalid option. Please try again.");
+                    System.out.println("You are enter Invalid Number, Please try again.");
             }
         }
     }
-
+    //login menu
     private static void displayMenu() {
-        System.out.println("\n===== Login System =====");
+        System.out.println("\n================");
+        System.out.println("+ Login System +");
+        System.out.println("================");
         System.out.println("1. Login");
         System.out.println("2. Register");
         System.out.println("3. Exit");
-        System.out.print("Enter your choice: ");
+        System.out.print("\nEnter your choice: ");
     }
 
+    //get input and turn to int
     private static int getChoice() {
         try {
             return Integer.parseInt(scanner.nextLine());
@@ -82,10 +85,12 @@ public class LoginUI {
 
     private static void displayAdminMenu(User adminUser) {
         while (true) {
-            System.out.println("\n===== Admin Menu =====");
+            System.out.println("\n================");
+            System.out.println("+ Admin Menu +");
+            System.out.println("================");
             System.out.println("1. List all users");
             System.out.println("2. Logout");
-            System.out.print("Enter your choice: ");
+            System.out.print("\nEnter your choice: ");
 
             int choice = getChoice();
             switch (choice) {
