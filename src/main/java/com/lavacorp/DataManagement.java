@@ -44,8 +44,9 @@ public class DataManagement {
         Supplier supplier = dao.selectById(id);
 
         int choice;
-        int update = 0;
+        int update;
         do {
+            update = 0;
             System.out.println("Selected supplier: " + supplier.getName());
             System.out.println("1. Update Name");
             System.out.println("2. Update Address");
@@ -86,7 +87,7 @@ public class DataManagement {
                     update++;
                     break;
                 case 5:
-                    return;
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.\n");
             }
