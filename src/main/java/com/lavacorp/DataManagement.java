@@ -27,7 +27,7 @@ public class DataManagement {
         System.out.println("\nSupplier added successfully.\n");
     }
 
-    private static void removeSupplier() {
+    public static void removeSupplier() {
         System.out.print("Enter supplier's name: ");
         String name = scanner.nextLine();
 
@@ -37,7 +37,7 @@ public class DataManagement {
         System.out.println("\nSupplier deleted successfully.\n");
     }
 
-    private static void updateSupplier() {
+    public static void updateSupplier() {
         SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
         System.out.print("Enter supplier's ID: ");
         int id = scanner.nextInt();
@@ -115,11 +115,11 @@ public class DataManagement {
         }
     }
 
-    private static void searchData() {
+    public static void searchSupplier() {
         System.out.print("Something will come out here");
     }
 
-    private static void filterData() {
+    public static void filterSupplier() {
         System.out.print("idk how to do this?");
     }
 }
