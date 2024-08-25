@@ -44,6 +44,7 @@ public class DataManagement {
         Supplier supplier = dao.selectById(id);
 
         int choice;
+        int update = 0;
         do {
             System.out.println("Selected supplier: " + supplier.getName());
             System.out.println("1. Update Name");
@@ -54,46 +55,49 @@ public class DataManagement {
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
             scanner.nextLine();
-            updateUI(id, choice);
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Current Supplier's Name: " + supplier.getName());
+                    System.out.print("Enter new Supplier's Name: ");
+                    supplier.setName(scanner.nextLine());
+                    System.out.println();
+                    update++;
+                    break;
+                case 2:
+                    System.out.println("Current Supplier's Address: " + supplier.getAddress());
+                    System.out.print("Enter new Supplier's Address: ");
+                    supplier.setAddress(scanner.nextLine());
+                    System.out.println();
+                    update++;
+                    break;
+                case 3:
+                    System.out.println("Current Supplier's Phone Number: " + supplier.getPhoneNumber());
+                    System.out.print("Enter new Supplier's Phone Number: ");
+                    supplier.setPhoneNumber(scanner.nextLine());
+                    System.out.println();
+                    update++;
+                    break;
+                case 4:
+                    System.out.println("Current Supplier's Email: " + supplier.getEmail());
+                    System.out.print("Enter new Supplier's Email: ");
+                    supplier.setEmail(scanner.nextLine());
+                    System.out.println();
+                    update++;
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.\n");
+            }
         } while (choice != 5);
 
-
-        dao.update(supplier);
-
-    }
-
-    private static void updateUI(int id, int choice) {
-        SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
-        Supplier supplier = dao.selectById(id);
-        switch (choice) {
-            case 1:
-                System.out.println("Current Supplier's Name: " + supplier.getName());
-                System.out.print("Enter new Supplier's Name: ");
-                supplier.setName(scanner.nextLine());
-                System.out.println();
-                break;
-            case 2:
-                System.out.println("Current Supplier's Address: " + supplier.getAddress());
-                System.out.print("Enter new Supplier's Address: ");
-                supplier.setAddress(scanner.nextLine());
-                System.out.println();
-                break;
-            case 3:
-                System.out.println("Current Supplier's Phone Number: " + supplier.getPhoneNumber());
-                System.out.print("Enter new Supplier's Phone Number: ");
-                supplier.setPhoneNumber(scanner.nextLine());
-                System.out.println();
-                break;
-            case 4:
-                System.out.println("Current Supplier's Email: " + supplier.getEmail());
-                System.out.print("Enter new Supplier's Email: ");
-                supplier.setEmail(scanner.nextLine());
-                System.out.println();
-                break;
-            case 5:
-                return;
-            default:
-                System.out.println("Invalid choice. Please try again.\n");
+        if (update > 0) {
+            dao.update(supplier);
+            System.out.println("\nSupplier updated successfully.\n");
+        }
+        else {
+            System.out.println("Exiting...\n");
         }
     }
 
