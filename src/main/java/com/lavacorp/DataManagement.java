@@ -116,7 +116,20 @@ public class DataManagement {
     }
 
     public static void searchSupplier() {
-        System.out.print("Something will come out here");
+        SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
+        System.out.print("Search supplier name: ");
+        String name = scanner.nextLine();
+
+        System.out.printf("%-13s %-18s %-32s %-17s %-25s\n",
+                "Supplier ID", "Supplier Name", "Address", "Phone Number", "Email");
+        System.out.println("-".repeat(106));
+
+        for (Supplier supplier : dao.selectAll()) {
+            dao.selectByName(name);
+            System.out.printf("%-13d %-18s %-32s %-17s %-25s\n",
+                    supplier.getId(), supplier.getName(), supplier.getAddress(),
+                    supplier.getPhoneNumber(), supplier.getEmail());
+        }
     }
 
     public static void filterSupplier() {
