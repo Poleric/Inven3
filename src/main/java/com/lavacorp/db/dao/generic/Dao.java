@@ -27,5 +27,5 @@ public interface Dao<T extends DatabaseObj> {
     void update(@BindBean T obj);
 
     @SqlUpdate("deleteById")
-    void delete(int id);
+    int delete(int id);
 }

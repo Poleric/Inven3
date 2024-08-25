@@ -11,5 +11,5 @@ public interface DaoNamed<T extends DatabaseObj> extends Dao<T> {
     @Nullable T selectByName(@NotNull String name);
 
     @SqlUpdate("deleteByName")
-    void delete(@NotNull String name);
+    int delete(@NotNull String name);
 }

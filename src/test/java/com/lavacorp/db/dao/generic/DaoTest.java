@@ -122,9 +122,18 @@ abstract public class DaoTest<T extends DatabaseObj, K extends Dao<T>> {
         Integer id = expected.getId();
         assertNotNull(id);
 
-        dao.delete(id);
+        int ret = dao.delete(id);
         assertNull(dao.selectById(id));
+        assertEquals(1, ret);
 
         handle.rollback();
     }
+
+    @Test
+    @Order(4)
+    public void testDeleteInvalid() {
+        int ret = dao.delete(0);
+        assertEquals(0, ret);
+    }
+
 }

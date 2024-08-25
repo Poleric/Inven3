@@ -2,6 +2,7 @@ package com.lavacorp.db.dao.generic;
 
 import com.lavacorp.models.generic.NamedDatabaseObj;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -30,9 +31,17 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
     void testDeleteByName(T expected) {
         String name = expected.getName();
 
-        dao.delete(name);
+        int ret = dao.delete(name);
         assertNull(dao.selectByName(name));
+        assertEquals(1, ret);
 
         handle.rollback();
+    }
+
+    @Order(3)
+    @Test
+    void testDeleteInvalidByName() {
+        int ret = dao.delete("");
+        assertEquals(0, ret);
     }
 }
