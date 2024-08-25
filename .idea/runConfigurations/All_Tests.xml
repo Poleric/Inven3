@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="All Tests" type="JUnit" factoryName="JUnit">
-    <module name="inventory-system" />
+    <module name="InventoryManagementSystem" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="ALTERNATIVE_JRE_PATH" value="openjdk-22" />
     <option name="PACKAGE_NAME" value="com.lavacorp" />

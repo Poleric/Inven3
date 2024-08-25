@@ -12,7 +12,7 @@ public class LoginUI {
 
     public static void DisplayUI() {
         while (true) {
-            displayMenu();
+            loginMenu();
             int choice = getChoice();
 
             switch (choice) {
@@ -20,29 +20,26 @@ public class LoginUI {
                     login();
                     break;
                 case 2:
-                    register();
-                    break;
-                case 3:
                     System.out.println("Exiting the program...");
                     scanner.close();
                     return;
                 default:
-                    System.out.println("You are enter Invalid Number, Please try again.");
+                    System.out.println("Invalid option! Please try again.");
             }
         }
     }
-    //login menu
-    private static void displayMenu() {
+
+    // Login menu
+    private static void loginMenu() {
         System.out.println("\n================");
         System.out.println("+ Login System +");
         System.out.println("================");
         System.out.println("1. Login");
-        System.out.println("2. Register");
-        System.out.println("3. Exit");
-        System.out.print("\nEnter your choice: ");
+        System.out.println("2. Exit");
+        System.out.print("\nEnter your choice: \n");
     }
 
-    //get input and turn to int
+    // Get input and convert to int
     private static int getChoice() {
         try {
             return Integer.parseInt(scanner.nextLine());
@@ -59,10 +56,10 @@ public class LoginUI {
 
         User loggedInUser = Login.login(username, password);
         if (loggedInUser != null) {
-            System.out.println("Login successful!");
+            System.out.println("\nLogin successful!");
             if (loggedInUser.getUserType() == UserType.ADMIN) {
                 System.out.println("Logged in as admin user.");
-                displayAdminMenu(loggedInUser);
+                adminMenu(loggedInUser);
             } else {
                 System.out.println("Welcome, " + loggedInUser.getName() + "!");
             }
@@ -71,7 +68,33 @@ public class LoginUI {
         }
     }
 
-    private static void register() {
+    private static void adminMenu(User adminUser) {
+        while (true) {
+            System.out.println("\n================");
+            System.out.println("+ Admin Menu +");
+            System.out.println("================");
+            System.out.println("1. Create a new user account");
+            System.out.println("2. List all users");
+            System.out.println("3. Logout");
+            System.out.print("\nEnter your choice: ");
+
+            int choice = getChoice();
+            switch (choice) {
+                case 1:
+                    registerNewUser();
+                    break;
+                case 2:
+                    listAllUsers();
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Invalid option! Please try again.");
+            }
+        }
+    }
+
+    private static void registerNewUser() {
         System.out.print("Enter new username: ");
         String username = scanner.nextLine();
         System.out.print("Enter new password: ");
@@ -83,29 +106,7 @@ public class LoginUI {
         System.out.println("User registered successfully!");
     }
 
-    private static void displayAdminMenu(User adminUser) {
-        while (true) {
-            System.out.println("\n================");
-            System.out.println("+ Admin Menu +");
-            System.out.println("================");
-            System.out.println("1. List all users");
-            System.out.println("2. Logout");
-            System.out.print("\nEnter your choice: ");
-
-            int choice = getChoice();
-            switch (choice) {
-                case 1:
-                    listAllUsers();
-                    break;
-                case 2:
-                    return;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-            }
-        }
-    }
-
-    public static void listAllUsers() {
+    private static void listAllUsers() {
         System.out.println("\nAll users:");
 
         UserDao dao = Database.getJdbi().onDemand(UserDao.class);

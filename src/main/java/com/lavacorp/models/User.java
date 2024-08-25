@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class User extends NamedDatabaseObj {
     private String hashedPassword;
     private UserType userType;
+    private boolean isAdmin;
+
 
     public static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
@@ -26,6 +28,11 @@ public class User extends NamedDatabaseObj {
     public static abstract class UserBuilder<C extends User, B extends UserBuilder<C, B>> extends NamedDatabaseObj.NamedDatabaseObjBuilder<C, B> {
         public B password(String password) {
             this.hashedPassword = passwordEncoder.encode(password);
+            return this.self();
+        }
+
+        public B isAdmin(boolean isAdmin) { // 设置 isAdmin 字段的构建器方法
+            this.isAdmin = isAdmin;
             return this.self();
         }
     }
