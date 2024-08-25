@@ -38,30 +38,33 @@ public class DataManagement {
     }
 
     private static void updateSupplier() {
+        SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
         System.out.print("Enter supplier's ID: ");
         int id = scanner.nextInt();
-        Supplier supplier = Supplier.selectById(id);
+        Supplier supplier = dao.selectById(id);
 
         int choice;
         do {
-        System.out.println("Selected supplier: " + supplier.getName());
-        System.out.println("1. Update Name");
-        System.out.println("2. Update Address");
-        System.out.println("3. Update Phone Number");
-        System.out.println("4. Update Email");
-        System.out.println("5. Exit");
-        System.out.print("Enter your choice: ");
-        choice = scanner.nextInt();
-        scanner.nextLine();
-
+            System.out.println("Selected supplier: " + supplier.getName());
+            System.out.println("1. Update Name");
+            System.out.println("2. Update Address");
+            System.out.println("3. Update Phone Number");
+            System.out.println("4. Update Email");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
             updateUI(id, choice);
         } while (choice != 5);
-        Supplier.update(supplier);
+
+
+        dao.update(supplier);
 
     }
 
     private static void updateUI(int id, int choice) {
-        Supplier supplier = Supplier.selectById(id);
+        SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
+        Supplier supplier = dao.selectById(id);
         switch (choice) {
             case 1:
                 System.out.println("Current Supplier's Name: " + supplier.getName());
