@@ -32,7 +32,7 @@ public class DataManagement {
         String name = scanner.nextLine();
 
         SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
-        dao.delete(name);
+        dao.deleteByName(name);
 
         System.out.println("\nSupplier deleted successfully.\n");
     }

@@ -10,6 +10,6 @@ public interface DaoNamed<T extends DatabaseObj> extends Dao<T> {
     @SqlQuery
     @Nullable T selectByName(@NotNull String name);
 
-    @SqlUpdate("deleteByName")
-    int delete(@NotNull String name);
+    @SqlUpdate
+    int deleteByName(@NotNull String name);
 }

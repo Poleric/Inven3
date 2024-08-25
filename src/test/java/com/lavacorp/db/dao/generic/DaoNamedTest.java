@@ -17,7 +17,7 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
     @ParameterizedTest
     @Order(1)
     @MethodSource("getData")
-    void testRetrieveByIdByName(T expected) {
+    void testSelectByName(T expected) {
         String name = expected.getName();
 
         T actual = dao.selectByName(name);
@@ -31,7 +31,7 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
     void testDeleteByName(T expected) {
         String name = expected.getName();
 
-        int ret = dao.delete(name);
+        int ret = dao.deleteByName(name);
         assertNull(dao.selectByName(name));
         assertEquals(1, ret);
 
@@ -40,8 +40,8 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
 
     @Order(3)
     @Test
-    void testDeleteInvalidByName() {
-        int ret = dao.delete("");
+    void testDeleteByNameInvalid() {
+        int ret = dao.deleteByName("");
         assertEquals(0, ret);
     }
 }
