@@ -6,9 +6,14 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public interface DaoNamed<T extends DatabaseObj> extends Dao<T> {
     @SqlQuery
     @Nullable T selectByName(@NotNull String name);
+
+    @SqlQuery
+    List<T> selectByNameLike(@NotNull String name);
 
     @SqlUpdate
     int deleteByName(@NotNull String name);

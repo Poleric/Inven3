@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -23,6 +25,17 @@ abstract public class DaoNamedTest<T extends NamedDatabaseObj, K extends DaoName
         T actual = dao.selectByName(name);
 
         assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @Order(1)
+    @MethodSource("getData")
+    void testSelectByNameLike(T expected) {
+        String name = expected.getName();
+
+        List<T> actual = dao.selectByNameLike(name.toLowerCase());
+
+        assertEquals(expected, actual.getFirst());
     }
 
     @ParameterizedTest
