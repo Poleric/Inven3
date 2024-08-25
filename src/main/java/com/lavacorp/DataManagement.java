@@ -131,8 +131,4 @@ public class DataManagement {
                     supplier.getPhoneNumber(), supplier.getEmail());
         }
     }
-
-    public static void filterSupplier() {
-        System.out.print("idk how to do this?");
-    }
 }
