@@ -101,11 +101,6 @@ public class DataManagement {
         }
     }
 
-    private static void updateChoice() {
-
-
-    }
-
     private static void viewData() {
 
     }
