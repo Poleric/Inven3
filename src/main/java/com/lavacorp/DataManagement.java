@@ -104,11 +104,14 @@ public class DataManagement {
 
     private static void viewSupplier() {
         SupplierDao dao = Database.getJdbi().onDemand(SupplierDao.class);
-        System.out.printf("%-13s %-22s %-30s %-11s %-25s",
+        System.out.printf("%-13s %-22s %-30s %-11s %-25s\n",
                 "Supplier ID", "Supplier Name", "Address", "Phone Number", "Email");
+        System.out.println("-".repeat(105));
 
         for (Supplier supplier : dao.selectAll()) {
-
+            System.out.printf("%-13d %-22s %-30s %-11s %-25s\n",
+                    supplier.getId(), supplier.getName(), supplier.getAddress(),
+                    supplier.getPhoneNumber(), supplier.getEmail());
         }
     }
 
