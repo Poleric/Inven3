@@ -1,6 +1,7 @@
 package com.lavacorp.db.dao.generic;
 
 import com.lavacorp.models.generic.DatabaseObj;
+import com.lavacorp.models.generic.NamedDatabaseObj;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jetbrains.annotations.NotNull;
@@ -8,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface DaoNamed<T extends DatabaseObj> extends Dao<T> {
+public interface DaoNamed<T extends NamedDatabaseObj> extends Dao<T> {
     @SqlQuery
     @Nullable T selectByName(@NotNull String name);
 
