@@ -28,4 +28,18 @@ public interface Dao<T extends DatabaseObj> {
 
     @SqlUpdate
     int deleteById(int id);
+
+    default T createIfNotExists(T obj) {
+        T actual = null;
+
+        if (obj.getId() != null) {
+            actual = selectById(obj.getId());
+        }
+
+        if (actual == null) {
+            actual = insert(obj);
+        }
+
+        return actual;
+    }
 }
