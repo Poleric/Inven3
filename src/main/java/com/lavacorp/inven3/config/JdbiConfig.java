@@ -6,7 +6,6 @@ import org.jdbi.v3.freemarker.FreemarkerEngine;
 import org.jdbi.v3.postgres.PostgresPlugin;
 import org.jdbi.v3.spring5.SpringConnectionFactory;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;

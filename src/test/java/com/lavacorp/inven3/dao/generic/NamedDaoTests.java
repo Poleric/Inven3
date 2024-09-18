@@ -9,7 +9,8 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public abstract class NamedDaoTests<T extends NamedEntity, K extends NamedDao<T>> extends DaoTests<T, K> {
 
