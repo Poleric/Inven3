@@ -4,6 +4,7 @@ SET
     description = :description,
     base_price = :basePrice,
     unit = :unit,
-    category_id = :category.id
+    category_id = :category.id,
+    min_stock = :minStock
 WHERE
     id = :id;

@@ -9,6 +9,7 @@
         Item.description as description,
         Item.base_price as base_price,
         Item.unit as unit,
+        Item.min_stock as min_stock,
 
         Category.id as category_id,
         Category.name as category_name,

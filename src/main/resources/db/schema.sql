@@ -18,9 +18,10 @@ CREATE TABLE IF NOT EXISTS Item (
     base_price      NUMERIC,
     unit            TEXT,
     category_id     INTEGER REFERENCES Category (id),
+    min_stock       INTEGER CHECK ( min_stock >= 0 ) DEFAULT 0,
 
-    created_at      TIMESTAMP DEFAULT NOW(),
-    last_updated_at TIMESTAMP DEFAULT NOW()
+    created_at      TIMESTAMP                        DEFAULT NOW(),
+    last_updated_at TIMESTAMP                        DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS Supplier (

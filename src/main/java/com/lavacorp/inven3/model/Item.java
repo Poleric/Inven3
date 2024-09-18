@@ -17,6 +17,7 @@ public class Item extends NamedEntity {
     @Nullable private Double basePrice;
     @Nullable private String unit;
     @Nullable @Nested("category") private Category category;
+    @Nullable private Integer minStock;
 
     @EqualsAndHashCode.Exclude @Nullable private Instant createdAt;
     @EqualsAndHashCode.Exclude @Nullable private Instant lastUpdatedAt;
