@@ -2,6 +2,7 @@ package com.lavacorp.inven3.config;
 
 import org.jdbi.v3.core.ConnectionFactory;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.Slf4JSqlLogger;
 import org.jdbi.v3.freemarker.FreemarkerEngine;
 import org.jdbi.v3.postgres.PostgresPlugin;
 import org.jdbi.v3.spring5.SpringConnectionFactory;
@@ -28,6 +29,7 @@ public class JdbiConfig {
         return Jdbi.create(cf)
                 .installPlugin(new SqlObjectPlugin())
                 .installPlugin(new PostgresPlugin())
+                .setSqlLogger(new Slf4JSqlLogger())
                 .setTemplateEngine(FreemarkerEngine.instance());
     }
 
