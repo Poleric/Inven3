@@ -1,0 +1,48 @@
+<div id="search-results">
+
+    <span th:text="|${currentRow} of ${totalRows}|">
+        1 of 1
+    </span>
+
+    <label>
+        <input class="form-control" type="number"
+               name="page" value=1 th:value="${currentPage}"
+               min="1" max=1 th:max="${totalPages}">
+    </label>
+    <label>
+        <input class="form-control" type="number"
+               name="pageSize" value=20 th:value="${pageSize}"
+               min="1">
+    </label>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Supplier Name</th>
+                <th>Address</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr th:if="${suppliers.isEmpty()}">
+                <td colspan="3"> No Suppliers </td>
+            </tr>
+
+            <tr th:each="supplier, iter : ${suppliers}">
+                <td><span th:text="${currentRow + iter.count - 1}"></span></td>
+                <td><span th:text="${supplier.getId()}">Id</span></td>
+                <td><span th:text="${supplier.getName()}">Supplier Name</span></td>
+                <td><span th:text="${supplier.getAddress()}">Address</span></td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
