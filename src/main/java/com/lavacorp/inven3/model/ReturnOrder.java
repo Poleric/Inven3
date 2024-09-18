@@ -1,19 +1,17 @@
 package com.lavacorp.inven3.model;
 
-import com.lavacorp.inven3.model.generic.Entity;
+import com.lavacorp.inven3.model.generic.Order;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.Nullable;
+
 
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ReturnOrder extends Entity {
-    SalesOrder salesOrder;
+public class ReturnOrder extends Order {
+    Order orderReturned;
     LocalDateTime returnDate;
-    OrderStatus status;
-    @Nullable String reference;
 }

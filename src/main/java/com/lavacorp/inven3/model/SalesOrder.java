@@ -1,6 +1,6 @@
 package com.lavacorp.inven3.model;
 
-import com.lavacorp.inven3.model.generic.Entity;
+import com.lavacorp.inven3.model.generic.Order;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -12,10 +12,9 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class SalesOrder extends Entity {
+public class SalesOrder extends Order {
     LocalDateTime salesDate;
     @Nullable LocalDateTime shipmentDate;
-    OrderStatus status;
-    @Nullable String reference;
+    @Nullable LocalDateTime arrivedDate;
     Map<Stock, Integer> stocksSold;
 }

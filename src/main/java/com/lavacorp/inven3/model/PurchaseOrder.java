@@ -1,6 +1,6 @@
 package com.lavacorp.inven3.model;
 
-import com.lavacorp.inven3.model.generic.Entity;
+import com.lavacorp.inven3.model.generic.Order;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,12 +13,10 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PurchaseOrder extends Entity {
+public class PurchaseOrder extends Order {
     @Nested("supplier") Supplier supplier;
     LocalDateTime purchaseDate;
     @Nullable LocalDateTime targetDate;
     @Nullable LocalDateTime arrivedDate;
-    OrderStatus status;
-    @Nullable String reference;
     Map<Stock, Integer> stocksPurchase;
 }
