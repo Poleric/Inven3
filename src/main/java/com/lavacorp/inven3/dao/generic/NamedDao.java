@@ -1,5 +1,6 @@
 package com.lavacorp.inven3.dao.generic;
 
+import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.model.generic.Entity;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.Define;
@@ -24,10 +25,10 @@ public interface NamedDao<T extends Entity> extends Dao<T> {
     List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define int page, @Define int pageSize);
 
    @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define String orderDirection);
+    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define String orderDirection, @Define int page, @Define int pageSize);
+    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 
     @SqlUpdate("delete")
     void deleteByName(@Bind @Define @NotNull String name);

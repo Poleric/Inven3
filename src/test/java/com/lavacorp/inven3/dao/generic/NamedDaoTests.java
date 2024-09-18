@@ -1,5 +1,6 @@
 package com.lavacorp.inven3.dao.generic;
 
+import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.model.generic.NamedEntity;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.junit.jupiter.api.Order;
@@ -22,7 +23,7 @@ public abstract class NamedDaoTests<T extends NamedEntity, K extends NamedDao<T>
     @Order(1)
     void testSelectAllOrderedName() {
         List<T> expected = getCachedData();
-        List<T> actual = dao.selectAll("name", "ASC");
+        List<T> actual = dao.selectAll("name", OrderDirection.ASC);
 
         assertEquals(expected.size(), actual.size());
         assertNotEquals(expected, actual);

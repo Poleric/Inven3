@@ -23,11 +23,11 @@ public interface SupplierDao extends NamedDao<Supplier> {
     int selectAllByItemId(@Bind @Define int itemId, @Define boolean count);
 
     @SqlQuery("select")
-    List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define String orderDirection);
+    List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
     List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
-    List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define String orderDirection, @Define int page, @Define int pageSize);
+    List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 }

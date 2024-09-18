@@ -2,6 +2,7 @@ package com.lavacorp.inven3.controller;
 
 import com.lavacorp.inven3.dao.LocationDao;
 import com.lavacorp.inven3.model.Location;
+import com.lavacorp.inven3.dao.OrderDirection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +27,12 @@ public class LocationController {
             @RequestParam(name = "query", defaultValue = "") String query,
             @RequestParam(name = "page", defaultValue = "1") int page,
             @RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
+            @RequestParam(name = "order", defaultValue = "name") String order,
+            @RequestParam(name = "orderDirection", defaultValue = "ASC") OrderDirection orderDirection,
             Model model) {
         int totalResults = locationDao.selectAllByNameLike(query, true);
 
-        List<Location> results = locationDao.selectAllByNameLike(query, "name", "DESC", page, pageSize);
+        List<Location> results = locationDao.selectAllByNameLike(query, order, orderDirection, page, pageSize);
 
         model.addAttribute("results", results);
         model.addAttribute("pageSize", pageSize);

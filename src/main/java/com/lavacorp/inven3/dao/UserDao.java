@@ -20,11 +20,11 @@ public interface UserDao extends NamedDao<User> {
     List<User> selectAllByRole(@Bind @Define @NotNull User.Role role);
 
     @SqlQuery("select")
-    List<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define String orderColumn, @Define String orderDirection);
+    List<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
     List<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
-    List<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define String orderColumn, @Define String orderDirection, @Define int page, @Define int pageSize);
+    List<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 }

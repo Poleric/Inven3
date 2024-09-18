@@ -23,13 +23,13 @@ public interface StockDao extends Dao<Stock> {
     int selectAllByItemId(@Bind @Define int itemId, @Define boolean count);
 
     @SqlQuery("select")
-    List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define String orderDirection);
+    List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
     List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
-    List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define String orderDirection, @Define int page, @Define int pageSize);
+    List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
     List<Stock> selectAllBySupplierId(@Bind @Define int supplierId);
@@ -38,13 +38,13 @@ public interface StockDao extends Dao<Stock> {
     int selectAllBySupplierId(@Bind @Define int supplierId, @Define boolean count);
 
     @SqlQuery("select")
-    List<Stock> selectAllBySupplierId(@Bind @Define int supplierId, @Define String orderColumn, @Define String orderDirection);
+    List<Stock> selectAllBySupplierId(@Bind @Define int supplierId, @Define String orderColumn, @Define OrderDirection orderDirection);
 
      @SqlQuery("select")
     List<Stock> selectAllBySupplierId(@Bind @Define int supplierId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
-    List<Stock> selectAllBySupplierId(@Bind @Define int supplierId, @Define String orderColumn, @Define String orderDirection, @Define int page, @Define int pageSize);
+    List<Stock> selectAllBySupplierId(@Bind @Define int supplierId, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 
     @SqlUpdate
     void increaseStock(int id, int quantity);
