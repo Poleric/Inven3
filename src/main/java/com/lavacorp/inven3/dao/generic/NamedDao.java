@@ -21,13 +21,13 @@ public interface NamedDao<T extends Entity> extends Dao<T> {
     int selectAllByNameLike(@Bind @Define String nameLike, @Define boolean count);
 
     @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String name, @Define int page, @Define int pageSize);
+    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define int page, @Define int pageSize);
 
    @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String name, @Define String orderColumn, @Define String orderDirection);
+    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define String orderDirection);
 
     @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String name, @Define String orderColumn, @Define String orderDirection, @Define int page, @Define int pageSize);
+    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define String orderDirection, @Define int page, @Define int pageSize);
 
     @SqlUpdate("delete")
     void deleteByName(@Bind @Define @NotNull String name);
