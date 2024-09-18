@@ -1,14 +1,15 @@
 package com.lavacorp.inven3.controller;
 
 import com.lavacorp.inven3.dao.SupplierDao;
+import com.lavacorp.inven3.model.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
+@Controller
 @RequestMapping("/supplier")
 public class SupplierController {
     SupplierDao supplierDao;
@@ -23,13 +24,23 @@ public class SupplierController {
         return "supplier/suppliers";
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public String searchSupplier(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "20") int pageSize,
+            @RequestParam(name="query", defaultValue = "") String query,
+            @RequestParam(name="page", defaultValue = "1") int page,
+            @RequestParam(name="pageSize", defaultValue = "20") int pageSize,
             Model model) {
+        int totalResults = supplierDao.selectAllByNameLike(query, true);
 
+        List<Supplier> results = supplierDao.selectAllByNameLike(query, "name", "DESC", page, pageSize);
 
-        return "supplier/suppliers_table";
+        model.addAttribute("suppliers", results);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalResults);
+        model.addAttribute("currentRow", (page - 1) * pageSize + 1);
+        model.addAttribute("totalRows", totalResults);
+
+        return "supplier/search";
     }
 }
