@@ -23,6 +23,9 @@ public interface NamedDao<T extends Entity> extends Dao<T> {
     @SqlQuery("select")
     List<T> selectAllByNameLike(@Bind @Define String name, @Define int page, @Define int pageSize);
 
+   @SqlQuery("select")
+    List<T> selectAllByNameLike(@Bind @Define String name, @Define String orderColumn, @Define String orderDirection);
+
     @SqlQuery("select")
     List<T> selectAllByNameLike(@Bind @Define String name, @Define String orderColumn, @Define String orderDirection, @Define int page, @Define int pageSize);
 

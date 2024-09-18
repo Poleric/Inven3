@@ -22,6 +22,9 @@ public interface ItemDao extends NamedDao<Item> {
     int selectAllBySupplierId(@Bind @Define int supplierId, @Define boolean count);
 
     @SqlQuery("select")
+    List<Item> selectAllBySupplierId(@Bind @Define int supplierId, @Define String orderColumn, @Define String orderDirection);
+
+    @SqlQuery("select")
     List<Item> selectAllBySupplierId(@Bind @Define int supplierId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
@@ -32,6 +35,9 @@ public interface ItemDao extends NamedDao<Item> {
 
     @SqlQuery("select")
     int selectAllByCategoryId(@Bind @Define int categoryId, @Define boolean count);
+
+    @SqlQuery("select")
+    List<Item> selectAllByCategoryId(@Bind @Define int categoryId, @Define String orderColumn, @Define String orderDirection);
 
     @SqlQuery("select")
     List<Item> selectAllByCategoryId(@Bind @Define int categoryId, @Define int page, @Define int pageSize);

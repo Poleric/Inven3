@@ -23,6 +23,9 @@ public interface SupplierDao extends NamedDao<Supplier> {
     int selectAllByItemId(@Bind @Define int itemId, @Define boolean count);
 
     @SqlQuery("select")
+    List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define String orderDirection);
+
+    @SqlQuery("select")
     List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")

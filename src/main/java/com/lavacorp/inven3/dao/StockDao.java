@@ -23,6 +23,9 @@ public interface StockDao extends Dao<Stock> {
     int selectAllByItemId(@Bind @Define int itemId, @Define boolean count);
 
     @SqlQuery("select")
+    List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define String orderDirection);
+
+    @SqlQuery("select")
     List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
@@ -35,6 +38,9 @@ public interface StockDao extends Dao<Stock> {
     int selectAllBySupplierId(@Bind @Define int supplierId, @Define boolean count);
 
     @SqlQuery("select")
+    List<Stock> selectAllBySupplierId(@Bind @Define int supplierId, @Define String orderColumn, @Define String orderDirection);
+
+     @SqlQuery("select")
     List<Stock> selectAllBySupplierId(@Bind @Define int supplierId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
