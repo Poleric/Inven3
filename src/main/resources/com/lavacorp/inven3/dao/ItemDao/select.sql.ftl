@@ -26,6 +26,10 @@ FROM Item
     LEFT JOIN ItemSupplier ON Item.id = ItemSupplier.item_id
 </#if>
 
+<#if stockLevel??>
+    RIGHT JOIN Stock ON Item.id = Stock.item_id
+</#if>
+
 <#if id?? || name?? || nameLike?? || supplierId?? || categoryId??>
     WHERE
     <#if id??>
@@ -38,6 +42,22 @@ FROM Item
         ItemSupplier.supplier_id = :supplierId
     <#elseif categoryId??>
         Category.id = :categoryId
+    </#if>
+</#if>
+
+<#if stockLevel??>
+    GROUP BY Item.id, Item.name, Item.description, Item.base_price, Item.unit, Item.min_stock, Category.id, Category.name, Category.description, Item.created_at, Item.last_updated_at
+    HAVING
+    <#if stockLevel.name() == "LOW">
+        count(*) < Item.min_stock
+    <#elseif stockLevel.name() == "BELOW">
+        count(*) < :stockValue
+    <#elseif stockLevel.name() == "BELOW_EQUAL">
+        count(*) <= :stockValue
+    <#elseif stockValue.name() == "ABOVE">
+        count(*) > :stockValue
+    <#elseif stockValue.name() == "ABOVE_EQUAL">
+        count(*) >= :stockValue
     </#if>
 </#if>
 
