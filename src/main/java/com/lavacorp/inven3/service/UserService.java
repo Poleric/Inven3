@@ -38,4 +38,16 @@ public class UserService implements UserDetailsService {
                 grantedAuthorities
         );
     }
+
+    public com.lavacorp.inven3.model.User createUser(String username, String password) {
+        com.lavacorp.inven3.model.User user = new com.lavacorp.inven3.model.User();
+        user.setName(username);
+        user.setHashedPassword(passwordEncoder.encode(password));
+
+        return userDao.insert(user);
+    }
+
+    public void deleteUser(int id) {
+        userDao.deleteById(id);
+    }
 }
