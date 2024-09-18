@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body}, supplier)}">
+
+<body>
+
+<label>
+    <input class="form-control" type="search"
+           name="query" placeholder="Begin Typing To Search Suppliers..."
+           th:hx-post="@{/search}"
+           hx-include="[name='page'], [name='page-size']"
+           hx-trigger="load, input changed delay:500ms, search, switchPage from:body"
+           hx-target="#search-results"
+           hx-indicator=".htmx-indicator">
+</label>
+<label>
+    <input class="form-control" type="number"
+           name="page-size" value="10">
+</label>
+
+<h3>
+    Search Contacts
+    <span class="htmx-indicator">
+    Searching...
+   </span>
+</h3>
+
+<div id="search-results">
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<div id="search-results">>
+
+    <input type="hidden" name="table-pages" th:value="${page}" th:max="${maxPage}">
+    <input type="hidden" name="table-rows" th:value="${pageSize}">
+
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>ID</th>
+                <th>Supplier Name</th>
+                <th>Address</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr th:if="${suppliers.empty}">
+                <td colspan="3"> No Suppliers </td>
+            </tr>
+
+            <tr th:each="supplier : ${suppliers}">
+                <td><span th:text="${supplier.getId()}">Id</span></td>
+                <td><span th:text="${supplier.getName()}">Supplier Name</span></td>
+                <td><span th:text="${supplier.getAddress()}">Address</span></td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
