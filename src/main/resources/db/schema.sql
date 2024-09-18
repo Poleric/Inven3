@@ -3,7 +3,7 @@ CREATE COLLATION IF NOT EXISTS english_ci (
     PROVIDER = 'icu',
     LOCALE = 'en-US@colStrength=secondary',
     DETERMINISTIC = FALSE
-);
+    );
 
 CREATE TABLE IF NOT EXISTS Category (
     id          SERIAL PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Category (
 
 CREATE TABLE IF NOT EXISTS Item (
     id              SERIAL PRIMARY KEY,
-    name            TEXT UNIQUE NOT NULL ,
+    name            TEXT UNIQUE NOT NULL,
     description     TEXT,
     base_price      NUMERIC,
     unit            TEXT,
@@ -52,11 +52,11 @@ CREATE TABLE IF NOT EXISTS Stock (
 
 CREATE TABLE IF NOT EXISTS PurchaseOrder (
     id            SERIAL PRIMARY KEY,
-    purchase_date TIMESTAMP DEFAULT NOW(),
+    status        TEXT    NOT NULL,
     supplier_id   INTEGER NOT NULL REFERENCES Supplier (id),
+    purchase_date TIMESTAMP DEFAULT NOW(),
     target_date   TIMESTAMP,
     arrived_date  TIMESTAMP,
-    status        TEXT    NOT NULL,
     reference     TEXT
 );
 
@@ -67,11 +67,20 @@ CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
     PRIMARY KEY (purchase_order_id, stock_id)
 );
 
+CREATE TABLE IF NOT EXISTS PurchaseOrderReturn (
+    id          SERIAL PRIMARY KEY,
+    status      TEXT    NOT NULL,
+    order_id    INTEGER NOT NULL REFERENCES PurchaseOrder (id),
+    return_date TIMESTAMP DEFAULT NOW(),
+    reference   TEXT
+);
+
 CREATE TABLE IF NOT EXISTS SalesOrder (
     id            SERIAL PRIMARY KEY,
-    sales_date    TIMESTAMP DEFAULT NOW(),
     status        TEXT NOT NULL,
+    sales_date    TIMESTAMP DEFAULT NOW(),
     shipment_date TIMESTAMP,
+    arrived_date  TIMESTAMP,
     reference     TEXT
 );
 
@@ -82,11 +91,11 @@ CREATE TABLE IF NOT EXISTS SalesOrderLine (
     PRIMARY KEY (sales_order_id, stock_id)
 );
 
-CREATE TABLE IF NOT EXISTS ReturnOrder (
+CREATE TABLE IF NOT EXISTS SalesOrderReturn (
     id          SERIAL PRIMARY KEY,
-    order_id    INTEGER NOT NULL REFERENCES SalesOrder (id),
-    return_date TIMESTAMP DEFAULT NOW(),
     status      TEXT    NOT NULL,
+    order_id    INTEGER NOT NULL REFERENCES PurchaseOrder (id),
+    return_date TIMESTAMP DEFAULT NOW(),
     reference   TEXT
 );
 
