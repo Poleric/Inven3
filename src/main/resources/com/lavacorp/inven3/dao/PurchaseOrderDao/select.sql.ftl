@@ -72,7 +72,7 @@ FROM PurchaseOrder PO
     <#elseif supplierId??>
         OrderSupplier.id = :orderSupplierId
     <#elseif stockId??>
-        Stock.id = :stockId
+        PO.id = (SELECT purchase_order_id FROM PurchaseOrderLine WHERE stock_id = :stockId)
     </#if>
 </#if>
 

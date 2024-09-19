@@ -63,7 +63,7 @@ FROM SalesOrder SO
     <#elseif itemId??>
         Item.id = :itemId
     <#elseif stockId??>
-        Stock.id = :stockId
+        SO.id =  (SELECT purchase_order_id FROM PurchaseOrderLine WHERE stock_id = :stockId)
     </#if>
 </#if>
 
