@@ -1,7 +1,8 @@
 <#include "common.ftl">
 
 <#if count?? && count?? == true>
-    SELECT count(*)
+    SELECT COUNT(*) FROM (
+        SELECT POR.id
 <#else>
     SELECT
         POR.id                     AS id,
@@ -77,6 +78,10 @@ FROM PurchaseOrderReturn POR
     <#elseif referenceOrderId??>
         PO.id = :referenceOrderId
     </#if>
+</#if>
+
+<#if count?? && count?? == true>
+GROUP BY POR.id)
 </#if>
 
 <#if orderColumn?? && orderDirection??>

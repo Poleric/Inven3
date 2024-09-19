@@ -1,7 +1,8 @@
 <#include "common.ftl">
 
 <#if count?? && count?? == true>
-    SELECT count(*)
+    SELECT COUNT(*) FROM (
+        SELECT SO.id
 <#else>
     SELECT
         SO.id                      AS id,
@@ -47,7 +48,7 @@
 </#if>
 
 FROM SalesOrder SO
-     LEFT JOIN SalesOrderLine POL ON SO.id = POL.sales_order_id
+        LEFT JOIN SalesOrderLine POL ON SO.id = POL.sales_order_id
      LEFT JOIN Stock ON POL.stock_id = Stock.id
      LEFT JOIN Item ON Stock.item_id = Item.id
      LEFT JOIN Category ItemCategory ON Item.category_id = ItemCategory.id
@@ -65,6 +66,10 @@ FROM SalesOrder SO
     <#elseif stockId??>
         SO.id =  (SELECT purchase_order_id FROM PurchaseOrderLine WHERE stock_id = :stockId)
     </#if>
+</#if>
+
+<#if count?? && count?? == true>
+GROUP BY SO.id)
 </#if>
 
 <#if orderColumn?? && orderDirection??>

@@ -1,7 +1,8 @@
 <#include "common.ftl">
 
 <#if count?? && count?? == true>
-    SELECT count(*)
+    SELECT COUNT(*) FROM (
+        SELECT PO.id
 <#else>
     SELECT
         PO.id                      AS id,
@@ -74,6 +75,10 @@ FROM PurchaseOrder PO
     <#elseif stockId??>
         PO.id = (SELECT purchase_order_id FROM PurchaseOrderLine WHERE stock_id = :stockId)
     </#if>
+</#if>
+
+<#if count?? && count?? == true>
+GROUP BY SO.id)
 </#if>
 
 <#if orderColumn?? && orderDirection??>
