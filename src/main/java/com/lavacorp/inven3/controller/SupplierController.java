@@ -43,7 +43,7 @@ public class SupplierController {
             Model model) {
         int totalResults = supplierDao.selectAllByNameLike(query, true);
 
-        List<Supplier> suppliers = supplierDao.selectAllByNameLike(query, order, orderDirection, page, pageSize).toList();
+        List<Supplier> suppliers = supplierDao.selectAllByNameLike(query, order, orderDirection, page, pageSize);
         Map<Supplier, Integer> supplierItems = new HashMap<>();
         suppliers.forEach(supplier -> {
             assert supplier.getId() != null;

@@ -33,7 +33,7 @@ public class ItemController {
             Model model) {
         int totalResults = itemDao.selectAllByNameLike(query, true);
 
-        List<Item> results = itemDao.selectAllByNameLike(query, order, orderDirection, page, pageSize).toList();
+        List<Item> results = itemDao.selectAllByNameLike(query, order, orderDirection, page, pageSize);
 
         model.addAttribute("results", results);
         model.addAttribute("pageSize", pageSize);

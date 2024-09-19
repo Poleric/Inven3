@@ -10,21 +10,21 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 @Repository
 @JdbiRepository
 @RegisterBeanMapper(User.class)
 public interface UserDao extends NamedDao<User> {
     @SqlQuery("select")
-    Stream<User> selectAllByRole(@Bind @Define @NotNull User.Role role);
+    List<User> selectAllByRole(@Bind @Define @NotNull User.Role role);
 
     @SqlQuery("select")
-    Stream<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define String orderColumn, @Define OrderDirection orderDirection);
+    List<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
-    Stream<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define int page, @Define int pageSize);
+    List<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
-    Stream<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+    List<User> selectAllByRole(@Bind @Define @NotNull User.Role role, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 }

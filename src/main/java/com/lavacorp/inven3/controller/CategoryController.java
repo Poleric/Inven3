@@ -33,7 +33,7 @@ public class CategoryController {
             Model model) {
         int totalResults = categoryDao.selectAllByNameLike(query, true);
 
-        List<Category> results = categoryDao.selectAllByNameLike(query, order, orderDirection, page, pageSize).toList();
+        List<Category> results = categoryDao.selectAllByNameLike(query, order, orderDirection, page, pageSize);
 
         model.addAttribute("results", results);
         model.addAttribute("pageSize", pageSize);

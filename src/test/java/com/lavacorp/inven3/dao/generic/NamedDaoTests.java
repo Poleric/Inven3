@@ -23,7 +23,7 @@ public abstract class NamedDaoTests<T extends NamedEntity, K extends NamedDao<T>
     @Order(1)
     void testSelectAllOrderedName() {
         List<T> expected = getCachedData();
-        List<T> actual = dao.selectAll("name", OrderDirection.ASC).toList();
+        List<T> actual = dao.selectAll("name", OrderDirection.ASC);
 
         assertEquals(expected.size(), actual.size());
         assertNotEquals(expected, actual);
@@ -47,7 +47,7 @@ public abstract class NamedDaoTests<T extends NamedEntity, K extends NamedDao<T>
         String sliced_name = name.substring((int) (name.length() * 0.25), (int) (name.length() * 0.75));
         assumeFalse(sliced_name.isEmpty());
 
-        List<T> actual = dao.selectAllByNameLike(sliced_name).toList();
+        List<T> actual = dao.selectAllByNameLike(sliced_name);
 
         assertTrue(actual.contains(expected));
     }

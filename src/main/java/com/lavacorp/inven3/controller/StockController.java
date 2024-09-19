@@ -32,7 +32,7 @@ public class StockController {
             Model model) {
         int totalResults = stockDao.selectAll(true);
 
-        List<Stock> results = stockDao.selectAll(order, orderDirection, page, pageSize).toList();
+        List<Stock> results = stockDao.selectAll(order, orderDirection, page, pageSize);
 
         model.addAttribute("results", results);
         model.addAttribute("pageSize", pageSize);

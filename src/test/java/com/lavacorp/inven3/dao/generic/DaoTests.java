@@ -28,7 +28,7 @@ public abstract class DaoTests<T extends Entity, K extends Dao<T>> {
 
     public List<T> getTestData() {
         assertNotNull(dao);
-        return dao.selectAll().toList();
+        return dao.selectAll();
     }
 
     public DaoTests(K dao) {
@@ -39,7 +39,7 @@ public abstract class DaoTests<T extends Entity, K extends Dao<T>> {
     @Order(1)
     void testSelectAll() {
         List<T> expected = getCachedData();
-        List<T> actual = dao.selectAll().toList();
+        List<T> actual = dao.selectAll();
 
         assertEquals(expected.size(), actual.size());
         assertEquals(expected, actual);
@@ -62,7 +62,7 @@ public abstract class DaoTests<T extends Entity, K extends Dao<T>> {
 
         int half = expected.size() / 2;
 
-        List<T> actual = dao.selectAll(1, half).toList();
+        List<T> actual = dao.selectAll(1, half);
         assertEquals(half, actual.size());
     }
 
