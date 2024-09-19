@@ -132,7 +132,7 @@ BEGIN
     WHERE id = NEW.order_id;
 
     UPDATE Stock
-    SET status = 'REFUNDED'
+    SET status = 'RETURNED'
     WHERE id IN (
         SELECT stock_id
         FROM PurchaseOrderLine
