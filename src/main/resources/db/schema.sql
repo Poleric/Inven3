@@ -124,6 +124,25 @@ BEGIN
 END;
 $updateLastUpdateAt$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION setRefundStatus() RETURNS TRIGGER AS
+$updateLastUpdateAt$
+BEGIN
+    UPDATE PurchaseOrder
+    SET status = 'REFUNDED'
+    WHERE id = NEW.order_id;
+
+    UPDATE Stock
+    SET status = 'REFUNDED'
+    WHERE id IN (
+        SELECT stock_id
+        FROM PurchaseOrderLine
+        WHERE purchase_order_id = NEW.order_id
+        );
+
+    RETURN NEW;
+END;
+$updateLastUpdateAt$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE TRIGGER updateItemLastUpdate
     AFTER UPDATE
     ON Item
@@ -141,3 +160,9 @@ CREATE OR REPLACE TRIGGER updateItemSupplierLastUpdate
     ON ItemSupplier
     FOR EACH ROW
 EXECUTE FUNCTION updateLastUpdateAt();
+
+CREATE OR REPLACE TRIGGER setRefundStatus
+    AFTER INSERT
+    ON PurchaseOrderReturn
+    FOR EACH ROW
+EXECUTE FUNCTION setRefundStatus();
