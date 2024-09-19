@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation.class)
@@ -28,7 +28,9 @@ public abstract class DaoTests<T extends Entity, K extends Dao<T>> {
 
     public List<T> getTestData() {
         assertNotNull(dao);
-        return dao.selectAll();
+        List<T> data = dao.selectAll();
+        assumeFalse(data.isEmpty());
+        return data;
     }
 
     public DaoTests(K dao) {
