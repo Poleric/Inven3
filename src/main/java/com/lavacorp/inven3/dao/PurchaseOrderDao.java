@@ -35,7 +35,7 @@ public interface PurchaseOrderDao {
         int orderId = insertOrderDetails(purchaseOrder);
         purchaseOrder.setId(orderId);
 
-        purchaseOrder.getStocksPurchase().forEach(
+        purchaseOrder.getStocks().forEach(
                 (key, value) -> insertOrderStocks(orderId, key, value)
         );
     }
@@ -57,7 +57,7 @@ public interface PurchaseOrderDao {
             );
 
             if (rowView.getColumn("stock_id", Integer.class) != null)
-                po.getStocksPurchase().put(
+                po.getStocks().put(
                         rowView.getRow(Stock.class),
                         rowView.getColumn("order_quantity", Integer.class)
                 );

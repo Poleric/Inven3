@@ -18,5 +18,5 @@ public class PurchaseOrder extends Order {
     LocalDateTime purchaseDate;
     @Nullable LocalDateTime targetDate;
     @Nullable LocalDateTime arrivedDate;
-    Map<Stock, Integer> stocksPurchase;
+    Map<Stock, Integer> stocks;
 }
