@@ -20,8 +20,8 @@
 
     <tr th:each="location, iter : ${results}">
         <td><span th:text="${currentRow + iter.count - 1}"></span></td>
-        <td><span th:text="${location.getId()}">Id</span></td>
-        <td><span th:text="${location.getName()}">Supplier Name</span></td>
+        <td><span th:text="${location.getId()}"></span></td>
+        <td><span th:text="${location.getName()}"></span></td>
     </tr>
 
     </tbody>
