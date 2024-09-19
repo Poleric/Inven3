@@ -28,11 +28,6 @@ public class SupplierController {
         this.itemDao = itemDao;
     }
 
-    @GetMapping
-    public String home() {
-        return "supplier/suppliers";
-    }
-
     @GetMapping("/search")
     public String show(
             @RequestParam(name = "query", defaultValue = "") String query,
