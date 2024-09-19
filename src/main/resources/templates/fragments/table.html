@@ -4,24 +4,58 @@
     <!--/*@thymesVar id="currentPage" type="int"*/-->
     <!--/*@thymesVar id="totalPages" type="int"*/-->
     <!--/*@thymesVar id="pageSize" type="int"*/-->
+    <div>
+        <span th:text="|Showing ${currentRow} to ${Math.max(currentRow + pageSize - 1, totalRows)} of ${totalRows} rows|">
+            Showing 1 to 1 of 1 rows
+        </span>
 
-    <span th:text="|${currentRow} of ${totalRows}|">
-        1 of 1
-    </span>
+        <label>
+            <select name="page-size">
+                <option value="10" selected th:attr="${pageSize == 10 ? 'selected' : ''}">10</option>
+                <option value="25" th:attr="${pageSize == 25 ? 'selected' : ''}">25</option>
+                <option value="100" th:attr="${pageSize == 100 ? 'selected' : ''}">100</option>
+            </select>
+            rows per page
+        </label>
 
-    <label>
-        <input type="number"
-               name="page" value="1" th:value="${currentPage}"
-               min="1" max="1" th:max="${totalPages}">
-    </label>
-    <label>
-        <input type="number"
-               name="pageSize" value="20" th:value="${pageSize}"
-               min="1">
-    </label>
+        <label>
+            Page
+            <select name="page">
+                <option th:each="i : ${#numbers.sequence(1, totalPages)}"
+                        th:value="${i}"
+                        th:text="${i}"
+                        th:attr="${i == currentPage ? 'selected' : ''}"></option>
+            </select>
+        </label>
+    </div>
 
     <table>
         <th:block th:insert="${table}"/>
     </table>
+
+    <div>
+        <span th:text="|Showing ${currentRow} to ${Math.max(currentRow + pageSize - 1, totalRows)} of ${totalRows} rows|">
+            Showing 1 to 1 of 1 rows
+        </span>
+
+        <label>
+            <select name="page-size">
+                <option value="10" selected th:attr="${pageSize == 10 ? 'selected' : ''}">10</option>
+                <option value="25" th:attr="${pageSize == 25 ? 'selected' : ''}">25</option>
+                <option value="100" th:attr="${pageSize == 100 ? 'selected' : ''}">100</option>
+            </select>
+            rows per page
+        </label>
+
+        <label>
+            Page
+            <select name="page">
+                <option th:each="i : ${#numbers.sequence(1, totalPages)}"
+                        th:value="${i}"
+                        th:text="${i}"
+                        th:attr="${i == currentPage ? 'selected' : ''}"></option>
+            </select>
+        </label>
+    </div>
 
 </div>
