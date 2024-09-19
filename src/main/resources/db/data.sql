@@ -64,5 +64,50 @@ INSERT INTO Stock (id, item_id, supplier_id, location_id, quantity, status)
 VALUES (1, 1, 1, 2, 3, 'OK'),
        (2, 2, 1, 4, 5, 'OK'),
        (3, 2, 1, 1, 20, 'OK'),
-       (4, 4, 1, 6, 2, 'OK')
+       (4, 4, 1, 6, 2, 'OK'),
+       (5, 6, 3, 6, 10, 'IN_TRANSIT'),
+       (6, 7, 3, 6, 10, 'IN_TRANSIT'),
+       (7, 7, 3, 6, 20, 'IN_TRANSIT'),
+       (8, 9, 4, 6, 20, 'IN_TRANSIT'),
+       (9, 9, 4, 6, 10, 'IN_TRANSIT'),
+       (10, 2, 1, 6, 6, 'RETURNED'),
+       (11, 3, 1, 6, 5, 'RETURNED')
 ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO PurchaseOrder (status, supplier_id, purchase_date, target_date, arrived_date)
+VALUES ('FULFILLED', 1, NOW(), NOW(), NOW()),
+       ('FULFILLED', 1, NOW(), NOW(), NOW()),
+       ('IN_TRANSIT', 3, NOW(), NOW(), NULL),
+       ('IN_TRANSIT', 3, NOW(), NOW(), NULL),
+       ('IN_TRANSIT', 4, NOW(), NOW(), NULL),
+       ('REFUNDED', 1, NOW(), NOW(), NULL);
+
+INSERT INTO PurchaseOrderLine(purchase_order_id, stock_id, order_quantity)
+VALUES (1, 1, 5),
+       (1, 2, 10),
+       (1, 3, 50),
+       (2, 4, 5),
+       (3, 5, 10),
+       (3, 6, 10),
+       (4, 7, 20),
+       (5, 8, 20),
+       (5, 9, 10),
+       (6, 10, 6),
+       (6, 11, 5);
+
+INSERT INTO PurchaseOrderReturn (status, order_id)
+VALUES ('IN_TRANSIT', 6);
+
+INSERT INTO SalesOrder(status, sales_date, shipment_date, arrived_date)
+VALUES ('FULFILLED', NOW(), NOW(), NOW()),
+       ('IN_TRANSIT', NOW(), NOW(), NOW()),
+       ('PENDING', NOW(), NOW(), null);
+
+INSERT INTO SalesOrderLine(sales_order_id, stock_id, order_quantity)
+VALUES (1, 1, 2),
+       (1, 2, 5),
+       (2, 3, 30),
+       (2, 4, 3),
+       (3, 1, 3),
+       (3, 3, 3),
+       (3,4, 2);

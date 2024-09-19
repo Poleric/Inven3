@@ -20,7 +20,7 @@ import java.util.List;
 @JdbiRepository
 @RegisterBeanMapper(PurchaseOrder.class)
 @RegisterBeanMapper(value = Stock.class, prefix = "stock")
-public interface PurchaseOrderReturnDao extends ReturnOrderDao<PurchaseOrder> {
+public interface PurchaseOrderReturnDao extends ReturnOrderDao {
     @Override
     @SqlQuery("select")
     @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
