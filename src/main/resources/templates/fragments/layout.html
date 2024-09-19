@@ -1,5 +1,6 @@
 <!doctype html>
-<html th:fragment="layout (template, menu)" lang="en">
+<html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      th:fragment="layout (template, menu)" lang="en">
 
 <head>
 
@@ -19,6 +20,20 @@
 </head>
 
 <body>
+    <header th:if="${menu != 'login'}">
+        <nav>
+            <ul>
+                <li><a th:href="@{/item}">Items</a></li>
+                <li><a th:href="@{/stock}">Stock</a></li>
+                <li><a th:href="@{/purchase}">Purchase</a></li>
+                <li><a th:href="@{/sales}">Sales</a></li>
+            </ul>
+            <ul>
+                <li><a sec:authentication="name">User</a></li>
+                <li><a th:hx-post="@{/logout}" hx-trigger="click">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <th:block th:insert="${template}" />
 
