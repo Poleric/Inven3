@@ -23,17 +23,17 @@ public class ItemController {
         this.itemDao = itemDao;
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public String search(
             @RequestParam(name = "query", defaultValue = "") String query,
             @RequestParam(name = "page", defaultValue = "1") int page,
             @RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
-            @RequestParam(name = "order", defaultValue = "name") String order,
-            @RequestParam(name = "orderDirection", defaultValue = "ASC") OrderDirection orderDirection,
+            @RequestParam(name = "ordering", defaultValue = "name") String ordering,
+            @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
         int totalResults = itemDao.selectAllByNameLike(query, true);
 
-        List<Item> results = itemDao.selectAllByNameLike(query, order, orderDirection, page, pageSize);
+        List<Item> results = itemDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
 
         model.addAttribute("results", results);
         model.addAttribute("pageSize", pageSize);

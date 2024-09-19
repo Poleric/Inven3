@@ -28,17 +28,17 @@ public class SupplierController {
         this.itemDao = itemDao;
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public String show(
             @RequestParam(name = "query", defaultValue = "") String query,
             @RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
-            @RequestParam(name = "order", defaultValue = "name") String order,
-            @RequestParam(name = "orderDirection", defaultValue = "ASC") OrderDirection orderDirection,
+            @RequestParam(name = "page-size", defaultValue = "20") int pageSize,
+            @RequestParam(name = "ordering", defaultValue = "name") String ordering,
+            @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
         int totalResults = supplierDao.selectAllByNameLike(query, true);
 
-        List<Supplier> suppliers = supplierDao.selectAllByNameLike(query, order, orderDirection, page, pageSize);
+        List<Supplier> suppliers = supplierDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
         Map<Supplier, Integer> supplierItems = new HashMap<>();
         suppliers.forEach(supplier -> {
             assert supplier.getId() != null;
