@@ -17,6 +17,21 @@ import java.util.List;
 @RegisterBeanMapper(Stock.class)
 public interface StockDao extends Dao<Stock> {
     @SqlQuery("select")
+    List<Stock> selectAllByStatus(@Bind @Define Stock.StockStatus status);
+
+    @SqlQuery("select")
+    int selectAllByStatus(@Bind @Define Stock.StockStatus status, @Define boolean count);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByStatus(@Bind @Define Stock.StockStatus status, @Define String orderColumn, @Define OrderDirection orderDirection);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByStatus(@Bind @Define Stock.StockStatus status, @Define int page, @Define int pageSize);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByStatus(@Bind @Define Stock.StockStatus status, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+
+    @SqlQuery("select")
     List<Stock> selectAllByItemId(@Bind @Define int itemId);
 
     @SqlQuery("select")
