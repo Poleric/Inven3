@@ -11,26 +11,25 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Repository
 @JdbiRepository
 @RegisterBeanMapper(Stock.class)
 public interface StockDao extends Dao<Stock> {
     @SqlQuery("select")
-    Stream<Stock> selectAllByItemId(@Bind @Define int itemId);
+    List<Stock> selectAllByItemId(@Bind @Define int itemId);
 
     @SqlQuery("select")
     int selectAllByItemId(@Bind @Define int itemId, @Define boolean count);
 
     @SqlQuery("select")
-    Stream<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection);
+    List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
-    Stream<Stock> selectAllByItemId(@Bind @Define int itemId, @Define int page, @Define int pageSize);
+    List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
-    Stream<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+    List<Stock> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
     List<Stock> selectAllBySupplierId(@Bind @Define int supplierId);
