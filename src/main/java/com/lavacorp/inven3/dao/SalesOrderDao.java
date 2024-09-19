@@ -36,11 +36,6 @@ public interface SalesOrderDao extends StockableOrderDao<SalesOrder> {
     @Override
     @SqlQuery("select")
     @UseRowReducer(SalesOrderRowReducer.class)
-    int selectAll(boolean count);
-
-    @Override
-    @SqlQuery("select")
-    @UseRowReducer(SalesOrderRowReducer.class)
     List<SalesOrder> selectAll(String orderColumn, OrderDirection orderDirection);
 
     @Override
@@ -57,11 +52,6 @@ public interface SalesOrderDao extends StockableOrderDao<SalesOrder> {
     @SqlQuery("select")
     @UseRowReducer(SalesOrderRowReducer.class)
     List<SalesOrder> selectAllByStatus(@Bind @Define Order.OrderStatus status);
-
-    @Override
-    @SqlQuery("select")
-    @UseRowReducer(SalesOrderRowReducer.class)
-    int selectAllByStatus(@Bind @Define Order.OrderStatus status, boolean count);
 
     @Override
     @SqlQuery("select")
@@ -86,10 +76,6 @@ public interface SalesOrderDao extends StockableOrderDao<SalesOrder> {
     @SqlQuery("select")
     @UseRowReducer(SalesOrderRowReducer.class)
     List<SalesOrder> selectAllByItemId(@Bind @Define int itemId);
-
-    @SqlQuery("select")
-    @UseRowReducer(SalesOrderRowReducer.class)
-    int selectAllByItemId(@Bind @Define int itemId, boolean count);
 
     @SqlQuery("select")
     @UseRowReducer(SalesOrderRowReducer.class)

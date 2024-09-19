@@ -34,11 +34,6 @@ public interface PurchaseOrderReturnDao extends ReturnOrderDao {
     @Override
     @SqlQuery("select")
     @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    int selectAll(boolean count);
-
-    @Override
-    @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
     List<ReturnOrder> selectAll(String orderColumn, OrderDirection orderDirection);
 
     @Override
@@ -55,11 +50,6 @@ public interface PurchaseOrderReturnDao extends ReturnOrderDao {
     @SqlQuery("select")
     @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
     List<ReturnOrder> selectAllByStatus(@Bind @Define Order.OrderStatus status);
-
-    @Override
-    @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    int selectAllByStatus(@Bind @Define Order.OrderStatus status, boolean count);
 
     @Override
     @SqlQuery("select")
