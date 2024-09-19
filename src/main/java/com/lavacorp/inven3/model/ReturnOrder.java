@@ -1,6 +1,7 @@
 package com.lavacorp.inven3.model;
 
 import com.lavacorp.inven3.model.generic.Order;
+import com.lavacorp.inven3.model.generic.StockableOrder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ReturnOrder extends Order {
-    @Nested("order") Order orderReturned;
+    @Nested("order") StockableOrder orderReturned;
     LocalDateTime returnDate;
 }
