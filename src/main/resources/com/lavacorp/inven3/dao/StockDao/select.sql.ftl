@@ -61,9 +61,9 @@ FROM Stock
             quantity < :stockValue
         <#elseif stockLevel.name() == "BELOW_EQUAL">
             quantity <= :stockValue
-        <#elseif stockValue.name() == "ABOVE">
+        <#elseif stockLevel.name() == "ABOVE">
             quantity > :stockValue
-        <#elseif stockValue.name() == "ABOVE_EQUAL">
+        <#elseif stockLevel.name() == "ABOVE_EQUAL">
             quantity >= :stockValue
         </#if>
     </#if>

@@ -54,9 +54,9 @@ FROM Item
         count(*) < :stockValue
     <#elseif stockLevel.name() == "BELOW_EQUAL">
         count(*) <= :stockValue
-    <#elseif stockValue.name() == "ABOVE">
+    <#elseif stockLevel.name() == "ABOVE">
         count(*) > :stockValue
-    <#elseif stockValue.name() == "ABOVE_EQUAL">
+    <#elseif stockLevel.name() == "ABOVE_EQUAL">
         count(*) >= :stockValue
     </#if>
 </#if>
