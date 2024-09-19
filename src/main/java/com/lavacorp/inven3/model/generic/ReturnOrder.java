@@ -1,19 +1,16 @@
-package com.lavacorp.inven3.model;
+package com.lavacorp.inven3.model.generic;
 
-import com.lavacorp.inven3.model.generic.Order;
-import com.lavacorp.inven3.model.generic.StockableOrder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.jdbi.v3.core.mapper.Nested;
-
 
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ReturnOrder extends Order {
-    @Nested("order") StockableOrder orderReturned;
+public abstract class ReturnOrder<T extends StockableOrder> extends Order {
+    @Nested("order") T orderReturned;
     LocalDateTime returnDate;
 }

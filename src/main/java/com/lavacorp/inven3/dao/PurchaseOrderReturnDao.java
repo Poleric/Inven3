@@ -1,10 +1,11 @@
 package com.lavacorp.inven3.dao;
 
 import com.lavacorp.inven3.dao.generic.ReturnOrderDao;
-import com.lavacorp.inven3.model.PurchaseOrder;
-import com.lavacorp.inven3.model.ReturnOrder;
+import com.lavacorp.inven3.model.PurchaseOrderReturn;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;
+import org.jdbi.v3.core.result.LinkedHashMapRowReducer;
+import org.jdbi.v3.core.result.RowView;
 import org.jdbi.v3.spring5.JdbiRepository;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
@@ -15,58 +16,75 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @JdbiRepository
-@RegisterBeanMapper(PurchaseOrder.class)
-@RegisterBeanMapper(value = Stock.class, prefix = "stock")
-public interface PurchaseOrderReturnDao extends ReturnOrderDao {
+@RegisterBeanMapper(PurchaseOrderReturn.class)
+@RegisterBeanMapper(value = Stock.class, prefix = "order_stock")
+public interface PurchaseOrderReturnDao extends ReturnOrderDao<PurchaseOrderReturn> {
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    @Nullable ReturnOrder selectById(int id);
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    @Nullable PurchaseOrderReturn selectById(int id);
 
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    List<ReturnOrder> selectAll();
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    List<PurchaseOrderReturn> selectAll();
 
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    List<ReturnOrder> selectAll(String orderColumn, OrderDirection orderDirection);
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    List<PurchaseOrderReturn> selectAll(String orderColumn, OrderDirection orderDirection);
 
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    List<ReturnOrder> selectAll(int page, int pageSize);
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    List<PurchaseOrderReturn> selectAll(int page, int pageSize);
 
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    List<ReturnOrder> selectAll(String orderColumn, OrderDirection orderDirection, int page, int pageSize);
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    List<PurchaseOrderReturn> selectAll(String orderColumn, OrderDirection orderDirection, int page, int pageSize);
 
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    List<ReturnOrder> selectAllByStatus(@Bind @Define Order.OrderStatus status);
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    List<PurchaseOrderReturn> selectAllByStatus(@Bind @Define Order.OrderStatus status);
 
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    List<ReturnOrder> selectAllByStatus(@Bind @Define Order.OrderStatus status, String orderColumn, OrderDirection orderDirection);
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    List<PurchaseOrderReturn> selectAllByStatus(@Bind @Define Order.OrderStatus status, String orderColumn, OrderDirection orderDirection);
 
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    List<ReturnOrder> selectAllByStatus(@Bind @Define Order.OrderStatus status, int page, int pageSize);
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    List<PurchaseOrderReturn> selectAllByStatus(@Bind @Define Order.OrderStatus status, int page, int pageSize);
 
     @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    List<ReturnOrder> selectAllByStatus(@Bind @Define Order.OrderStatus status, String orderColumn, OrderDirection orderDirection, int page, int pageSize);
+    @UseRowReducer(ReturnOrderRowReducer.class)
+    List<PurchaseOrderReturn> selectAllByStatus(@Bind @Define Order.OrderStatus status, String orderColumn, OrderDirection orderDirection, int page, int pageSize);
 
+    @Override
     @SqlQuery("select")
-    @UseRowReducer(PurchaseOrderDao.PurchaseOrderRowReducer.class)
-    @Nullable ReturnOrder selectByOrderReferenceId(@Bind @Define int referenceOrderId);
+    @Nullable PurchaseOrderReturn selectByOrderReferenceId(@Bind @Define int referenceOrderId);
+    
+    class ReturnOrderRowReducer implements LinkedHashMapRowReducer<Integer, PurchaseOrderReturn> {
+        @Override
+        public void accumulate(Map<Integer, PurchaseOrderReturn> map, RowView rowView) {
+            PurchaseOrderReturn ro = map.computeIfAbsent(
+                    rowView.getColumn("id", Integer.class),
+                    row -> rowView.getRow(PurchaseOrderReturn.class)
+            );
+
+            if (rowView.getColumn("order_stock_id", Integer.class) != null)
+                ro.getOrderReturned().getStocks().put(
+                        rowView.getRow(Stock.class),
+                        rowView.getColumn("order_order_quantity", Integer.class)
+                );
+        }
+    }
 }
