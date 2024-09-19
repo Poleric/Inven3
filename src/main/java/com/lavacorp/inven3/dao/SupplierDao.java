@@ -9,7 +9,7 @@ import org.jdbi.v3.sqlobject.customizer.Define;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 
 @Repository
@@ -17,17 +17,17 @@ import java.util.List;
 @RegisterBeanMapper(Supplier.class)
 public interface SupplierDao extends NamedDao<Supplier> {
     @SqlQuery("select")
-    List<Supplier> selectAllByItemId(@Bind @Define int itemId);
+    Stream<Supplier> selectAllByItemId(@Bind @Define int itemId);
 
     @SqlQuery("select")
     int selectAllByItemId(@Bind @Define int itemId, @Define boolean count);
 
     @SqlQuery("select")
-    List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection);
+    Stream<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
-    List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define int page, @Define int pageSize);
+    Stream<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define int page, @Define int pageSize);
 
     @SqlQuery("select")
-    List<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+    Stream<Supplier> selectAllByItemId(@Bind @Define int itemId, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 }

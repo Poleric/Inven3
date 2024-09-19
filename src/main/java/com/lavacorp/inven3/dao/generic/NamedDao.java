@@ -9,26 +9,26 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.stream.Stream;
 
 public interface NamedDao<T extends Entity> extends Dao<T> {
     @SqlQuery("select")
     @Nullable T selectByName(@Bind @Define String name);
 
     @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String nameLike);
+    Stream<T> selectAllByNameLike(@Bind @Define String nameLike);
 
     @SqlQuery("select")
     int selectAllByNameLike(@Bind @Define String nameLike, @Define boolean count);
 
     @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define int page, @Define int pageSize);
+    Stream<T> selectAllByNameLike(@Bind @Define String nameLike, @Define int page, @Define int pageSize);
 
    @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define OrderDirection orderDirection);
+    Stream<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
-    List<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+    Stream<T> selectAllByNameLike(@Bind @Define String nameLike, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 
     @SqlUpdate("delete")
     void deleteByName(@Bind @Define @NotNull String name);

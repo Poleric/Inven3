@@ -33,7 +33,7 @@ public class LocationController {
             Model model) {
         int totalResults = locationDao.selectAllByNameLike(query, true);
 
-        List<Location> results = locationDao.selectAllByNameLike(query, order, orderDirection, page, pageSize);
+        List<Location> results = locationDao.selectAllByNameLike(query, order, orderDirection, page, pageSize).toList();
 
         model.addAttribute("results", results);
         model.addAttribute("pageSize", pageSize);

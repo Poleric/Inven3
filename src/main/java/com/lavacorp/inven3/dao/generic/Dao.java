@@ -12,8 +12,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
+import java.util.stream.Stream;
 
 @UseFreemarkerSqlLocator
 @AllowUnusedBindings
@@ -26,19 +25,19 @@ public interface Dao<T extends Entity> {
     @Nullable T selectById(@Bind @Define int id);
 
     @SqlQuery("select")
-    List<T> selectAll();
+    Stream<T> selectAll();
 
     @SqlQuery("select")
     int selectAll(@Define boolean count);
 
     @SqlQuery("select")
-    List<T> selectAll(@Define String orderColumn, @Define OrderDirection orderDirection);
+    Stream<T> selectAll(@Define String orderColumn, @Define OrderDirection orderDirection);
 
     @SqlQuery("select")
-    List<T> selectAll(@Define int page, @Define int pageSize);
+    Stream<T> selectAll(@Define int page, @Define int pageSize);
 
     @SqlQuery("select")
-    List<T> selectAll(@Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+    Stream<T> selectAll(@Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 
     @SqlUpdate
     void update(@BindBean T obj);
