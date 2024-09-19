@@ -8,6 +8,6 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-abstract public class NamedEntity extends Entity {
+public abstract  class NamedEntity extends Entity {
     @NonNull private String name;
 }

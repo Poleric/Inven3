@@ -6,6 +6,6 @@ import org.jetbrains.annotations.Nullable;
 
 @Data
 @NoArgsConstructor
-abstract public class Entity {
+public abstract class Entity {
     @Nullable private Integer id;
 }
