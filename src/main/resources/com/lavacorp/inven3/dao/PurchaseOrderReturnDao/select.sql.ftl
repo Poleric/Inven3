@@ -73,9 +73,9 @@ FROM PurchaseOrderReturn POR
     <#if id??>
         <@filter_id table=table_name operator="=" id=idVar/>
     <#elseif status??>
-        PurchaseOrder.status = :status
+        PO.status = :status
     <#elseif referenceOrderId??>
-        PurchaseOrder.id = :referenceOrderId
+        PO.id = :referenceOrderId
     </#if>
 </#if>
 

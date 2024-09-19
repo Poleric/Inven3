@@ -66,7 +66,7 @@ FROM PurchaseOrder PO
     <#if id??>
         <@filter_id table=table_name operator="=" id=idVar/>
     <#elseif status??>
-        PurchaseOrder.status = :status
+        PO.status = :status
     <#elseif itemId??>
         Item.id = :itemId
     <#elseif supplierId??>

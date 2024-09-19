@@ -59,7 +59,7 @@ FROM SalesOrder SO
     <#if id??>
         <@filter_id table=table_name operator="=" id=idVar/>
     <#elseif status??>
-        SalesOrder.status = :status
+        SO.status = :status
     <#elseif itemId??>
         Item.id = :itemId
     <#elseif stockId??>

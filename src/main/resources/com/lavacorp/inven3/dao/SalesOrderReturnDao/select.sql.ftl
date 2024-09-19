@@ -66,9 +66,9 @@ FROM SalesOrderReturn SOR
     <#if id??>
         <@filter_id table=table_name operator="=" id=idVar/>
     <#elseif status??>
-        SalesOrder.status = :status
+        SO.status = :status
     <#elseif referenceOrderId??>
-        SalesOrder.id = :referenceOrderId
+        SO.id = :referenceOrderId
     </#if>
 </#if>
 
