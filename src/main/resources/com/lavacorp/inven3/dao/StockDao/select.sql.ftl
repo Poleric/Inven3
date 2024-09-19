@@ -57,6 +57,7 @@ FROM Stock
     <#elseif supplierId??>
         Supplier.id = :supplierId
     <#elseif stockLevel??>
+        status = "OK" AND
         <#if stockLevel.name() == "LOW">
             quantity < Item.min_stock
         <#elseif stockLevel.name() == "BELOW">
