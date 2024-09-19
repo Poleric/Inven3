@@ -2,7 +2,6 @@ package com.lavacorp.inven3.dao;
 
 import com.lavacorp.inven3.dao.generic.NamedDao;
 import com.lavacorp.inven3.model.Item;
-import com.lavacorp.inven3.model.Stock;
 import org.jdbi.v3.spring5.JdbiRepository;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
