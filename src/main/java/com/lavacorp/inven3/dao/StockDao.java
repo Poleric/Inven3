@@ -46,6 +46,36 @@ public interface StockDao extends Dao<Stock> {
     @SqlQuery("select")
     List<Stock> selectAllBySupplierId(@Bind @Define int supplierId, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 
+    @SqlQuery("select")
+    List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel);
+
+    @SqlQuery("select")
+    int selectAllByStockLevel(@Bind @Define StockLevel stockLevel, @Define boolean count);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel, @Define String orderColumn, @Define OrderDirection orderDirection);
+
+     @SqlQuery("select")
+    List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel, @Define int page, @Define int pageSize);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel, int stockValue);
+
+    @SqlQuery("select")
+    int selectAllByStockLevel(@Bind @Define StockLevel stockLevel, int stockValue, @Define boolean count);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel, int stockValue, @Define String orderColumn, @Define OrderDirection orderDirection);
+
+     @SqlQuery("select")
+    List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel, int stockValue, @Define int page, @Define int pageSize);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel, int stockValue, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+
     @SqlUpdate
     void increaseStock(int id, int quantity);
 
