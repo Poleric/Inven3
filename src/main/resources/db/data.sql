@@ -93,7 +93,8 @@ VALUES (1, 1, 5),
        (5, 8, 20),
        (5, 9, 10),
        (6, 10, 6),
-       (6, 11, 5);
+       (6, 11, 5)
+ON CONFLICT (purchase_order_id, stock_id) DO NOTHING;
 
 INSERT INTO PurchaseOrderReturn (status, order_id)
 VALUES ('IN_TRANSIT', 6);
@@ -110,4 +111,5 @@ VALUES (1, 1, 2),
        (2, 4, 3),
        (3, 1, 3),
        (3, 3, 3),
-       (3,4, 2);
+       (3,4, 2)
+ON CONFLICT (sales_order_id, stock_id) DO NOTHING;
