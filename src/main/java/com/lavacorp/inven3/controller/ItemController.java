@@ -34,7 +34,7 @@ public class ItemController {
             @RequestParam(name = "query", defaultValue = "") String query,
             @RequestParam(name = "page", defaultValue = "1") int page,
             @RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
-            @RequestParam(name = "ordering", defaultValue = "id") String ordering,
+            @RequestParam(name = "ordering", defaultValue = "Item.id") String ordering,
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
         int totalResults = itemDao.selectAllByNameLike(query, true);
