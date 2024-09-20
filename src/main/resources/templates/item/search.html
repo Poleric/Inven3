@@ -1,0 +1,42 @@
+<div th:fragment="table" th:replace="~{fragments/table :: table(~{:: .data-table}, '/item/search')}">
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th><label><input type="checkbox" onclick="cascade_checkbox(this, '[name=\'selected\']')"></label></th>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Unit</th>
+            <th>Category</th>
+            <th>Stock</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:if="${results == null || results.isEmpty()}">
+            <td colspan="8"> No Items </td>
+        </tr>
+
+        <tr th:each="item, iter : ${results}">
+            <td><span th:text="${currentRow + iter.count - 1}"></span></td>
+            <td><label><input type="checkbox" name="selected" th:value="${item.getKey().getId()}"></label></td>
+            <td><span th:text="${item.getKey().getName()}"></span></td>
+            <td><span th:text="${item.getKey().getDescription()}"></span></td>
+            <td><span th:text="${item.getKey().getBasePrice()}"></span></td>
+            <td><span th:text="${item.getKey().getUnit()}"></span></td>
+            <td><span th:text="${item.getKey().getCategory().getName()}"></span></td>
+            <td><span th:text="${item.getValue()}">0</span></td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="7"></td>
+            <td><span th:text="${totalStock}">0</span></td>
+        </tr>
+    </tfoot>
+</table>
+
+</div>
