@@ -4,7 +4,8 @@
 <!--/*@thymesVar id="totalPages" type="int"*/-->
 <!--/*@thymesVar id="pageSize" type="int"*/-->
 <div th:fragment="table (table_body, search_url)"
-     th:with="currentRow=${currentRow ?: 0},pageSize=${pageSize ?: 25},totalRows=${totalRows ?: 0},currentPage=${currentPage ?: 1},totalPages=${totalPages ?: 1}">
+     th:with="currentRow=${currentRow ?: 0},pageSize=${pageSize ?: 25},totalRows=${totalRows ?: 0},currentPage=${currentPage ?: 1},totalPages=${totalPages ?: 1}"
+     id="results">
 
     <div th:fragment="sidebars" class="data-header">
         <div>
