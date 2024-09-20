@@ -4,34 +4,29 @@
 
 <body>
 
-<label>
-    <input type="search"
-           name="query" placeholder="Begin Typing To Search Suppliers..."
-           th:hx-post="@{/supplier/search}"
-           hx-include="[name='page'], [name='pageSize']"
-           hx-trigger="load, input changed delay:500ms, search, input changed from:[name='page'] delay:500ms, input changed from:[name='pageSize'] delay:500ms"
-           hx-target="#search-results"
-           hx-indicator=".htmx-indicator">
-</label>
+<div class="center-page">
+    <form class="form-control data-container" th:hx-post="@{/supplier/search}"
+          hx-target="#results"
+          hx-trigger="load" >
 
-<h3>
-    Search Suppliers
-    <span class="htmx-indicator">
-    Searching...
-   </span>
-</h3>
+        <div class="data-container-header">
+            <h2>Suppliers</h2>
+        </div>
 
-<div id="search-results">
-    <label>
-        <input type="number"
-               name="page" value=1
-               min="1" max=1>
-    </label>
-    <label>
-        <input type="number"
-               name="pageSize" value=20
-               min="1">
-    </label>
+        <div class="data-search">
+            <label>
+                <input type="search" name="query" placeholder="Search"
+                       th:hx-post="@{/supplier/search}"
+                       hx-target="#results"
+                       hx-trigger="input[name='query'] changed delay:500ms, search">
+            </label>
+        </div>
+
+        <div id="results">
+            <th:block th:insert="~{supplier/search :: supplierTable }"></th:block>
+        </div>
+
+    </form>
 </div>
 
 </body>

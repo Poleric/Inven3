@@ -1,35 +1,31 @@
-<div th:replace="~{fragments/table :: table(~{::table})}">
+<div th:fragment="supplierTable" th:replace="~{fragments/table :: table(~{:: .data-table}, '/supplier/search')}">
 
-<table>
-
+<table class="data-table">
     <thead>
-
         <tr>
             <th></th>
-            <th>ID</th>
+            <th><label><input type="checkbox" onclick="cascade_checkbox(this, '[name=\'selected\']')"></label></th>
             <th>Supplier Name</th>
+            <th>Contact Number</th>
             <th>Address</th>
             <th>Number of items</th>
         </tr>
-
     </thead>
 
     <tbody>
-
-        <tr th:if="${results.isEmpty()}">
-            <td colspan="4"> No Suppliers </td>
+        <tr th:if="${results == null || results.isEmpty()}">
+            <td colspan="6"> No Suppliers </td>
         </tr>
 
         <tr th:each="supplierItem, iter : ${results}">
             <td><span th:text="${currentRow + iter.count - 1}"></span></td>
-            <td><span th:text="${supplierItem.getKey().getId()}"></span></td>
+            <td><label><input type="checkbox" name="selected" th:value="${supplierItem.getKey().getId()}"></label></td>
             <td><span th:text="${supplierItem.getKey().getName()}"></span></td>
+            <td><span th:text="${supplierItem.getKey().getPhoneNumber()}"></span></td>
             <td><span th:text="${supplierItem.getKey().getAddress()}"></span></td>
             <td><span th:text="${supplierItem.getValue()}">0</span></td>
         </tr>
-
     </tbody>
-
 </table>
 
 </div>
