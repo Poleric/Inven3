@@ -5,7 +5,7 @@
 <body>
 
 <div class="center-page">
-    <form th:replace="~{stock/location/index :: location}"></form>
+    <form class="data-container" th:replace="~{stock/location/index :: location}"></form>
 
 
     <form class="form-control data-container" th:hx-post="@{/stock/search}"
