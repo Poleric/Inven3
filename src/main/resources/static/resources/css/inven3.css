@@ -1,0 +1,117 @@
+:root {
+    --bg-color: #eaeaea;
+    --link-hover-color: grey;
+    --text-color: #393636;
+    --border-color: lightgray;
+}
+
+* {
+    color: var(--text-color);
+}
+
+.center-page {
+    width: 100vw;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    background: var(--bg-color);
+
+    border-bottom: var(--border-color) solid 1px;
+    box-shadow: 0 3px 3px var(--border-color);
+
+    & a {
+        text-decoration: none;
+        transition: color 0.2s linear;
+
+        &:hover {
+            color: grey;
+        }
+    }
+
+    & nav {
+        margin: 0 1.5em;
+
+        display: flex;
+        flex-flow: row nowrap;
+
+        & ul {
+            list-style: none;
+
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 2em;
+
+            &:first-of-type {
+                margin-right: auto;
+            }
+        }
+    }
+}
+
+.data-container {
+    margin: 2em 0;
+    width: 98%;
+    border: var(--border-color) solid 1px;
+
+    & .data-container-header {
+        padding: 1em 1em;
+        background: var(--bg-color);
+    }
+
+    & .data-search {
+        padding: 1em 0.5em 0 0.5em;
+
+        & input {
+            border-radius: 5px;
+            padding: 0.1em 1em;
+        }
+    }
+
+    & #results {
+        padding: 0.5em;
+        position: relative;
+
+        & .data-header {
+            display: flex;
+            flex-flow: row nowrap;
+
+            margin: 0.5em 0;
+
+            & div:first-of-type {
+                display: inline-block;
+                margin-right: auto;
+            }
+        }
+
+        & .data-table {
+            width: 100%;
+            border-spacing: 0;
+
+
+            th {
+                border: var(--border-color) solid 1px;
+                border-bottom: var(--text-color) solid 2px;
+                padding: 0.8em;
+            }
+
+            td {
+                border: var(--border-color) solid 1px;
+                padding: 0.5em;
+            }
+
+            & thead th {
+                text-align: left;
+            }
+
+            & tbody tr {
+                background: var(--bg-color);
+            }
+        }
+    }
+
+}
