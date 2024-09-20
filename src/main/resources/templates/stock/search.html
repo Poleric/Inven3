@@ -29,7 +29,7 @@
             <td><span th:text="${context.stock().getStatus().name()}"></span></td>
             <td><span th:text="${context.stock().getLocation().getName()}"></span></td>
             <td><time th:datetime="${context.stock().getLastUpdatedAt()}"
-                      th:text="${#dates.format(context.stock().getLastUpdatedAt(), 'dd-mm-yyyy')}"></time></td>
+                      th:text="${#dates.format(context.stock().getLastUpdatedAt(), 'dd-MM-yyyy')}"></time></td>
             <td><span th:text="${context.order() != null ? 'PO' + context.order().getId() : ''}"></span></td>
             <td><span th:text="${context.order() != null ? context.order().getSupplier().getName() : ''}"></span></td>
             <td><span th:text="${context.stock().getNotes()}"></span></td>
