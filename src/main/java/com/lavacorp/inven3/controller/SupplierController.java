@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,17 +40,20 @@ public class SupplierController {
         int totalResults = supplierDao.selectAllByNameLike(query, true);
 
         List<Supplier> suppliers = supplierDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
-        Map<Supplier, Integer> supplierItems = new HashMap<>();
-        suppliers.forEach(supplier -> {
-            assert supplier.getId() != null;
-            supplierItems.put(supplier, itemDao.selectAllBySupplierId(supplier.getId(), true));
-        });
 
-        model.addAttribute("results", supplierItems);
+        List<SupplierContext> contexts = new ArrayList<>();
+        for (Supplier supplier : suppliers) {
+            assert supplier.getId() != null;
+            contexts.add(new SupplierContext(supplier, itemDao.selectAllBySupplierId(supplier.getId(), true)));
+        }
+
+        model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
 
         return "supplier/search";
     }
+
+    public record SupplierContext(Supplier supplier, int itemCount) {}
 
     @PostMapping("/create")
     @ResponseBody

@@ -1,4 +1,4 @@
-<div th:fragment="supplierTable" th:replace="~{fragments/table :: table('supplier', ~{:: .data-table})}">
+<div th:fragment="table" th:replace="~{fragments/table :: table('supplier', ~{:: .data-table})}">
 
 <table class="data-table">
     <thead>
@@ -12,16 +12,16 @@
     </thead>
 
     <tbody>
-        <tr th:if="${results == null || results.isEmpty()}">
+        <tr th:if="${contexts == null || contexts.isEmpty()}">
             <td colspan="6"> No Suppliers </td>
         </tr>
 
-        <tr th:each="supplierItem, iter : ${results}">
-            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${supplierItem.getKey().getId()})}"></th:block>
-            <td><span th:text="${supplierItem.getKey().getName()}"></span></td>
-            <td><span th:text="${supplierItem.getKey().getPhoneNumber()}"></span></td>
-            <td><span th:text="${supplierItem.getKey().getAddress()}"></span></td>
-            <td><span th:text="${supplierItem.getValue()}">0</span></td>
+        <tr th:each="context, iter : ${contexts}">
+            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${context.supplier().getId()})}"></th:block>
+            <td><span th:text="${context.supplier().getName()}"></span></td>
+            <td><span th:text="${context.supplier().getPhoneNumber()}"></span></td>
+            <td><span th:text="${context.supplier().getAddress()}"></span></td>
+            <td><span th:text="${context.itemCount()}">0</span></td>
         </tr>
     </tbody>
 </table>
