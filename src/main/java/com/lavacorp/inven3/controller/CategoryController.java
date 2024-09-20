@@ -36,11 +36,7 @@ public class CategoryController {
         List<Category> results = categoryDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
 
         model.addAttribute("results", results);
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalResults / pageSize + 1);
-        model.addAttribute("currentRow", (page - 1) * pageSize + 1);
-        model.addAttribute("totalRows", totalResults);
+        model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
 
         return "category/search";
     }

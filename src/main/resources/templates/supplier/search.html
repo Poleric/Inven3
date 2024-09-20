@@ -1,10 +1,9 @@
-<div th:fragment="supplierTable" th:replace="~{fragments/table :: table(~{:: .data-table}, '/supplier/search')}">
+<div th:fragment="supplierTable" th:replace="~{fragments/table :: table('supplier', ~{:: .data-table})}">
 
 <table class="data-table">
     <thead>
         <tr>
-            <th></th>
-            <th><label><input type="checkbox" onclick="cascade_checkbox(this, '[name=\'selected\']')"></label></th>
+            <th:block th:replace="~{fragments/table :: head}"></th:block>
             <th>Supplier Name</th>
             <th>Contact Number</th>
             <th>Address</th>
@@ -18,8 +17,7 @@
         </tr>
 
         <tr th:each="supplierItem, iter : ${results}">
-            <td><span th:text="${currentRow + iter.count - 1}"></span></td>
-            <td><label><input type="checkbox" name="selected" th:value="${supplierItem.getKey().getId()}"></label></td>
+            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${supplierItem.getKey().getId()})}"></th:block>
             <td><span th:text="${supplierItem.getKey().getName()}"></span></td>
             <td><span th:text="${supplierItem.getKey().getPhoneNumber()}"></span></td>
             <td><span th:text="${supplierItem.getKey().getAddress()}"></span></td>

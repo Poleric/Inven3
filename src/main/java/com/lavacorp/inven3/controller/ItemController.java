@@ -50,11 +50,7 @@ public class ItemController {
         });
 
         model.addAttribute("results", results);
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalResults / pageSize + 1);
-        model.addAttribute("currentRow", (page - 1) * pageSize + 1);
-        model.addAttribute("totalRows", totalResults);
+        model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
         model.addAttribute("totalStock", totalStock);
 
         return "item/search";

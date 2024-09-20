@@ -1,23 +1,19 @@
-<!--/*@thymesVar id="currentRow" type="int"*/-->
-<!--/*@thymesVar id="totalRows" type="int"*/-->
-<!--/*@thymesVar id="currentPage" type="int"*/-->
-<!--/*@thymesVar id="totalPages" type="int"*/-->
-<!--/*@thymesVar id="pageSize" type="int"*/-->
-<div th:fragment="table (table_body, search_url)"
-     th:with="currentRow=${currentRow ?: 0},pageSize=${pageSize ?: 25},totalRows=${totalRows ?: 0},currentPage=${currentPage ?: 1},totalPages=${totalPages ?: 1}"
+<!--/*@thymesVar id="pageContext" type="com.lavacorp.inven3.controller.PageContext"*/-->
+<div th:fragment="table (menu, table)"
+     th:with="pageContext=${pageContext ?: T(com.lavacorp.inven3.controller.PageContext).makeDefault()}"
      id="results">
 
     <div th:fragment="sidebars" class="data-header">
         <div>
-            <span th:text="|Showing ${currentRow} to ${currentRow + pageSize - 1 < totalRows ?  currentRow + pageSize - 1 : totalRows} of ${totalRows} rows|">
+            <span th:text="|Showing ${pageContext.currentRow} to ${pageContext.lastRow} of ${pageContext.totalRow} rows|">
                 Showing 0 to 0 of 0 rows
             </span>
 
             <label>
-                <select name="page-size" th:hx-post="@{${search_url}}" hx-trigger="change">
-                    <option value="10" th:selected="${pageSize} == 10">10</option>
-                    <option value="25" th:selected="${pageSize} == 25">25</option>
-                    <option value="100" th:selected="${pageSize} == 100">100</option>
+                <select name="page-size" th:hx-post="@{/${menu}/search}" hx-trigger="change">
+                    <option value="10" th:selected="${pageContext.pageSize} == 10">10</option>
+                    <option value="25" th:selected="${pageContext.pageSize} == 25">25</option>
+                    <option value="100" th:selected="${pageContext.pageSize} == 100">100</option>
                 </select>
                 rows per page
             </label>
@@ -26,16 +22,26 @@
         <div>
             <label>
                 Page
-                <select name="page" th:hx-post="@{${search_url}}" hx-trigger="change">
-                    <option th:each="i : ${#numbers.sequence(1, totalPages)}"
+                <select name="page" th:hx-post="@{/${menu}/search}" hx-trigger="change">
+                    <option th:each="i : ${#numbers.sequence(1, pageContext.totalPage)}"
                             th:value="${i}"
                             th:text="${i}"
-                            th:selected="${i == currentPage}"></option>
+                            th:selected="${i == pageContext.currentPage}"></option>
                 </select>
             </label>
         </div>
     </div>
 
-    <table th:replace="${table_body}"></table>
+    <table th:replace="${table}" class="data-table"></table>
 
 </div>
+
+<th:block th:remove="tag" th:fragment="head">
+    <th></th>
+    <th><label><input type="checkbox" onclick="cascade_checkbox(this, '[name=\'selected\']')"></label></th>
+</th:block>
+
+<th:block th:remove="tag" th:fragment="row (index, id)">
+    <td><span th:text="${index}"></span></td>
+    <td><label><input type="checkbox" name="selected" th:value="${id}"></label></td>
+</th:block>
