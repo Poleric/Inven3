@@ -9,7 +9,7 @@
 </#macro>
 
 <#macro filter_name_like table name_like>
-    ${table}.name LIKE '%' || ${name_like} || '%'
+    ${table}.name ILIKE '%' || ${name_like} || '%'
 
 </#macro>
 
