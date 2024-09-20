@@ -1,31 +1,27 @@
-<div th:replace="~{fragments/table :: table(~{::table})}">
+<div th:fragment="table" th:replace="~{fragments/table :: table('stock/location', ~{:: .data-table})}">
 
-<table>
-
+<table class="data-table">
     <thead>
-
-    <tr>
-        <th></th>
-        <th>ID</th>
-        <th>Location Name</th>
-    </tr>
-
+        <tr>
+            <th:block th:replace="~{fragments/table :: head}"></th:block>
+            <th>Location Name</th>
+            <th>Description</th>
+            <th>Stock Count</th>
+        </tr>
     </thead>
 
     <tbody>
+        <tr th:if="${contexts == null || contexts.isEmpty()}">
+            <td colspan="12"> No Items </td>
+        </tr>
 
-    <tr th:if="${results.isEmpty()}">
-        <td colspan="3">No Locations</td>
-    </tr>
-
-    <tr th:each="location, iter : ${results}">
-        <td><span th:text="${currentRow + iter.count - 1}"></span></td>
-        <td><span th:text="${location.getId()}"></span></td>
-        <td><span th:text="${location.getName()}"></span></td>
-    </tr>
-
+        <tr th:each="context, iter : ${contexts}">
+            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${context.location().getId()})}"></th:block>
+            <td><span th:text="${context.location().getName()}"></span></td>
+            <td><span th:text="${context.location().getDescription()}"></span></td>
+            <td><span th:text="${context.stockCount()}"></span></td>
+        </tr>
     </tbody>
-
 </table>
 
 </div>

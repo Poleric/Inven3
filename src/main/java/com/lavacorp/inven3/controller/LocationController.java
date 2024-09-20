@@ -2,6 +2,7 @@ package com.lavacorp.inven3.controller;
 
 import com.lavacorp.inven3.dao.LocationDao;
 import com.lavacorp.inven3.dao.OrderDirection;
+import com.lavacorp.inven3.dao.StockDao;
 import com.lavacorp.inven3.model.Location;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +12,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/location")
+@RequestMapping("/stock/location")
 public class LocationController {
     LocationDao locationDao;
+    StockDao stockDao;
 
     @Autowired
-    public LocationController(LocationDao locationDao) {
+    public LocationController(LocationDao locationDao, StockDao stockDao) {
         this.locationDao = locationDao;
+        this.stockDao = stockDao;
     }
 
     @PostMapping("/search")
@@ -33,13 +37,21 @@ public class LocationController {
             Model model) {
         int totalResults = locationDao.selectAllByNameLike(query, true);
 
-        List<Location> results = locationDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
+        List<Location> locations = locationDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
 
-        model.addAttribute("results", results);
+        List<LocationContext> contexts = new ArrayList<>();
+        for (Location location : locations) {
+            assert location.getId() != null;
+            contexts.add(new LocationContext(location, stockDao.selectAllByLocationId(location.getId(), true)));
+        }
+
+        model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
 
-        return "location/search";
+        return "stock/location/search";
     }
+
+    public record LocationContext(Location location, int stockCount) {}
 
     @PostMapping("/create")
     @ResponseBody
