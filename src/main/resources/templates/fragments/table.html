@@ -1,7 +1,8 @@
 <!--/*@thymesVar id="pageContext" type="com.lavacorp.inven3.controller.PageContext"*/-->
 <div th:fragment="table (menu, table)"
      th:with="pageContext=${pageContext ?: T(com.lavacorp.inven3.controller.PageContext).makeDefault()}"
-     id="results">
+     th:id="results"
+     th:class="${menu}">
 
     <div th:fragment="sidebars" class="data-header">
         <div>
