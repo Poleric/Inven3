@@ -14,6 +14,7 @@
     <title th:text="|Inven3 - ${#strings.capitalize(menu)}|">Inven3</title>
 
     <link rel="stylesheet" th:href="@{/resources/css/inven3.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/reset.css}" />
 
     <script src='https://unpkg.com/htmx.org/dist/htmx.min.js'></script>
     <script th:src='@{/resources/js/inven3.js}'></script>
@@ -30,7 +31,7 @@
                 <li><a th:href="@{/sales}">Sales</a></li>
             </ul>
             <ul>
-                <li><a sec:authentication="name">User</a></li>
+                <li><span sec:authentication="name">User</span></li>
                 <li><a th:hx-post="@{/logout}" hx-trigger="click">Logout</a></li>
             </ul>
         </nav>
