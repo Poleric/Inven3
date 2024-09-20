@@ -96,4 +96,7 @@ public interface StockDao extends Dao<Stock> {
 
     @SqlUpdate
     void decreaseStock(int id, int quantity);
+
+    @SqlQuery()
+    int countItemStock(int itemId);
 }
