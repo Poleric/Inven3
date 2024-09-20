@@ -54,17 +54,22 @@ header {
 }
 
 .data-container {
-    margin: 2em 0;
+    margin: 1.5em 0;
     width: 98%;
     border: var(--border-color) solid 1px;
 
+    > * {
+       padding-left: 0.5em;
+       padding-right: 0.5em;
+    }
+
     & .data-container-header {
-        padding: 1em 1em;
+        padding: 1em 0.8em;
         background: var(--bg-color);
     }
 
     & .data-search {
-        padding: 1em 0.5em 0 0.5em;
+        padding-top: 1em;
 
         & input {
             border-radius: 5px;
@@ -73,7 +78,7 @@ header {
     }
 
     & #results {
-        padding: 0.5em;
+        margin: 0.8em;
         position: relative;
 
         & .data-header {
