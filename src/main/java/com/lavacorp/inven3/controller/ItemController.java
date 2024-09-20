@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,21 +41,24 @@ public class ItemController {
         int totalResults = itemDao.selectAllByNameLike(query, true);
 
         List<Item> items = itemDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
-        AtomicInteger totalStock = new AtomicInteger();
-        Map<Item, Integer> results = new HashMap<>();
-        items.forEach(item -> {
+
+        int totalStocks = 0;
+        List<ItemContext> contexts = new ArrayList<>();
+        for (Item item : items) {
             assert item.getId() != null;
             int stockCount = stockDao.countItemStock(item.getId());
-            results.put(item, stockCount);
-            totalStock.addAndGet(stockCount);
-        });
+            contexts.add(new ItemContext(item, stockCount));
+            totalStocks += stockCount;
+        }
 
-        model.addAttribute("results", results);
+        model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
-        model.addAttribute("totalStock", totalStock);
+        model.addAttribute("totalStocks", totalStocks);
 
         return "item/search";
     }
+
+    public record ItemContext(Item item, int stockCount) {}
 
     @PostMapping("/create")
     @ResponseBody

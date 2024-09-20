@@ -1,10 +1,9 @@
-<div th:fragment="table" th:replace="~{fragments/table :: table(~{:: .data-table}, '/item/search')}">
+<div th:fragment="table" th:replace="~{fragments/table :: table('item', ~{:: .data-table})}">
 
 <table class="data-table">
     <thead>
         <tr>
-            <th></th>
-            <th><label><input type="checkbox" onclick="cascade_checkbox(this, '[name=\'selected\']')"></label></th>
+            <th:block th:replace="~{fragments/table :: head}"></th:block>
             <th>Item</th>
             <th>Description</th>
             <th>Price</th>
@@ -15,26 +14,25 @@
     </thead>
 
     <tbody>
-        <tr th:if="${results == null || results.isEmpty()}">
+        <tr th:if="${contexts == null || contexts.isEmpty()}">
             <td colspan="8"> No Items </td>
         </tr>
 
-        <tr th:each="item, iter : ${results}">
-            <td><span th:text="${currentRow + iter.count - 1}"></span></td>
-            <td><label><input type="checkbox" name="selected" th:value="${item.getKey().getId()}"></label></td>
-            <td><span th:text="${item.getKey().getName()}"></span></td>
-            <td><span th:text="${item.getKey().getDescription()}"></span></td>
-            <td><span th:text="${item.getKey().getBasePrice()}"></span></td>
-            <td><span th:text="${item.getKey().getUnit()}"></span></td>
-            <td><span th:text="${item.getKey().getCategory().getName()}"></span></td>
-            <td><span th:text="${item.getValue()}">0</span></td>
+        <tr th:each="context, iter : ${contexts}">
+            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${context.item().getId()})}"></th:block>
+            <td><span th:text="${context.item().getName()}"></span></td>
+            <td><span th:text="${context.item().getDescription()}"></span></td>
+            <td><span th:text="${context.item().getBasePrice()}"></span></td>
+            <td><span th:text="${context.item().getUnit()}"></span></td>
+            <td><span th:text="${context.item().getCategory() != null ? context.item().getCategory().getName() : ''}"></span></td>
+            <td><span th:text="${context.stockCount()}">0</span></td>
         </tr>
     </tbody>
 
     <tfoot>
         <tr>
             <td colspan="7"></td>
-            <td><span th:text="${totalStock}">0</span></td>
+            <td><span th:text="${totalStocks}">0</span></td>
         </tr>
     </tfoot>
 </table>
