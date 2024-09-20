@@ -42,7 +42,7 @@ FROM Stock
     LEFT JOIN Supplier ON Stock.supplier_id = Supplier.id
     LEFT JOIN Location ON Stock.location_id = Location.id
 
-<#if id?? || name?? || nameLike?? || status?? || itemId?? || supplierId?? || stockLevel?? || stockValue?? || itemNameLike??>
+<#if id?? || name?? || nameLike?? || status?? || itemId?? || supplierId?? || locationId?? || stockLevel?? || stockValue?? || itemNameLike??>
     WHERE
     <#if id??>
         <@filter_id table=table_name operator="=" id=idVar/>
@@ -58,6 +58,8 @@ FROM Stock
         Supplier.id = :supplierId
     <#elseif itemNameLike??>
         <@filter_name_like table="Item" name_like=":itemNameLike"/>
+    <#elseif locationId??>
+        Location.id = :locationId
     <#elseif stockLevel??>
         status = "OK" AND
         <#if stockLevel.name() == "LOW">
