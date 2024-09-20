@@ -37,7 +37,7 @@ public class StockController {
         model.addAttribute("results", results);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalResults);
+        model.addAttribute("totalPages", totalResults / pageSize + 1);
         model.addAttribute("currentRow", (page - 1) * pageSize + 1);
         model.addAttribute("totalRows", totalResults);
 
