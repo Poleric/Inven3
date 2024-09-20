@@ -91,6 +91,21 @@ public interface StockDao extends Dao<Stock> {
     @SqlQuery("select")
     List<Stock> selectAllByStockLevel(@Bind @Define StockLevel stockLevel, int stockValue, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
 
+    @SqlQuery("select")
+    List<Stock> selectAllByItemNameLike(@Bind @Define String itemNameLike);
+
+    @SqlQuery("select")
+    int selectAllByItemNameLike(@Bind @Define String itemNameLike, @Define boolean count);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByItemNameLike(@Bind @Define String itemNameLike, @Define String orderColumn, @Define OrderDirection orderDirection);
+
+     @SqlQuery("select")
+    List<Stock> selectAllByItemNameLike(@Bind @Define String itemNameLike, @Define int page, @Define int pageSize);
+
+    @SqlQuery("select")
+    List<Stock> selectAllByItemNameLike(@Bind @Define String itemNameLike, @Define String orderColumn, @Define OrderDirection orderDirection, @Define int page, @Define int pageSize);
+
     @SqlUpdate
     void increaseStock(int id, int quantity);
 
