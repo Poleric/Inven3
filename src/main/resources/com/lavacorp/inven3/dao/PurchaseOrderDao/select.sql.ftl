@@ -78,7 +78,7 @@ FROM PurchaseOrder PO
 </#if>
 
 <#if count?? && count?? == true>
-GROUP BY SO.id)
+GROUP BY PO.id)
 </#if>
 
 <#if orderColumn?? && orderDirection??>
