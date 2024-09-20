@@ -22,15 +22,16 @@
 
         <tr th:each="context, iter : ${contexts}">
             <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${context.getId()})}"></th:block>
-            <td><span th:text="|'PO'${context.getId()}|"></span></td>
+            <td><span th:text="|PO${context.getId()}|"></span></td>
             <td><span th:text="${context.getSupplier().getName()}"></span></td>
             <td><span th:text="${context.getReference()}"></span></td>
+            <td><span th:text="${context.getStatus().name()}"></span></td>
             <td><time th:datetime="${context.getPurchaseDate()}"
-                      th:text="${#dates.format(context.getPurchaseDate(), 'dd-mm-yyyy')}"></time></td>
+                      th:text="${#temporals.format(context.getPurchaseDate(), 'dd-MM-yyyy')}"></time></td>
             <td><time th:datetime="${context.getTargetDate()}"
-                      th:text="${#dates.format(context.getTargetDate(), 'dd-mm-yyyy')}"></time></td>
+                      th:text="${#temporals.format(context.getTargetDate(), 'dd-MM-yyyy')}"></time></td>
             <td><time th:datetime="${context.getArrivedDate()}"
-                      th:text="${#dates.format(context.getArrivedDate(), 'dd-mm-yyyy')}"></time></td>
+                      th:text="${#temporals.format(context.getArrivedDate(), 'dd-MM-yyyy')}"></time></td>
             <td><span th:text="${context.getStocks().size()}"></span></td>
         </tr>
     </tbody>

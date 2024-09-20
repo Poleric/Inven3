@@ -5,7 +5,7 @@
 <body>
 
 <div class="center-page">
-    <form class="form-control data-container" th:hx-post="@{/templates/purchase/search}"
+    <form class="form-control data-container" th:hx-post="@{/purchase/search}"
           hx-target="#results"
           hx-swap="outerHTML"
           hx-trigger="load">
@@ -17,12 +17,12 @@
         <div class="data-search">
             <label>
                 <input type="search" name="query" placeholder="Search"
-                       th:hx-post="@{/templates/purchase/search}"
+                       th:hx-post="@{/purchase/search}"
                        hx-trigger="input[name='query'] changed delay:500ms, search">
             </label>
         </div>
 
-        <div th:insert="~{/order/purchase/search :: table }" id="results"></div>
+        <div th:insert="~{/purchase/search :: table }" id="results"></div>
 
     </form>
 </div>
