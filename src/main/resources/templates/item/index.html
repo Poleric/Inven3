@@ -5,8 +5,10 @@
 <body>
 
 <div class="center-page">
+    <form class="data-container" th:replace="~{item/category/index :: category }"></form>
+
     <form class="form-control data-container" th:hx-post="@{/item/search}"
-          hx-target="#results"
+          hx-target="#results.item"
           hx-swap="outerHTML"
           hx-trigger="load" >
 
@@ -22,7 +24,7 @@
             </label>
         </div>
 
-        <div th:insert="~{item/search :: table }" id="results"></div>
+        <div th:insert="~{item/search :: table }" id="results" class="item"></div>
 
     </form>
 </div>

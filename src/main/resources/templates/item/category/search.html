@@ -1,0 +1,27 @@
+<div th:fragment="table" th:replace="~{fragments/table :: table('item/category', ~{:: .data-table})}">
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th:block th:replace="~{fragments/table :: head}"></th:block>
+            <th>Category Name</th>
+            <th>Description</th>
+            <th>Item Count</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:if="${contexts == null || contexts.isEmpty()}">
+            <td colspan="12"> No Categories </td>
+        </tr>
+
+        <tr th:each="context, iter : ${contexts}">
+            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${context.category().getId()})}"></th:block>
+            <td><span th:text="${context.category().getName()}"></span></td>
+            <td><span th:text="${context.category().getDescription()}"></span></td>
+            <td><span th:text="${context.itemCount()}"></span></td>
+        </tr>
+    </tbody>
+</table>
+
+</div>

@@ -1,6 +1,7 @@
 package com.lavacorp.inven3.controller;
 
 import com.lavacorp.inven3.dao.CategoryDao;
+import com.lavacorp.inven3.dao.ItemDao;
 import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.model.Category;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
@@ -11,16 +12,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@RequestMapping("/category")
+@RequestMapping("/item/category")
 public class CategoryController {
     CategoryDao categoryDao;
+    ItemDao itemDao;
 
     @Autowired
-    public CategoryController(CategoryDao categoryDao) {
+    public CategoryController(CategoryDao categoryDao, ItemDao itemDao) {
         this.categoryDao = categoryDao;
+        this.itemDao = itemDao;
     }
 
     @PostMapping("/search")
@@ -33,14 +37,21 @@ public class CategoryController {
             Model model) {
         int totalResults = categoryDao.selectAllByNameLike(query, true);
 
-        List<Category> results = categoryDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
+        List<Category> categories = categoryDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
 
-        model.addAttribute("results", results);
+        List<CategoryContext> contexts = new ArrayList<>();
+        for (Category category : categories) {
+            assert category.getId() != null;
+            contexts.add(new CategoryContext(category, itemDao.selectAllByCategoryId(category.getId(), true)));
+        }
+
+        model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
 
-        return "category/search";
+        return "item/category/search";
     }
 
+    public record CategoryContext(Category category, int itemCount) {}
 
     @PostMapping("/create")
     @ResponseBody

@@ -1,9 +1,21 @@
-<!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::body}, 'category')}">
+<form th:fragment="category"
+      class="form-control data-container" th:hx-post="@{/item/category/search}"
+      hx-target="#results.category"
+      hx-swap="outerHTML"
+      hx-trigger="load">
 
-<body>
+    <div class="data-container-header">
+        <h2>Item Categories</h2>
+    </div>
 
-</body>
+    <div class="data-search">
+        <label>
+            <input type="search" name="query" placeholder="Search"
+                   th:hx-post="@{/item/category/search}"
+                   hx-trigger="input[name='query'] changed delay:500ms, search">
+        </label>
+    </div>
 
-</html>
+    <div th:insert="~{item/category/search :: table }" id="results" class="category"></div>
+
+</form>
