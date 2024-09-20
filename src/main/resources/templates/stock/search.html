@@ -1,0 +1,54 @@
+<div th:fragment="table" th:replace="~{fragments/table :: table(~{:: .data-table}, '/stock/search')}">
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th><label><input type="checkbox" onclick="cascade_checkbox(this, '[name=\'selected\']')"></label></th>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Location</th>
+            <th>Last Updated</th>
+            <th>Purchase Order</th>
+            <th>Supplier</th>
+            <th>Purchased Stocks</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:if="${results == null || results.isEmpty()}">
+            <td colspan="12"> No Items </td>
+        </tr>
+
+        <tr th:each="stockContext, iter : ${results}">
+            <td><span th:text="${currentRow + iter.count - 1}"></span></td>
+            <td><label><input type="checkbox" name="selected" th:value="${stockContext.stock().getId()}"></label></td>
+            <td><span th:text="${stockContext.stock().getItem().getName()}"></span></td>
+            <td><span th:text="${stockContext.stock().getItem().getDescription()}"></span></td>
+            <td><span th:text="${stockContext.stock().getQuantity()}"></span></td>
+            <td><span th:text="${stockContext.stock().getStatus().name()}"></span></td>
+            <td><span th:text="${stockContext.stock().getLocation().getName()}"></span></td>
+            <td><time th:datetime="${stockContext.stock().getLastUpdatedAt()}"
+                      th:text="${#dates.format(stockContext.stock().getLastUpdatedAt(), 'dd-mm-yyyy')}"></time></td>
+            <td><span th:text="${stockContext.order() != null ? 'PO' + stockContext.order().getId() : ''}"></span></td>
+            <td><span th:text="${stockContext.order() != null ? stockContext.order().getSupplier().getName() : ''}"></span></td>
+            <td><span th:text="${stockContext.purchaseCount() ?: ''}"></span></td>
+            <td><span th:text="${stockContext.stock().getNotes()}"></span></td>
+        </tr>
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td colspan="4"></td>
+            <td><span th:text="${totalStocks}">0</span></td>
+            <td colspan="5"></td>
+            <td><span th:text="${totalStockPurchases}">0</span></td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+
+</div>
