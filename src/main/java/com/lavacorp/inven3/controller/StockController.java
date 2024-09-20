@@ -14,10 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/stock")
@@ -40,36 +39,29 @@ public class StockController {
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
         int totalResults = stockDao.selectAll(true);
-        AtomicInteger totalStocks = new AtomicInteger();
-        AtomicInteger totalStockPurchases = new AtomicInteger();
 
         List<Stock> stocks = stockDao.selectAllByItemNameLike(query, ordering, orderingDirection, page, pageSize);
-        List<StockContext> results = new ArrayList<>();
-        stocks.forEach(stock -> {
+
+        int totalStocks = 0;
+        List<StockContext> contexts = new ArrayList<>();
+        for (Stock stock : stocks) {
             assert stock.getId() != null;
             PurchaseOrder po = purchaseOrderDao.selectByStockId(stock.getId());
-            int purchaseCount = 0;
-            if (po != null)  // this is horrible
-                purchaseCount = po.getStocks().entrySet().stream().dropWhile(
-                        entry -> stock.getId().equals(entry.getKey().getId())
-                ).findFirst().orElse(new AbstractMap.SimpleEntry<>(null, 0)).getValue();
-            results.add(new StockContext(stock, po, purchaseCount));
+            contexts.add(new StockContext(stock, po));
+
             if (stock.getStatus() == Stock.StockStatus.OK
-                || stock.getStatus() == Stock.StockStatus.IN_TRANSIT)
-                totalStocks.addAndGet(stock.getQuantity());
-            totalStockPurchases.addAndGet(purchaseCount);
-        });
+                    || stock.getStatus() == Stock.StockStatus.IN_TRANSIT)
+                totalStocks += stock.getQuantity();
+        }
 
-
-        model.addAttribute("results", results);
+        model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
         model.addAttribute("totalStocks", totalStocks);
-        model.addAttribute("totalStockPurchases", totalStockPurchases);
 
         return "stock/search";
     }
 
-    public record StockContext(Stock stock, @Nullable PurchaseOrder order, int purchaseCount) {}
+    public record StockContext(Stock stock, @Nullable PurchaseOrder order) {}
 
     @PostMapping("/create")
     @ResponseBody

@@ -1,10 +1,9 @@
-<div th:fragment="table" th:replace="~{fragments/table :: table(~{:: .data-table}, '/stock/search')}">
+<div th:fragment="table" th:replace="~{fragments/table :: table('stock', ~{:: .data-table})}">
 
 <table class="data-table">
     <thead>
         <tr>
-            <th></th>
-            <th><label><input type="checkbox" onclick="cascade_checkbox(this, '[name=\'selected\']')"></label></th>
+            <th:block th:replace="~{fragments/table :: head}"></th:block>
             <th>Item</th>
             <th>Description</th>
             <th>Quantity</th>
@@ -13,30 +12,27 @@
             <th>Last Updated</th>
             <th>Purchase Order</th>
             <th>Supplier</th>
-            <th>Purchased Stocks</th>
             <th>Notes</th>
         </tr>
     </thead>
 
     <tbody>
-        <tr th:if="${results == null || results.isEmpty()}">
+        <tr th:if="${contexts == null || contexts.isEmpty()}">
             <td colspan="12"> No Items </td>
         </tr>
 
-        <tr th:each="stockContext, iter : ${results}">
-            <td><span th:text="${currentRow + iter.count - 1}"></span></td>
-            <td><label><input type="checkbox" name="selected" th:value="${stockContext.stock().getId()}"></label></td>
-            <td><span th:text="${stockContext.stock().getItem().getName()}"></span></td>
-            <td><span th:text="${stockContext.stock().getItem().getDescription()}"></span></td>
-            <td><span th:text="${stockContext.stock().getQuantity()}"></span></td>
-            <td><span th:text="${stockContext.stock().getStatus().name()}"></span></td>
-            <td><span th:text="${stockContext.stock().getLocation().getName()}"></span></td>
-            <td><time th:datetime="${stockContext.stock().getLastUpdatedAt()}"
-                      th:text="${#dates.format(stockContext.stock().getLastUpdatedAt(), 'dd-mm-yyyy')}"></time></td>
-            <td><span th:text="${stockContext.order() != null ? 'PO' + stockContext.order().getId() : ''}"></span></td>
-            <td><span th:text="${stockContext.order() != null ? stockContext.order().getSupplier().getName() : ''}"></span></td>
-            <td><span th:text="${stockContext.purchaseCount() ?: ''}"></span></td>
-            <td><span th:text="${stockContext.stock().getNotes()}"></span></td>
+        <tr th:each="context, iter : ${contexts}">
+            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${context.stock().getId()})}"></th:block>
+            <td><span th:text="${context.stock().getItem().getName()}"></span></td>
+            <td><span th:text="${context.stock().getItem().getDescription()}"></span></td>
+            <td><span th:text="${context.stock().getQuantity()}"></span></td>
+            <td><span th:text="${context.stock().getStatus().name()}"></span></td>
+            <td><span th:text="${context.stock().getLocation().getName()}"></span></td>
+            <td><time th:datetime="${context.stock().getLastUpdatedAt()}"
+                      th:text="${#dates.format(context.stock().getLastUpdatedAt(), 'dd-mm-yyyy')}"></time></td>
+            <td><span th:text="${context.order() != null ? 'PO' + context.order().getId() : ''}"></span></td>
+            <td><span th:text="${context.order() != null ? context.order().getSupplier().getName() : ''}"></span></td>
+            <td><span th:text="${context.stock().getNotes()}"></span></td>
         </tr>
     </tbody>
 
@@ -44,9 +40,7 @@
         <tr>
             <td colspan="4"></td>
             <td><span th:text="${totalStocks}">0</span></td>
-            <td colspan="5"></td>
-            <td><span th:text="${totalStockPurchases}">0</span></td>
-            <td></td>
+            <td colspan="6"></td>
         </tr>
     </tfoot>
 </table>
