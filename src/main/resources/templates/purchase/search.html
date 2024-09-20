@@ -1,0 +1,39 @@
+<div th:fragment="table" th:replace="~{fragments/table :: table('purchase', ~{:: .data-table})}">
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th:block th:replace="~{fragments/table :: head}"></th:block>
+            <th>Purchase Order</th>
+            <th>Supplier</th>
+            <th>Reference</th>
+            <th>Status</th>
+            <th>Order Date</th>
+            <th>Target Date</th>
+            <th>Arrived Date</th>
+            <th>Stocks Ordered</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:if="${contexts == null || contexts.isEmpty()}">
+            <td colspan="10"> No Items </td>
+        </tr>
+
+        <tr th:each="context, iter : ${contexts}">
+            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${context.getId()})}"></th:block>
+            <td><span th:text="|'PO'${context.getId()}|"></span></td>
+            <td><span th:text="${context.getSupplier().getName()}"></span></td>
+            <td><span th:text="${context.getReference()}"></span></td>
+            <td><time th:datetime="${context.getPurchaseDate()}"
+                      th:text="${#dates.format(context.getPurchaseDate(), 'dd-mm-yyyy')}"></time></td>
+            <td><time th:datetime="${context.getTargetDate()}"
+                      th:text="${#dates.format(context.getTargetDate(), 'dd-mm-yyyy')}"></time></td>
+            <td><time th:datetime="${context.getArrivedDate()}"
+                      th:text="${#dates.format(context.getArrivedDate(), 'dd-mm-yyyy')}"></time></td>
+            <td><span th:text="${context.getStocks().size()}"></span></td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
