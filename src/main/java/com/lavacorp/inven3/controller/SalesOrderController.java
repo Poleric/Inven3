@@ -26,7 +26,7 @@ public class SalesOrderController {
     public String show(
             @RequestParam(name = "query", defaultValue = "") String query,
             @RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "page-size", defaultValue = "20") int pageSize,
+            @RequestParam(name = "page-size", defaultValue = "25") int pageSize,
             @RequestParam(name = "ordering", defaultValue = "Stock.id") String ordering,
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {

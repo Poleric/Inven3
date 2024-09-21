@@ -34,7 +34,7 @@ public class ItemController {
     public String search(
             @RequestParam(name = "query", defaultValue = "") String query,
             @RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
+            @RequestParam(name = "pageSize", defaultValue = "25") int pageSize,
             @RequestParam(name = "ordering", defaultValue = "Item.id") String ordering,
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
