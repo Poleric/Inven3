@@ -1,8 +1,9 @@
 package com.lavacorp.inven3.controller;
 
-import com.lavacorp.inven3.dao.OrderDirection;
-import com.lavacorp.inven3.dao.PurchaseOrderDao;
+import com.lavacorp.inven3.dao.*;
 import com.lavacorp.inven3.model.PurchaseOrder;
+import com.lavacorp.inven3.model.Stock;
+import com.lavacorp.inven3.model.generic.Order;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,16 +12,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/purchase")
 public class PurchaseOrderController {
     PurchaseOrderDao purchaseOrderDao;
+    SupplierDao supplierDao;
+    ItemDao itemDao;
+    LocationDao locationDao;
 
     @Autowired
-    public PurchaseOrderController(PurchaseOrderDao purchaseOrderDao) {
+    public PurchaseOrderController(PurchaseOrderDao purchaseOrderDao, SupplierDao supplierDao, ItemDao itemDao, LocationDao locationDao) {
         this.purchaseOrderDao = purchaseOrderDao;
+        this.supplierDao = supplierDao;
+        this.itemDao = itemDao;
+        this.locationDao = locationDao;
     }
 
     @PostMapping("/search")
@@ -41,6 +50,39 @@ public class PurchaseOrderController {
         return "purchase/search";
     }
 
+    @PostMapping("/create")
+    @ResponseBody
+    public HttpStatus create(@RequestBody NewPurchaseOrderContext context) {
+        PurchaseOrder po = new PurchaseOrder();
+        po.setSupplier(supplierDao.selectById(context.supplierId));
+        po.setPurchaseDate(context.purchaseDate);
+        po.setTargetDate(context.targetDate);
+        po.setReference(context.reference);
+        po.setStatus(Order.OrderStatus.IN_TRANSIT);
+
+        for (int i = 0; i < context.itemId.length; i++) {
+            Stock stock = new Stock();
+
+            stock.setItem(Objects.requireNonNull(itemDao.selectById(context.itemId[i])));
+            stock.setSupplier(supplierDao.selectById(context.supplierId));
+            if (context.locationId[i] != 0)
+                stock.setLocation(locationDao.selectById(context.locationId[i]));
+            stock.setQuantity(context.quantity[i]);
+            stock.setStatus(Stock.StockStatus.IN_TRANSIT);
+
+            po.getStocks().put(stock, context.quantity[i]);
+        }
+
+        try {
+            purchaseOrderDao.insert(po);
+        } catch (UnableToExecuteStatementException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+
+        return HttpStatus.OK;
+    }
+
+    public record NewPurchaseOrderContext(int supplierId, LocalDateTime purchaseDate, LocalDateTime targetDate, String reference, int[] itemId, int[] locationId, int[] quantity) {}
 
     @DeleteMapping("/delete")
     @ResponseBody

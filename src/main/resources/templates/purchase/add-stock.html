@@ -2,12 +2,12 @@
     <hr>
     <div>
         <label for="itemId">Item</label>
-        <select th:hx-get="@{/item/options}" hx-trigger="load, click from:button.add" hx-target="this"
+        <select th:hx-post="@{/item/supplier-items}" hx-trigger="load, click from:[name='supplierId']" hx-params="supplierId" hx-target="this" hx-ext="ignore:json-enc"
                 name="itemId" id="itemId" required></select>
     </div>
     <div>
         <label for="locationId">Location</label>
-        <select th:hx-get="@{/stock/location/options}" hx-trigger="load, click from:button.add" hx-target="this"
+        <select th:hx-get="@{/stock/location/options}" hx-trigger="load, click from:[name='supplierId']" hx-target="this"
                 name="locationId" id="locationId"></select>
     </div>
     <div>
