@@ -14,7 +14,7 @@ public class PageContext {
     int totalPage;
 
     public PageContext(int pageSize, int currentRow, int totalRow, int currentPage, int totalPage) {
-        this(pageSize, currentRow, Math.max(currentRow + pageSize - 1, totalRow), totalRow, currentPage, totalPage);
+        this(pageSize, currentRow, Math.min(currentRow + pageSize - 1, totalRow), totalRow, currentPage, totalPage);
     }
 
     public PageContext(int pageSize, int totalRow, int currentPage) {
