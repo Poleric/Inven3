@@ -1,0 +1,3 @@
+<th:block th:each="stock : ${stocks}" th:remove="tag">
+    <option th:value="${stock.getId()}" th:text="|${stock.getItem().getName()} at ${stock.getLocation().getName()} (${stock.getQuantity()})|"></option>
+</th:block>

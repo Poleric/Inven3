@@ -102,4 +102,10 @@ public class StockController {
 
         return HttpStatus.OK;
     }
+
+    @PostMapping("/options")
+    public String getOptions(Model model) {
+        model.addAttribute("stocks", stockDao.selectAll("Stock.quantity", OrderDirection.DESC));
+        return "stock/options";
+    }
 }
