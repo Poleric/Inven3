@@ -1,0 +1,4 @@
+<option value="0" selected></option>
+<th:block th:each="category : ${categories}" th:remove="tag">
+    <option th:value="${category.getId()}" th:text="${category.getName()}"></option>
+</th:block>

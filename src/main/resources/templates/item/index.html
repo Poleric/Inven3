@@ -17,7 +17,33 @@
 
 <div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'item')}">
     <div class="modal-body add">
-        <!--        TODO: input -->
+        <div>
+            <label for="name">Item Name*</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description">
+        </div>
+        <div>
+            <label for="basePrice">Price</label>
+            <input type="number" name="basePrice" id="basePrice" step=".01">
+        </div>
+        <div>
+            <label for="unit">Unit</label>
+            <input type="text" name="unit" id="unit">
+        </div>
+        <div>
+            <label for="categoryId">Category</label>
+            <select th:hx-get="@{/item/category/options}" hx-target="this" hx-trigger="load, click from:button.add"
+                    name="categoryId" id="categoryId">
+                <option value="0"></option>
+            </select>
+        </div>
+        <div>
+            <label for="minStock">Minimum Stock</label>
+            <input type="number" name="minStock" id="minStock">
+        </div>
     </div>
 </div>
 

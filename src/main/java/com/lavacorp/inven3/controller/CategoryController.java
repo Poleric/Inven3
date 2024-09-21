@@ -78,4 +78,11 @@ public class CategoryController {
 
         return HttpStatus.OK;
     }
+
+    @GetMapping("/options")
+    public String getOptions(Model model) {
+        model.addAttribute("categories", categoryDao.selectAll());
+
+        return "item/category/options";
+    }
 }

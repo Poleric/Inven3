@@ -1,5 +1,6 @@
 package com.lavacorp.inven3.controller;
 
+import com.lavacorp.inven3.dao.CategoryDao;
 import com.lavacorp.inven3.dao.ItemDao;
 import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.dao.StockDao;
@@ -21,13 +22,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Controller
 @RequestMapping("/item")
 public class ItemController {
+    CategoryDao categoryDao;
     ItemDao itemDao;
     StockDao stockDao;
 
     @Autowired
-    public ItemController(ItemDao itemDao, StockDao stockDao) {
+    public ItemController(ItemDao itemDao, StockDao stockDao, CategoryDao categoryDao) {
         this.itemDao = itemDao;
         this.stockDao = stockDao;
+        this.categoryDao = categoryDao;
     }
 
     @PostMapping("/search")
@@ -62,7 +65,16 @@ public class ItemController {
 
     @PostMapping("/create")
     @ResponseBody
-    public HttpStatus create(@RequestBody Item item) {
+    public HttpStatus create(@RequestBody NewItemContext context) {
+        Item item = new Item();
+        item.setName(context.name);
+        item.setDescription(context.description);
+        item.setBasePrice(context.basePrice);
+        item.setUnit(context.unit);
+        if (context.categoryId != 0)
+            item.setCategory(categoryDao.selectById(context.categoryId));
+        item.setMinStock(context.minStock);
+
         try {
             itemDao.insert(item);
         } catch (UnableToExecuteStatementException e) {
@@ -71,6 +83,8 @@ public class ItemController {
 
         return HttpStatus.OK;
     }
+
+    public record NewItemContext(String name, String description, Double basePrice, String unit, int categoryId, int minStock) {}
 
     @DeleteMapping("/delete")
     @ResponseBody
