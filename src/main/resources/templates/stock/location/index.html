@@ -28,14 +28,12 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.modal-body}, 'stock/location')}">
-    <div class="modal-body">
-        <table class="to-delete">
-
-        </table>
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'stock/location')}">
+    <div class="modal-body delete">
+        <div>Confirm delete these entries.</div>
+        <table class="to-delete data-table"></table>
     </div>
 </div>
-
 
 </body>
 

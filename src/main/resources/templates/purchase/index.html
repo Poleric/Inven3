@@ -15,6 +15,19 @@
     </div>
 </div>
 
+<div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'purchase')}">
+    <div class="modal-body add">
+        <!--        TODO: input -->
+    </div>
+</div>
+
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'purchase')}">
+    <div class="modal-body delete">
+        <div>Confirm delete these entries.</div>
+        <table class="to-delete data-table"></table>
+    </div>
+</div>
+
 </body>
 
 </html>
