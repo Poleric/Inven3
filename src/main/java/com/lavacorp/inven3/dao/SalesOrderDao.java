@@ -12,6 +12,7 @@ import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.Define;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.UseRowReducer;
+import org.jdbi.v3.sqlobject.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +24,26 @@ import java.util.Map;
 @RegisterBeanMapper(SalesOrder.class)
 @RegisterBeanMapper(value = Stock.class, prefix = "stock")
 public interface SalesOrderDao extends StockableOrderDao<SalesOrder> {
+    @Transaction
+    default SalesOrder insert(SalesOrder order) {
+        int orderId = insertOrderDetails(order);
+        order.setId(orderId);
+
+        order.getStocks().forEach(
+                (key, value) -> {
+                    assert key.getId() != null;
+                    Stock stock = getStockDao().selectById(key.getId());
+                    assert stock != null;
+                    assert value > stock.getQuantity();
+                    stock.setQuantity(stock.getQuantity() - value);
+                    getStockDao().update(stock);
+                    insertOrderLine(orderId, key.getId(), value);
+                }
+        );
+
+        return order;
+    }
+
     @Override
     @SqlQuery("select")
     @UseRowReducer(SalesOrderRowReducer.class)
