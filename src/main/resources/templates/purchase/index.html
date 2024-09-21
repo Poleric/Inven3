@@ -17,7 +17,27 @@
 
 <div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'purchase')}">
     <div class="modal-body add">
-        <!--        TODO: input -->
+        <div>
+            <label for="supplierId">Supplier</label>
+            <select th:hx-get="@{/supplier/options}" hx-trigger="load, click from:button.add" hx-target="this"
+                    name="supplierId" id="supplierId" required></select>
+        </div>
+        <div>
+            <label for="purchaseDate">Purchasing Date</label>
+            <input type="date" name="purchaseDate" id="purchaseDate" required>
+        </div>
+        <div>
+            <label for="targetDate">Target Date</label>
+            <input type="date" name="targetDate" id="targetDate">
+        </div>
+        <div>
+            <label for="reference">Reference</label>
+            <input type="text" name="reference" id="reference">
+        </div>
+
+        <h2>Stocks</h2>
+
+        <button class="add" th:hx-get="@{/purchase/add-stock}" hx-swap="beforeend" hx-target=".modal-body">+ Add Stock</button>
     </div>
 </div>
 

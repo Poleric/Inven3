@@ -1,0 +1,17 @@
+<div class="modal-body">
+    <hr>
+    <div>
+        <label for="itemId">Item</label>
+        <select th:hx-get="@{/item/options}" hx-trigger="load, click from:button.add" hx-target="this"
+                name="itemId" id="itemId" required></select>
+    </div>
+    <div>
+        <label for="locationId">Location</label>
+        <select th:hx-get="@{/stock/location/options}" hx-trigger="load, click from:button.add" hx-target="this"
+                name="locationId" id="locationId"></select>
+    </div>
+    <div>
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity" min="0" step="1">
+    </div>
+</div>
