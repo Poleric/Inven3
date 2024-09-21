@@ -20,16 +20,16 @@ VALUES ('CPU'),
        ('Smartwatch')
 ON CONFLICT (name) DO NOTHING;
 
-INSERT INTO Item (name, description, base_price, unit, category_id)
-VALUES ('Samseng FHD Smart Television', 'The first model, black television from the year 2023, equipped with Full HD technology.', 4000, 'pcs', (SELECT id FROM Category WHERE name = 'Television')),
-       ('Samseng SmartBooK', 'The second model, white laptop from the year 2021, designed for studying purposes.', 3000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Laptop')),
-       ('Samseng Universe S23 Ultra', 'The first and only model, pink smartphone from the year 2022, featuring high-end specs and bigger size.', 5000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Smartphone')),
-       ('Samseng SmartFridge', 'The fifth model, silver smart fridge from the year 2023.', 4000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Console')),
-       ('Samseng SmartWatch', 'The second model, black smart watch from the year 2020.', 500.00, 'pcs', (SELECT id FROM Category WHERE name = 'Smartwatch')),
-       ('Nvisaya RTX 6700', 'The 3 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 3500.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card')),
-       ('Nvisaya RTX 6800', 'The 4 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 4800.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card')),
-       ('Nvisaya RTX 6900', 'The 5 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 6000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card')),
-       ('Outel Apple Lake 16700K', 'Outel Gen 16 ultra-high performance CPU with a clock speed of 20GHz and 16 cores.', 4000.00, 'pcs', (SELECT id FROM Category WHERE name = 'CPU'))
+INSERT INTO Item (name, description, base_price, unit, category_id, min_stock)
+VALUES ('Samseng FHD Smart Television', 'The first model, black television from the year 2023, equipped with Full HD technology.', 4000, 'pcs', (SELECT id FROM Category WHERE name = 'Television'), 5),
+       ('Samseng SmartBooK', 'The second model, white laptop from the year 2021, designed for studying purposes.', 3000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Laptop'), 5),
+       ('Samseng Universe S23 Ultra', 'The first and only model, pink smartphone from the year 2022, featuring high-end specs and bigger size.', 5000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Smartphone'), 5),
+       ('Samseng SmartFridge', 'The fifth model, silver smart fridge from the year 2023.', 4000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Console'), 5),
+       ('Samseng SmartWatch', 'The second model, black smart watch from the year 2020.', 500.00, 'pcs', (SELECT id FROM Category WHERE name = 'Smartwatch'), 5),
+       ('Nvisaya RTX 6700', 'The 3 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 3500.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card'), 5),
+       ('Nvisaya RTX 6800', 'The 4 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 4800.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card'), 5),
+       ('Nvisaya RTX 6900', 'The 5 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 6000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card'), 5),
+       ('Outel Apple Lake 16700K', 'Outel Gen 16 ultra-high performance CPU with a clock speed of 20GHz and 16 cores.', 4000.00, 'pcs', (SELECT id FROM Category WHERE name = 'CPU'), 5)
 ON CONFLICT (name) DO NOTHING;
 
 INSERT INTO Location (name)
