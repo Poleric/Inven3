@@ -5,29 +5,8 @@
 <body>
 
 <div class="center-page">
-    <form class="data-container" th:replace="~{stock/location/index :: location}"></form>
-
-
-    <form class="form-control data-container" th:hx-post="@{/stock/search}"
-          hx-target="#results.stock"
-          hx-swap="outerHTML"
-          hx-trigger="load">
-
-        <div class="data-container-header">
-            <h2>Stocks</h2>
-        </div>
-
-        <div class="data-search">
-            <label>
-                <input type="search" name="query" placeholder="Search"
-                       th:hx-post="@{/stock/search}"
-                       hx-trigger="input[name='query'] changed delay:500ms, search">
-            </label>
-        </div>
-
-        <div th:replace="~{stock/search :: table }" id="results" class="stock"></div>
-
-    </form>
+    <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('stock/location', 'Stock Locations')}"></form>
+    <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('stock', 'Stocks')}"></form>
 </div>
 
 </body>

@@ -10,7 +10,7 @@
             </span>
 
             <label>
-                <select name="page-size" th:hx-post="@{/{path}/search(path=${menu})}" hx-trigger="change">
+                <select name="page-size" class="page-size">
                     <option value="10" th:selected="${pageContext.pageSize} == 10">10</option>
                     <option value="25" th:selected="${pageContext.pageSize} == 25">25</option>
                     <option value="100" th:selected="${pageContext.pageSize} == 100">100</option>
@@ -22,7 +22,7 @@
         <div>
             <label>
                 Page
-                <select name="page" th:hx-post="@{/{path}/search(path=${menu})}" hx-trigger="change">
+                <select name="page" class="page">
                     <option th:each="i : ${#numbers.sequence(1, pageContext.totalPage)}"
                             th:value="${i}"
                             th:text="${i}"

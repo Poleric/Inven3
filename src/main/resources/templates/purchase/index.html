@@ -5,26 +5,7 @@
 <body>
 
 <div class="center-page">
-    <form class="form-control data-container" th:hx-post="@{/purchase/search}"
-          hx-target="#results"
-          hx-swap="outerHTML"
-          hx-trigger="load">
-
-        <div class="data-container-header">
-            <h2>Purchase Order</h2>
-        </div>
-
-        <div class="data-search">
-            <label>
-                <input type="search" name="query" placeholder="Search"
-                       th:hx-post="@{/purchase/search}"
-                       hx-trigger="input[name='query'] changed delay:500ms, search">
-            </label>
-        </div>
-
-        <div th:replace="~{/purchase/search :: table }" id="results"></div>
-
-    </form>
+    <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('purchase', 'Purchase Orders')}"></form>
 </div>
 
 </body>

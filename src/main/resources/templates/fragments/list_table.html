@@ -1,0 +1,19 @@
+<form th:fragment="list_table (menu, title_name)"
+      class="form-control data-container" th:hx-post="@{/__${menu}__/search}"
+      hx-target="find #results"
+      hx-swap="outerHTML"
+          hx-trigger="load, change from:find .search delay:500ms, change from:find .page-size, change from:find .page">
+
+    <div class="data-container-header">
+        <h2 th:text="${title_name}"></h2>
+    </div>
+
+    <div class="data-search">
+        <label>
+            <input type="search" name="query" placeholder="Search" class="search">
+        </label>
+    </div>
+
+    <div th:replace="~{__${menu}__/search :: table }" id="results"></div>
+
+</form>
