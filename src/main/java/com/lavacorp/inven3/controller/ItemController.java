@@ -39,10 +39,18 @@ public class ItemController {
             @RequestParam(name = "pageSize", defaultValue = "25") int pageSize,
             @RequestParam(name = "ordering", defaultValue = "Item.id") String ordering,
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
+            @RequestParam(name = "low", defaultValue = "false") boolean low,
             Model model) {
-        int totalResults = itemDao.selectAllByNameLike(query, true);
+        int totalResults;
+        List<Item> items;
 
-        List<Item> items = itemDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
+        if (!low) {
+            totalResults = itemDao.selectAllByNameLike(query, true);
+            items = itemDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
+        } else {
+            totalResults = itemDao.selectAllByStockLevel(StockLevel.LOW, true);
+            items = itemDao.selectAllByStockLevel(StockLevel.LOW, page, pageSize);
+        }
 
         int totalStocks = 0;
         List<ItemContext> contexts = new ArrayList<>();

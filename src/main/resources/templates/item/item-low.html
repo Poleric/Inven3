@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body}, 'Low stock')}">
+
+<body>
+
+<div class="body">
+    <nav class="sidebar">
+        <a th:href="@{/item}">Item</a>
+        <a th:href="@{/item/category}">Category</a>
+        <a class="selected" th:href="@{/item/item-low}">Low Stock</a>
+    </nav>
+
+    <div class="column">
+        <div class="data-container">
+
+            <div class="data-container-header">
+                <h2>Low Stock Count</h2>
+            </div>
+
+
+            <form th:hx-post="@{/item/search}"
+                  hx-target="find #results"
+                  hx-swap="outerHTML"
+                  hx-trigger="load, change from:find .search delay:500ms, change from:find .page-size, change from:find .page">
+
+                <input type="hidden" name="low" value="true">
+
+                <div th:replace="~{item/search :: table }" id="results"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
