@@ -2,7 +2,7 @@
 <div th:fragment="table (menu, table)"
      th:with="pageContext=${pageContext ?: T(com.lavacorp.inven3.controller.PageContext).makeDefault()}"
      th:id="results"
-     th:class="${menu}">
+     th:class="${#strings.listSplit(menu, '/').getLast()}">
 
     <div th:fragment="sidebars" class="data-header">
         <div>
