@@ -46,7 +46,7 @@ FROM Item
 </#if>
 
 <#if stockLevel??>
-    WHERE status = "OK"
+    WHERE status = 'OK'
     GROUP BY Item.id, Item.name, Item.description, Item.base_price, Item.unit, Item.min_stock, Category.id, Category.name, Category.description, Item.created_at, Item.last_updated_at
     HAVING
     <#if stockLevel.name() == "LOW">
