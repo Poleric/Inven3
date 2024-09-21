@@ -1,9 +1,6 @@
 package com.lavacorp.inven3.controller;
 
-import com.lavacorp.inven3.dao.CategoryDao;
-import com.lavacorp.inven3.dao.ItemDao;
-import com.lavacorp.inven3.dao.OrderDirection;
-import com.lavacorp.inven3.dao.StockDao;
+import com.lavacorp.inven3.dao.*;
 import com.lavacorp.inven3.model.Item;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +22,14 @@ public class ItemController {
     CategoryDao categoryDao;
     ItemDao itemDao;
     StockDao stockDao;
+    SupplierDao supplierDao;
 
     @Autowired
-    public ItemController(ItemDao itemDao, StockDao stockDao, CategoryDao categoryDao) {
+    public ItemController(ItemDao itemDao, StockDao stockDao, CategoryDao categoryDao, SupplierDao supplierDao) {
         this.itemDao = itemDao;
         this.stockDao = stockDao;
         this.categoryDao = categoryDao;
+        this.supplierDao = supplierDao;
     }
 
     @PostMapping("/search")
@@ -97,5 +96,17 @@ public class ItemController {
             }
 
         return HttpStatus.OK;
+    }
+
+    @GetMapping("/options")
+    public String getOptions(Model model) {
+        model.addAttribute("items", itemDao.selectAll());
+        return "item/options";
+    }
+
+    @PostMapping("/supplier-options")
+    public String getSupplierOptions(@RequestParam("itemId") int itemId, Model model) {
+        model.addAttribute("suppliers", supplierDao.selectAllByItemId(itemId));
+        return "item/supplier-options";
     }
 }

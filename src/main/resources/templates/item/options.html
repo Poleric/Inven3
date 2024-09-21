@@ -1,0 +1,3 @@
+<th:block th:each="item : ${items}" th:remove="tag">
+    <option th:value="${item.getId()}" th:text="${item.getName()}"></option>
+</th:block>
