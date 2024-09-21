@@ -1,0 +1,17 @@
+<div th:fragment="create_new (body, menu)"
+     class="modal create-new">
+    <form th:hx-post="@{__${menu}__/create}" hx-ext="json-enc" onsubmit="close_modal_box(this)">
+        <header>
+            <h2 th:text="|Create ${#strings.capitalizeWords(#strings.listSplit(menu, '/').getLast())}|"></h2>
+            <button class="close" onclick="close_modal_box(this)">X</button>
+        </header>
+
+        <div class="modal-body" th:replace="${body}">
+        </div>
+
+        <footer>
+            <button type="reset" class="cancel" onclick="close_modal_box(this)">Cancel</button>
+            <button type="submit" class="add">Create</button>
+        </footer>
+    </form>
+</div>

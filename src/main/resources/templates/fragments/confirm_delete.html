@@ -1,0 +1,17 @@
+<div th:fragment="confirm_delete (body, menu)"
+     class="modal confirm-delete">
+    <form th:hx-post="@{__${menu}__/delete}" hx-params="">
+        <header>
+            <h2 th:text="|Delete ${#strings.capitalizeWords(#strings.listSplit(menu, '/').getLast())}|"></h2>
+            <button class="close" onclick="close_modal_box(this)">X</button>
+        </header>
+
+        <div class="modal-body" th:replace="${body}">
+        </div>
+
+        <footer>
+            <button type="reset" class="cancel" onclick="close_modal_box(this)">Cancel</button>
+            <button type="submit" class="delete">Delete</button>
+        </footer>
+    </form>
+</div>
