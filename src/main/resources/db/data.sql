@@ -13,6 +13,7 @@ VALUES ('CPU'),
        ('Mouse'),
        ('Mechanical Keyboard'),
        ('Membrane Keyboard'),
+       ('Television'),
        ('Laptop'),
        ('Smartphone'),
        ('Console'),
@@ -25,9 +26,9 @@ VALUES ('Samseng FHD Smart Television', 'The first model, black television from 
        ('Samseng Universe S23 Ultra', 'The first and only model, pink smartphone from the year 2022, featuring high-end specs and bigger size.', 5000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Smartphone')),
        ('Samseng SmartFridge', 'The fifth model, silver smart fridge from the year 2023.', 4000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Console')),
        ('Samseng SmartWatch', 'The second model, black smart watch from the year 2020.', 500.00, 'pcs', (SELECT id FROM Category WHERE name = 'Smartwatch')),
-       ('Nvisaya RTX 6700', 'The 3 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 3500.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics Card')),
-       ('Nvisaya RTX 6800', 'The 4 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 4800.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics Card')),
-       ('Nvisaya RTX 6900', 'The 5 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 6000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics Card')),
+       ('Nvisaya RTX 6700', 'The 3 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 3500.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card')),
+       ('Nvisaya RTX 6800', 'The 4 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 4800.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card')),
+       ('Nvisaya RTX 6900', 'The 5 model of the NVISAYA 6000 RTX series with the most cutting edge of technologies', 6000.00, 'pcs', (SELECT id FROM Category WHERE name = 'Graphics card')),
        ('Outel Apple Lake 16700K', 'Outel Gen 16 ultra-high performance CPU with a clock speed of 20GHz and 16 cores.', 4000.00, 'pcs', (SELECT id FROM Category WHERE name = 'CPU'))
 ON CONFLICT (name) DO NOTHING;
 
@@ -74,13 +75,14 @@ VALUES (1, 1, 1, 2, 3, 'OK'),
        (11, 3, 1, 6, 5, 'RETURNED')
 ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO PurchaseOrder (status, supplier_id, purchase_date, target_date, arrived_date)
-VALUES ('FULFILLED', 1, NOW(), NOW(), NOW()),
-       ('FULFILLED', 1, NOW(), NOW(), NOW()),
-       ('IN_TRANSIT', 3, NOW(), NOW(), NULL),
-       ('IN_TRANSIT', 3, NOW(), NOW(), NULL),
-       ('IN_TRANSIT', 4, NOW(), NOW(), NULL),
-       ('REFUNDED', 1, NOW(), NOW(), NULL);
+INSERT INTO PurchaseOrder (id, status, supplier_id, purchase_date, target_date, arrived_date)
+VALUES (1, 'FULFILLED', 1, NOW(), NOW(), NOW()),
+       (2, 'FULFILLED', 1, NOW(), NOW(), NOW()),
+       (3, 'IN_TRANSIT', 3, NOW(), NOW(), NULL),
+       (4, 'IN_TRANSIT', 3, NOW(), NOW(), NULL),
+       (5, 'IN_TRANSIT', 4, NOW(), NOW(), NULL),
+       (6, 'REFUNDED', 1, NOW(), NOW(), NULL)
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO PurchaseOrderLine(purchase_order_id, stock_id, order_quantity)
 VALUES (1, 1, 5),
@@ -96,13 +98,15 @@ VALUES (1, 1, 5),
        (6, 11, 5)
 ON CONFLICT (purchase_order_id, stock_id) DO NOTHING;
 
-INSERT INTO PurchaseOrderReturn (status, order_id)
-VALUES ('IN_TRANSIT', 6);
+INSERT INTO PurchaseOrderReturn (id, status, order_id)
+VALUES (1, 'IN_TRANSIT', 6)
+ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO SalesOrder(status, sales_date, shipment_date, arrived_date)
-VALUES ('FULFILLED', NOW(), NOW(), NOW()),
-       ('IN_TRANSIT', NOW(), NOW(), NOW()),
-       ('PENDING', NOW(), NOW(), null);
+INSERT INTO SalesOrder(id ,status, sales_date, shipment_date, arrived_date)
+VALUES (1, 'FULFILLED', NOW(), NOW(), NOW()),
+       (2, 'IN_TRANSIT', NOW(), NOW(), NOW()),
+       (3, 'PENDING', NOW(), NOW(), null)
+ON CONFLICT (id) DO NOTHING ;
 
 INSERT INTO SalesOrderLine(sales_order_id, stock_id, order_quantity)
 VALUES (1, 1, 2),
