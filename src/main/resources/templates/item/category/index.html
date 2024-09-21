@@ -15,6 +15,26 @@
     </div>
 </div>
 
+<div th:replace="~{fragments/create_new :: create_new (~{::.modal-body}, 'item/category')}">
+    <div class="modal-body">
+        <div>
+            <label for="name">Category name*</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description">
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.modal-body}, 'item/category')}">
+    <div class="modal-body">
+        <table class="to-delete">
+
+        </table>
+    </div>
+</div>
 
 </body>
 
