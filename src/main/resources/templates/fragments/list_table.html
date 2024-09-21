@@ -9,7 +9,7 @@
 
     <div>
         <button th:text="|+ New ${menuName}|" class="add" onclick="document.querySelector('.modal.create-new').style.display = 'flex'">+ New</button>
-        <button th:text="|- Delete selected ${menuName}|" class="delete" onclick="document.querySelector('.modal.confirm-delete')">- Delete selected</button>
+        <button th:text="|- Delete selected ${menuName}|" class="delete" onclick="document.querySelector('.modal.confirm-delete').style.display = 'flex'">- Delete selected</button>
     </div>
 
     <form th:hx-post="@{/__${menu}__/search}"
