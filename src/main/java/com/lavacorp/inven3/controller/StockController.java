@@ -1,8 +1,6 @@
 package com.lavacorp.inven3.controller;
 
-import com.lavacorp.inven3.dao.OrderDirection;
-import com.lavacorp.inven3.dao.PurchaseOrderDao;
-import com.lavacorp.inven3.dao.StockDao;
+import com.lavacorp.inven3.dao.*;
 import com.lavacorp.inven3.model.PurchaseOrder;
 import com.lavacorp.inven3.model.Stock;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
@@ -23,11 +21,17 @@ import java.util.Objects;
 public class StockController {
     StockDao stockDao;
     PurchaseOrderDao purchaseOrderDao;
+    SupplierDao supplierDao;
+    LocationDao locationDao;
+    ItemDao itemDao;
 
     @Autowired
-    public StockController(StockDao stockDao, PurchaseOrderDao purchaseOrderDao) {
+    public StockController(StockDao stockDao, PurchaseOrderDao purchaseOrderDao, SupplierDao supplierDao, LocationDao locationDao, ItemDao itemDao) {
         this.stockDao = stockDao;
         this.purchaseOrderDao = purchaseOrderDao;
+        this.supplierDao = supplierDao;
+        this.locationDao = locationDao;
+        this.itemDao = itemDao;
     }
 
     @PostMapping("/search")
@@ -65,7 +69,16 @@ public class StockController {
 
     @PostMapping("/create")
     @ResponseBody
-    public HttpStatus create(@RequestBody Stock stock) {
+    public HttpStatus create(@RequestBody NewStockContext context) {
+        Stock stock = new Stock();
+        stock.setItem(Objects.requireNonNull(itemDao.selectById(context.itemId)));
+        stock.setSupplier(supplierDao.selectById(context.supplierId));
+        if (context.locationId != 0)
+            stock.setLocation(locationDao.selectById(context.locationId));
+        stock.setQuantity(context.quantity);
+        stock.setStatus(context.status);
+        stock.setNotes(context.notes);
+
         try {
             stockDao.insert(stock);
         } catch (UnableToExecuteStatementException e) {
@@ -74,6 +87,8 @@ public class StockController {
 
         return HttpStatus.OK;
     }
+
+    public record NewStockContext(int itemId, int supplierId, int locationId, int quantity, Stock.StockStatus status, String notes) {}
 
     @DeleteMapping("/delete")
     @ResponseBody
