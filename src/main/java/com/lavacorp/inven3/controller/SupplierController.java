@@ -79,4 +79,10 @@ public class SupplierController {
 
         return HttpStatus.OK;
     }
+
+    @GetMapping("/options")
+    public String options(Model model) {
+        model.addAttribute("suppliers", supplierDao.selectAll());
+        return "supplier/options";
+    }
 }
