@@ -4,9 +4,15 @@
 
 <body>
 
-<div class="center-page">
-    <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('stock/location', 'Stock Locations')}"></form>
-    <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('stock', 'Stocks')}"></form>
+<div class="body">
+    <nav class="sidebar">
+        <a class="selected" th:href="@{/stock}">Stocks</a>
+        <a th:href="@{/stock/location}">Stock Locations</a>
+    </nav>
+
+    <div class="column">
+        <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('stock', 'Stocks')}"></form>
+    </div>
 </div>
 
 </body>

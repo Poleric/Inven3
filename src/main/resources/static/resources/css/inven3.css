@@ -22,13 +22,53 @@
     color: var(--text-color);
 }
 
-.center-page {
-    width: 100vw;
+a {
+    text-decoration: none;
+    transition: color var(--transition-duration) linear;
 
+    &:hover {
+        color: grey;
+    }
+}
+
+.body {
     display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+
+    & .sidebar {
+        flex: 0 0 auto;
+        border: var(--border-color) 2px solid;
+        border-radius: 0 0.4em 0.4em 0;
+
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
+
+        margin: 1.5em 0;
+
+        background: var(--bg-color);
+
+        & a {
+            padding: 0.5em 1em;
+            border-bottom: var(--border-color) 1px solid;
+            border-radius: 0 0.4em 0.4em 0;
+
+            &.selected {
+                color: var(--alternative-text-color);
+                background: var(--cancel-hover-color);
+            }
+        }
+    }
+
+    .column {
+        flex: 1 0 0;
+
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 body > header {
@@ -36,15 +76,6 @@ body > header {
 
     border-bottom: var(--border-color) solid 1px;
     box-shadow: 0 3px 3px var(--border-color);
-
-    & a {
-        text-decoration: none;
-        transition: color var(--transition-duration) linear;
-
-        &:hover {
-            color: grey;
-        }
-    }
 
     & nav {
         margin: 0 1.5em;
@@ -270,3 +301,4 @@ button {
 .modal {
     display: none;
 }
+

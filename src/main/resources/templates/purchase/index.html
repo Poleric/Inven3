@@ -4,8 +4,15 @@
 
 <body>
 
-<div class="center-page">
-    <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('purchase', 'Purchase Orders')}"></form>
+<div class="body">
+    <nav class="sidebar">
+        <a class="selected" th:href="@{/purchase}">Purchase Order</a>
+        <a th:href="@{/purchase/return}">Return Purchase Order</a>
+    </nav>
+
+    <div class="column">
+        <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('purchase', 'Purchase Orders')}"></form>
+    </div>
 </div>
 
 </body>

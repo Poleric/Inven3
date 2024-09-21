@@ -4,8 +4,39 @@
 
 <body>
 
-<div class="center-page">
-    <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('supplier', 'Suppliers')}"></form>
+<div class="body">
+    <div class="column">
+        <div th:replace="~{fragments/list_table :: list_table ('supplier', 'Suppliers')}"></div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/create_new :: create_new (~{::.modal-body}, 'supplier')}">
+    <div class="modal-body">
+        <div>
+            <label for="name">Supplier name*</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div>
+            <label for="address">Address</label>
+            <input type="text" name="address" id="address">
+        </div>
+        <div>
+            <label for="phoneNumber">Contact Number</label>
+            <input type="tel" name="phoneNumber" id="phoneNumber">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.modal-body}, 'supplier')}">
+    <div class="modal-body">
+        <table class="to-delete">
+
+        </table>
+    </div>
 </div>
 
 </body>

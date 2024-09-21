@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body}, 'category')}">
+
+<body>
+
+<div class="body">
+    <nav class="sidebar">
+        <a th:href="@{/item}">Item</a>
+        <a class="selected" th:href="@{/item/category}">Category</a>
+    </nav>
+
+    <div class="column">
+        <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('item/category', 'Item Categories')}"></form>
+    </div>
+</div>
+
+
+</body>
+
+</html>

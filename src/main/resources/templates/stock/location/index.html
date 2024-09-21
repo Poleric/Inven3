@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body}, 'location')}">
+
+<body>
+
+<div class="body">
+    <nav class="sidebar">
+        <a th:href="@{/stock}">Stocks</a>
+        <a class="selected" th:href="@{/stock/location}">Stock Locations</a>
+    </nav>
+
+    <div class="column">
+        <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('stock/location', 'Stock Locations')}"></form>
+    </div>
+</div>
+
+
+
+</body>
+
+</html>
