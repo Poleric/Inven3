@@ -10,8 +10,8 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/create_new :: create_new (~{::.modal-body}, 'supplier')}">
-    <div class="modal-body">
+<div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'supplier')}">
+    <div class="modal-body add">
         <div>
             <label for="name">Supplier name*</label>
             <input type="text" name="name" id="name" required>
@@ -31,11 +31,10 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.modal-body}, 'supplier')}">
-    <div class="modal-body">
-        <table class="to-delete">
-
-        </table>
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'supplier')}">
+    <div class="modal-body delete">
+        <div>Confirm delete these entries.</div>
+        <table class="to-delete data-table"></table>
     </div>
 </div>
 
