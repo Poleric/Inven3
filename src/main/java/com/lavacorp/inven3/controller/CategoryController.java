@@ -68,12 +68,13 @@ public class CategoryController {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "id") int id) {
-        try {
-            categoryDao.deleteById(id);
-        } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+        for (int id : ids)
+            try {
+                categoryDao.deleteById(id);
+            } catch (UnableToExecuteStatementException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            }
 
         return HttpStatus.OK;
     }

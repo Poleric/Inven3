@@ -67,12 +67,13 @@ public class LocationController {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "id") int id) {
-        try {
-            locationDao.deleteById(id);
-        } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+        for (int id : ids)
+            try {
+                locationDao.deleteById(id);
+            } catch (UnableToExecuteStatementException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            }
 
         return HttpStatus.OK;
     }

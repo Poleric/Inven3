@@ -74,12 +74,13 @@ public class ItemController {
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "id") int id) {
-        try {
-            itemDao.deleteById(id);
-        } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+        for (int id : ids)
+            try {
+                itemDao.deleteById(id);
+            } catch (UnableToExecuteStatementException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            }
 
         return HttpStatus.OK;
     }

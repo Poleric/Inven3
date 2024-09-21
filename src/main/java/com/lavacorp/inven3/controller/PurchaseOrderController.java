@@ -3,12 +3,13 @@ package com.lavacorp.inven3.controller;
 import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.dao.PurchaseOrderDao;
 import com.lavacorp.inven3.model.PurchaseOrder;
+import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -38,5 +39,19 @@ public class PurchaseOrderController {
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
 
         return "purchase/search";
+    }
+
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+        for (int id : ids)
+            try {
+                purchaseOrderDao.deleteById(id);
+            } catch (UnableToExecuteStatementException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            }
+
+        return HttpStatus.OK;
     }
 }
