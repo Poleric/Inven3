@@ -77,4 +77,10 @@ public class LocationController {
 
         return HttpStatus.OK;
     }
+
+    @GetMapping("/options")
+    public String getOptions(Model model) {
+        model.addAttribute("locations", locationDao.selectAll());
+        return "/stock/location/options";
+    }
 }

@@ -1,0 +1,4 @@
+<option value="0" selected></option>
+<th:block th:each="location : ${locations}" th:remove="tag">
+    <option th:value="${location.getId()}" th:text="${location.getName()}"></option>
+</th:block>
