@@ -39,6 +39,7 @@ a {
     & .sidebar {
         flex: 0 0 auto;
         border: var(--border-color) 2px solid;
+        border-left: none;
         border-radius: 0 0.4em 0.4em 0;
 
         display: flex;
@@ -98,13 +99,18 @@ body > header {
 }
 
 .data-container {
-    margin: 1.5em 0;
+    display: flex;
+    flex-flow: column nowrap;
     width: 98%;
+    gap: 1em;
+
+    margin: 1.5em 0;
     border: var(--border-color) solid 1px;
+    border-radius: 0.5em;
 
     > * {
-       padding-left: 0.5em;
-       padding-right: 0.5em;
+        padding-left: 1em;
+        padding-right: 1em;
     }
 
     & .data-container-header {
@@ -112,24 +118,22 @@ body > header {
         background: var(--bg-color);
     }
 
-    & .data-search {
-        padding-top: 1em;
-
-        & input {
-            border-radius: 5px;
-            padding: 0.1em 1em;
-        }
+    & .data-search input {
+        border-radius: 5px;
+        padding: 0.3em 0.6em;
     }
 
     & #results {
-        margin: 0.8em;
+        margin: 1em 0;
         position: relative;
+
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1em;
 
         & .data-header {
             display: flex;
             flex-flow: row nowrap;
-
-            margin: 0.5em 0;
 
             & div:first-of-type {
                 display: inline-block;
@@ -140,7 +144,6 @@ body > header {
         & .data-table {
             width: 100%;
             border-spacing: 0;
-
 
             th {
                 border: var(--border-color) solid 1px;
