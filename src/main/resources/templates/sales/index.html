@@ -17,7 +17,22 @@
 
 <div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'sales')}">
     <div class="modal-body add">
-        <!--        TODO: input -->
+        <div>
+            <label for="salesDate">Sales Date</label>
+            <input type="datetime-local" name="salesDate" id="salesDate" required>
+        </div>
+        <div>
+            <label for="shipmentDate">Shipment Date</label>
+            <input type="datetime-local" name="shipmentDate" id="shipmentDate" required>
+        </div>
+        <div>
+            <label for="reference">Reference</label>
+            <input type="text" name="reference" id="reference">
+        </div>
+
+        <h2>Stocks</h2>
+
+        <button class="add" th:hx-get="@{/sales/add-stock}" hx-swap="beforeend" hx-target=".modal-body">+ Add Stock</button>
     </div>
 </div>
 
