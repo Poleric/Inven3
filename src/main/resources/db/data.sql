@@ -1,7 +1,8 @@
 INSERT INTO Users (name, hashed_password, role)
 VALUES ('Hong Jun', '$2a$12$.xLkXP3/oGa/VGghBFgqEuJ6vw1rMOpLki2GvKjjKNBZm.98wmkUW', 'ROLE_STAFF'),
        ('Mingy', '$2a$12$nsO1aC8vCN1xotUrqXHiHOA8J6ctxBkDuT6334ISae46YqA1/8zuS', 'ROLE_ADMIN'),
-       ('dizzynight', '$2a$12$3hKYBYxw/2PuD8CcGr.q7.gcauEhKedNFDBnSdjuMdzn/AxqAAqBm', 'ROLE_ADMIN')
+       ('dizzynight', '$2a$12$3hKYBYxw/2PuD8CcGr.q7.gcauEhKedNFDBnSdjuMdzn/AxqAAqBm', 'ROLE_ADMIN'),
+       ('admin', '$2a$12$AEvO7FGDD1RgZ243xxvu6erDlIKFdTu4FXZpLXEIDVaB/V9QOahfa', 'ROLE_ADMIN')
 ON CONFLICT (name) DO NOTHING;
 
 INSERT INTO Category (name)
