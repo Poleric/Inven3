@@ -115,6 +115,12 @@ public class ItemController {
     @PostMapping("/supplier-options")
     public String getSupplierOptions(@RequestParam("itemId") int itemId, Model model) {
         model.addAttribute("suppliers", supplierDao.selectAllByItemId(itemId));
-        return "item/supplier-options";
+        return "supplier/options";
+    }
+
+    @PostMapping("/supplier-items")
+    public String getSupplierItems(@RequestParam("supplierId") int supplierId, Model model) {
+        model.addAttribute("items", itemDao.selectAllBySupplierId(supplierId));
+        return "item/options";
     }
 }
