@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      th:fragment="layout (template, menu)" lang="en">
+      th:fragment="layout (head, body, menu)" lang="en">
 
 <head>
 
@@ -40,7 +40,7 @@
         </nav>
     </header>
 
-    <th:block th:insert="${template}" />
+    <th:block th:insert="${body}" />
 
 </body>
 

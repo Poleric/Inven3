@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::body}, 'item')}">
+      th:replace="~{fragments/layout :: layout (~{::head}, ~{::body}, 'item')}">
+
+<head></head>
 
 <body>
 
