@@ -26,11 +26,7 @@ FROM Item
     LEFT JOIN ItemSupplier ON Item.id = ItemSupplier.item_id
 </#if>
 
-<#if stockLevel??>
-    RIGHT JOIN Stock ON Item.id = Stock.item_id
-</#if>
-
-<#if id?? || name?? || nameLike?? || supplierId?? || categoryId??>
+<#if id?? || name?? || nameLike?? || supplierId?? || categoryId?? || stockLevel??>
     WHERE
     <#if id??>
         <@filter_id table=table_name operator="=" id=idVar/>
@@ -42,23 +38,24 @@ FROM Item
         ItemSupplier.supplier_id = :supplierId
     <#elseif categoryId??>
         Category.id = :categoryId
-    </#if>
-</#if>
-
-<#if stockLevel??>
-    WHERE status = 'OK'
-    GROUP BY Item.id, Item.name, Item.description, Item.base_price, Item.unit, Item.min_stock, Category.id, Category.name, Category.description, Item.created_at, Item.last_updated_at
-    HAVING
-    <#if stockLevel.name() == "LOW">
-        count(*) < Item.min_stock
-    <#elseif stockLevel.name() == "BELOW">
-        count(*) < :stockValue
-    <#elseif stockLevel.name() == "BELOW_EQUAL">
-        count(*) <= :stockValue
-    <#elseif stockLevel.name() == "ABOVE">
-        count(*) > :stockValue
-    <#elseif stockLevel.name() == "ABOVE_EQUAL">
-        count(*) >= :stockValue
+    <#elseif stockLevel??>
+            Item.id NOT IN (SELECT item_id
+                            FROM Stock
+                             WHERE item_id = Item.id AND status = 'OK'
+                              GROUP BY item_id
+                              HAVING SUM(quantity)
+        <#if stockLevel.name() == "LOW">
+            >= Item.min_stock
+        <#elseif stockLevel.name() == "BELOW">
+            <= :stockValue
+        <#elseif stockLevel.name() == "BELOW_EQUAL">
+            > :stockValue
+        <#elseif stockLevel.name() == "ABOVE">
+            <= :stockValue
+        <#elseif stockLevel.name() == "ABOVE_EQUAL">
+            < :stockValue
+        </#if>
+            )
     </#if>
 </#if>
 
