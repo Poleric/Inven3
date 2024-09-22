@@ -76,7 +76,7 @@ public class SalesOrderController {
         return "fragments/status";
     }
 
-    public record NewSalesOrderContext(int supplierId, LocalDateTime salesDate, LocalDateTime shipmentDate, String reference, int[] stockId, int[] quantity) {}
+    public record NewSalesOrderContext(int supplierId, LocalDateTime salesDate, LocalDateTime shipmentDate, String reference, Integer[] stockId, Integer[] quantity) {}
 
     @DeleteMapping("/delete")
     public String delete(@RequestParam(name = "selected") int[] ids, Model model, HttpServletResponse response) {
