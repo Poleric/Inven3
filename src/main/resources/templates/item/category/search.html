@@ -4,9 +4,9 @@
     <thead>
         <tr>
             <th:block th:replace="~{fragments/table :: head}"></th:block>
-            <th>Category Name</th>
-            <th>Description</th>
-            <th>Item Count</th>
+            <th><label><input type="radio" name="ordering" value="name" th:checked="${ordering} == 'name'">Category Name</label></th>
+            <th><label><input type="radio" name="ordering" value="description" th:checked="${ordering} == 'description'">Description</label></th>
+            <th><label><input type="radio" name="ordering" value="number_of_items" th:checked="${ordering} == 'number_of_items'">Item Count</label></th>
         </tr>
     </thead>
 

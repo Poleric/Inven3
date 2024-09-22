@@ -35,6 +35,14 @@ public class CategoryController {
             @RequestParam(name = "ordering", defaultValue = "name") String ordering,
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
+        model.addAttribute("ordering", ordering);
+
+        boolean sortItems = false;
+        if (ordering.equals("number_of_items")) {
+            sortItems = true;
+            ordering = "name";
+        }
+
         int totalResults = categoryDao.selectAllByNameLike(query, true);
 
         List<Category> categories = categoryDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
@@ -44,6 +52,9 @@ public class CategoryController {
             assert category.getId() != null;
             contexts.add(new CategoryContext(category, itemDao.selectAllByCategoryId(category.getId(), true)));
         }
+
+        if (sortItems)
+            contexts.sort((ctx1, ctx2) -> ctx2.itemCount - ctx1.itemCount);
 
         model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
