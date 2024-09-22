@@ -13,11 +13,11 @@
     </nav>
 
     <div class="column">
-        <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('stock/location', 'Stock Locations')}"></form>
+        <form th:replace="~{fragments/list_table :: list_table ('stock/location', 'Stock Locations')}"></form>
     </div>
 </div>
 
-<div th:replace="~{fragments/create_new :: create_new (~{::.modal-body}, 'stock/location')}">
+<div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'location')}">
     <div class="modal-body add" hx-swap="innerHTML">
         <div>
             <label for="name">Location name*</label>
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'stock/location')}">
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'location')}">
     <div class="modal-body delete">
         <div>Confirm delete these entries.</div>
         <table class="to-delete data-table"></table>
