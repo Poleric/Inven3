@@ -38,6 +38,13 @@ public class ItemController {
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             @RequestParam(name = "low", defaultValue = "false") boolean low,
             Model model) {
+        model.addAttribute("ordering", ordering);
+        boolean sortStocks = false;
+        if (ordering.equals("number_of_stocks")) {
+            sortStocks = true;
+            ordering = "Item.id";
+        }
+
         int totalResults;
         List<Item> items;
 
@@ -57,6 +64,9 @@ public class ItemController {
             contexts.add(new ItemContext(item, stockCount));
             totalStocks += stockCount;
         }
+
+        if (sortStocks)
+            contexts.sort((ctx1, ctx2) -> ctx2.stockCount - ctx1.stockCount);
 
         model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
