@@ -268,11 +268,6 @@ button {
 
             justify-content: flex-end;
             gap: 0.5em;
-
-            & .status {
-                margin-left: auto;
-                margin-right: auto;
-            }
         }
 
         & .modal-body {
@@ -307,6 +302,9 @@ button {
 }
 
 .status {
+    margin-left: auto;
+    margin-right: auto;
+
     padding: 0.5em;
     border-radius: 0.5em;
     color: var(--alternative-text-color);

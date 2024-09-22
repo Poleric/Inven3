@@ -12,8 +12,6 @@
 
     <title>Inven3</title>
 
-    <link rel="stylesheet" th:href="@{/resources/css/inven3.css}" />
-    <link rel="stylesheet" th:href="@{/resources/css/reset.css}" />
 
     <style>
         *{
@@ -43,7 +41,7 @@
         }
         .container form h1{
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 0.5em;
             color: black;
         }
         .container form .form-control{
@@ -73,31 +71,52 @@
         .container form .btn:hover{
             opacity: .7;
         }
+
+        .status {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1em;
+            text-align: center;
+
+            padding: 0.5em;
+            border-radius: 0.5em;
+            color: #fafafa;
+
+            &.ok {
+                background: #009c00;
+            }
+
+            &.bad {
+                background: #d80000;
+            }
+        }
     </style>
 
 </head>
 
 <body>
 
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
-
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-
     <div class="container">
+
         <form th:action="@{/login}" method="post">
             <h1>Login Menu</h1>
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control"/>
+
+            <div th:if="${param.error}" class="status bad">
+                Invalid username and password.
+            </div>
+
+            <div th:if="${param.logout}" class="status ok">
+                You have been logged out.
             </div>
 
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control"/>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control"/>
             </div>
 
             <input type="submit" class="btn" value="Sign In"/>
