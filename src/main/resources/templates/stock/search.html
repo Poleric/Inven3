@@ -4,12 +4,12 @@
     <thead>
         <tr>
             <th:block th:replace="~{fragments/table :: head}"></th:block>
-            <th>Item</th>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Status</th>
-            <th>Location</th>
-            <th>Last Updated</th>
+            <th><label><input type="radio" name="ordering" value="Item.name" th:checked="${ordering} == 'Item.name'">Item</label></th>
+            <th><label><input type="radio" name="ordering" value="Item.description" th:checked="${ordering} == 'Item.description'">Description</label></th>
+            <th><label><input type="radio" name="ordering" value="quantity" th:checked="${ordering} == 'quantity'">Quantity</label></th>
+            <th><label><input type="radio" name="ordering" value="status" th:checked="${ordering} == 'status'">Status</label></th>
+            <th><label><input type="radio" name="ordering" value="location" th:checked="${ordering} == 'location'">Location</label></th>
+            <th><label><input type="radio" name="ordering" value="last_updated_at" th:checked="${ordering} == 'last_updated_at'">Last Updated</label></th>
             <th>Purchase Order</th>
             <th>Supplier</th>
             <th>Notes</th>

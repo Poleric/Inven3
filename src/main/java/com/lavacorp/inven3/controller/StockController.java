@@ -58,6 +58,7 @@ public class StockController {
                 totalStocks += stock.getQuantity();
         }
 
+        model.addAttribute("ordering", ordering);
         model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
         model.addAttribute("totalStocks", totalStocks);
