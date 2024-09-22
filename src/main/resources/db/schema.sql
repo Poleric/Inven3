@@ -124,8 +124,8 @@ BEGIN
 END;
 $updateLastUpdateAt$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION setRefundStatus() RETURNS TRIGGER AS
-$updateLastUpdateAt$
+CREATE OR REPLACE FUNCTION setPoRefundStatus() RETURNS TRIGGER AS
+$setRefundStatus$
 BEGIN
     UPDATE PurchaseOrder
     SET status = 'REFUNDED'
@@ -139,7 +139,35 @@ BEGIN
 
     RETURN NEW;
 END;
-$updateLastUpdateAt$ LANGUAGE plpgsql;
+$setRefundStatus$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION setSoRefundStatus() RETURNS TRIGGER AS
+$setRefundStatus$
+BEGIN
+    UPDATE SalesOrder
+    SET status = 'REFUNDED'
+    WHERE id = NEW.order_id;
+
+    RETURN NEW;
+END;
+$setRefundStatus$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION revertPoRefundStatus() RETURNS TRIGGER AS
+$revertRefundStatus$
+BEGIN
+    UPDATE PurchaseOrder
+    SET status = 'FULFILLED'
+    WHERE id = NEW.order_id;
+
+    UPDATE Stock
+    SET status = 'OK'
+    WHERE id IN (SELECT stock_id
+                 FROM PurchaseOrderLine
+                 WHERE purchase_order_id = NEW.order_id);
+
+    RETURN NEW;
+END;
+$revertRefundStatus$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER updateItemLastUpdate
     AFTER UPDATE
@@ -163,4 +191,16 @@ CREATE OR REPLACE TRIGGER setRefundStatus
     AFTER INSERT
     ON PurchaseOrderReturn
     FOR EACH ROW
-EXECUTE FUNCTION setRefundStatus();
+EXECUTE FUNCTION setPoRefundStatus();
+
+CREATE OR REPLACE TRIGGER setRefundStatus
+    AFTER INSERT
+    ON PurchaseOrderReturn
+    FOR EACH ROW
+EXECUTE FUNCTION setPoRefundStatus();
+
+CREATE OR REPLACE TRIGGER setRefundStatus
+    AFTER INSERT
+    ON PurchaseOrderReturn
+    FOR EACH ROW
+EXECUTE FUNCTION setPoRefundStatus();

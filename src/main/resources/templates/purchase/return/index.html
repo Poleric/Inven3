@@ -1,8 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::body}, 'purchase-return')}">
+      th:replace="~{fragments/layout :: layout (~{::head}, ~{::body}, 'purchase')}">
+
+<head></head>
 
 <body>
+
+<div class="body">
+    <nav class="sidebar">
+        <a th:href="@{/purchase}">Purchase Order</a>
+        <a class="selected" th:href="@{/purchase/return}">Return Purchase Order</a>
+    </nav>
+
+    <div class="column">
+        <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('purchase', 'Purchase Orders')}"></form>
+    </div>
+</div>
+
+<div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'purchase')}">
+    <div class="modal-body add" hx-swap="innerHTML">
+
+    </div>
+</div>
+
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'purchase')}">
+    <div class="modal-body delete">
+        <div>Confirm delete these entries.</div>
+        <table class="to-delete data-table"></table>
+    </div>
+</div>
 
 </body>
 

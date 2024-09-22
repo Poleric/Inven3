@@ -16,13 +16,6 @@ import org.jdbi.v3.sqlobject.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 public interface StockableOrderDao<T extends StockableOrder> extends OrderDao<T> {
-    @CreateSqlObject
-    StockDao getStockDao();
-
-    @SqlUpdate
-    @GetGeneratedKeys("id")
-    int insertOrderDetails(@BindBean T order);
-
     @SqlUpdate
     void insertOrderLine(int orderId, int stockId, int quantity);
 

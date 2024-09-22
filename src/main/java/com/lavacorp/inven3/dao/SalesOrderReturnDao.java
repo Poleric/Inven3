@@ -1,6 +1,7 @@
 package com.lavacorp.inven3.dao;
 
 import com.lavacorp.inven3.dao.generic.ReturnOrderDao;
+import com.lavacorp.inven3.model.SalesOrder;
 import com.lavacorp.inven3.model.SalesOrderReturn;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;
@@ -11,7 +12,9 @@ import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.Define;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.sqlobject.statement.UseRowReducer;
+import org.jdbi.v3.sqlobject.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +27,39 @@ import java.util.Map;
 @RegisterBeanMapper(SalesOrderReturn.class)
 @RegisterBeanMapper(value = Stock.class, prefix = "order_stock")
 public interface SalesOrderReturnDao extends ReturnOrderDao<SalesOrderReturn> {
+    @Transaction
+    default SalesOrderReturn insert(SalesOrderReturn order) {
+        int orderId = insertOrderDetails(order);
+        order.setId(orderId);
+
+        order.getOrderReturned().getStocks().forEach(
+                (key, value) -> {
+                    assert key.getId() != null;
+                    getStockDao().increaseStock(key.getId(), value);
+                }
+        );
+
+        return order;
+    }
+
+    @SqlUpdate
+    void delete(@Bind @Define int id);
+
+    @Override
+    default void deleteById(int id) {
+        SalesOrderReturn sor = selectById(id);
+
+        assert sor != null;
+        sor.getOrderReturned().getStocks().forEach(
+                (key, value) -> {
+                    assert key.getId() != null;
+                    getStockDao().decreaseStock(key.getId(), value);
+                }
+        );
+
+        delete(id);
+    }
+
     @Override
     @SqlQuery("select")
     @UseRowReducer(ReturnOrderRowReducer.class)
