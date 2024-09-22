@@ -186,7 +186,7 @@ button {
 
     transition: background var(--transition-duration) linear;
 
-    &.add, &.ok {
+    &.add, &.ok, &.create {
         background: var(--ok-color);
 
         &:hover {
