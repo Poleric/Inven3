@@ -101,6 +101,6 @@ public class SalesOrderController {
     public String getOptions(Model model) {
         List<SalesOrder> returns  = salesOrderDao.selectAll();
         model.addAttribute("salesOrders", returns.stream().filter((so) -> so.getStatus() != Order.OrderStatus.REFUNDED).toList());
-        return "purchase/options";
+        return "sales/options";
     }
 }
