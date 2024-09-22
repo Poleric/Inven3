@@ -1,3 +1,8 @@
+DO $$
+BEGIN
+
+CREATE ROLE INIT;
+
 INSERT INTO Users (name, hashed_password, role)
 VALUES ('Hong Jun', '$2a$12$.xLkXP3/oGa/VGghBFgqEuJ6vw1rMOpLki2GvKjjKNBZm.98wmkUW', 'ROLE_STAFF'),
        ('Mingy', '$2a$12$nsO1aC8vCN1xotUrqXHiHOA8J6ctxBkDuT6334ISae46YqA1/8zuS', 'ROLE_ADMIN'),
@@ -62,28 +67,26 @@ VALUES (1, 1, 3500.00),
        (8, 3, 5500.00)
 ON CONFLICT (item_id, supplier_id) DO NOTHING;
 
-INSERT INTO Stock (id, item_id, supplier_id, location_id, quantity, status)
-VALUES (1, 1, 1, 2, 3, 'OK'),
-       (2, 2, 1, 4, 5, 'OK'),
-       (3, 2, 1, 1, 20, 'OK'),
-       (4, 4, 1, 6, 2, 'OK'),
-       (5, 6, 3, 6, 10, 'IN_TRANSIT'),
-       (6, 7, 3, 6, 10, 'IN_TRANSIT'),
-       (7, 7, 3, 6, 20, 'IN_TRANSIT'),
-       (8, 9, 4, 6, 20, 'IN_TRANSIT'),
-       (9, 9, 4, 6, 10, 'IN_TRANSIT'),
-       (10, 2, 1, 6, 6, 'RETURNED'),
-       (11, 3, 1, 6, 5, 'RETURNED')
-ON CONFLICT (id) DO NOTHING;
+INSERT INTO Stock (item_id, supplier_id, location_id, quantity, status)
+VALUES (1, 1, 2, 3, 'OK'),
+       (2, 1, 4, 5, 'OK'),
+       (2, 1, 1, 20, 'OK'),
+       (4, 1, 6, 2, 'OK'),
+       (6, 3, 6, 10, 'IN_TRANSIT'),
+       (7, 3, 6, 10, 'IN_TRANSIT'),
+       (7, 3, 6, 20, 'IN_TRANSIT'),
+       (9, 4, 6, 20, 'IN_TRANSIT'),
+       (9, 4, 6, 10, 'IN_TRANSIT'),
+       ( 2, 1, 6, 6, 'RETURNED'),
+       ( 3, 1, 6, 5, 'RETURNED');
 
-INSERT INTO PurchaseOrder (id, status, supplier_id, purchase_date, target_date, arrived_date)
-VALUES (1, 'FULFILLED', 1, NOW(), NOW(), NOW()),
-       (2, 'FULFILLED', 1, NOW(), NOW(), NOW()),
-       (3, 'IN_TRANSIT', 3, NOW(), NOW(), NULL),
-       (4, 'IN_TRANSIT', 3, NOW(), NOW(), NULL),
-       (5, 'IN_TRANSIT', 4, NOW(), NOW(), NULL),
-       (6, 'REFUNDED', 1, NOW(), NOW(), NULL)
-ON CONFLICT (id) DO NOTHING;
+INSERT INTO PurchaseOrder (status, supplier_id, purchase_date, target_date, arrived_date)
+VALUES ('FULFILLED', 1, NOW(), NOW(), NOW()),
+       ('FULFILLED', 1, NOW(), NOW(), NOW()),
+       ('IN_TRANSIT', 3, NOW(), NOW(), NULL),
+       ('IN_TRANSIT', 3, NOW(), NOW(), NULL),
+       ('IN_TRANSIT', 4, NOW(), NOW(), NULL),
+       ('REFUNDED', 1, NOW(), NOW(), NULL);
 
 INSERT INTO PurchaseOrderLine(purchase_order_id, stock_id, order_quantity)
 VALUES (1, 1, 5),
@@ -99,15 +102,14 @@ VALUES (1, 1, 5),
        (6, 11, 5)
 ON CONFLICT (purchase_order_id, stock_id) DO NOTHING;
 
-INSERT INTO PurchaseOrderReturn (id, status, order_id)
-VALUES (1, 'IN_TRANSIT', 6)
-ON CONFLICT (id) DO NOTHING;
+INSERT INTO PurchaseOrderReturn (status, order_id)
+VALUES ('IN_TRANSIT', 6)
+ON CONFLICT (order_id) DO NOTHING;
 
-INSERT INTO SalesOrder(id ,status, sales_date, shipment_date, arrived_date)
-VALUES (1, 'FULFILLED', NOW(), NOW(), NOW()),
-       (2, 'IN_TRANSIT', NOW(), NOW(), NOW()),
-       (3, 'PENDING', NOW(), NOW(), null)
-ON CONFLICT (id) DO NOTHING ;
+INSERT INTO SalesOrder(status, sales_date, shipment_date, arrived_date)
+VALUES ('FULFILLED', NOW(), NOW(), NOW()),
+       ('IN_TRANSIT', NOW(), NOW(), NOW()),
+       ('PENDING', NOW(), NOW(), null);
 
 INSERT INTO SalesOrderLine(sales_order_id, stock_id, order_quantity)
 VALUES (1, 1, 2),
@@ -118,3 +120,8 @@ VALUES (1, 1, 2),
        (3, 3, 3),
        (3,4, 2)
 ON CONFLICT (sales_order_id, stock_id) DO NOTHING;
+
+EXCEPTION
+    WHEN DUPLICATE_OBJECT THEN
+        RAISE NOTICE 'Database already initialized. Ignoring...';
+END $$;

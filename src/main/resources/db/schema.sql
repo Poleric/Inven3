@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
 CREATE TABLE IF NOT EXISTS PurchaseOrderReturn (
     id          SERIAL PRIMARY KEY,
     status      TEXT    NOT NULL,
-    order_id    INTEGER NOT NULL REFERENCES PurchaseOrder (id) ON DELETE CASCADE,
+    order_id    INTEGER NOT NULL UNIQUE REFERENCES PurchaseOrder (id) ON DELETE CASCADE,
     return_date TIMESTAMP DEFAULT NOW(),
     reference   TEXT
 );
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS SalesOrderLine (
 CREATE TABLE IF NOT EXISTS SalesOrderReturn (
     id          SERIAL PRIMARY KEY,
     status      TEXT    NOT NULL,
-    order_id    INTEGER NOT NULL REFERENCES PurchaseOrder (id) ON DELETE CASCADE,
+    order_id    INTEGER NOT NULL UNIQUE REFERENCES PurchaseOrder (id) ON DELETE CASCADE,
     return_date TIMESTAMP DEFAULT NOW(),
     reference   TEXT
 );
