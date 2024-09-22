@@ -15,7 +15,7 @@
     <form th:hx-post="@{/__${menu}__/search}"
           hx-target="find #results"
           hx-swap="outerHTML"
-          hx-trigger="load, change from:.search delay:500ms, change target:.page-size, change target:.page, update from:body">
+          hx-trigger="load, change from:.search delay:500ms, change, update from:body">
 
         <div class="data-search">
             <label>
