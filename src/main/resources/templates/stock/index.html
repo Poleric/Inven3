@@ -34,7 +34,7 @@
         <div>
             <label for="locationId">Location</label>
             <select th:hx-get="@{/stock/location/options}" hx-trigger="load, click from:button.add" hx-target="this"
-                    name="locationId" id="locationId"></select>
+                    name="locationId" id="locationId" required></select>
         </div>
         <div>
             <label for="quantity">Quantity</label>
