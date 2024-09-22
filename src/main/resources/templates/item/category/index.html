@@ -14,7 +14,7 @@
     </nav>
 
     <div class="column">
-        <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('item/category', 'Item Categories')}"></form>
+        <form th:replace="~{fragments/list_table :: list_table ('item/category', 'Item Categories')}"></form>
     </div>
 </div>
 
@@ -36,6 +36,9 @@
         <table class="to-delete">
 
         </table>
+    <div class="modal-body delete">
+        <div>Confirm delete these entries.</div>
+        <table class="to-delete data-table"></table>
     </div>
 </div>
 
