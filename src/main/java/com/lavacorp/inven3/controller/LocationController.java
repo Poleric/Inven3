@@ -35,6 +35,14 @@ public class LocationController {
             @RequestParam(name = "ordering", defaultValue = "name") String ordering,
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
+        model.addAttribute("ordering", ordering);
+
+        boolean sortStock = false;
+        if (ordering.equals("number_of_stocks")) {
+            sortStock = true;
+            ordering = "name";
+        }
+
         int totalResults = locationDao.selectAllByNameLike(query, true);
 
         List<Location> locations = locationDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
@@ -44,6 +52,9 @@ public class LocationController {
             assert location.getId() != null;
             contexts.add(new LocationContext(location, stockDao.selectAllByLocationId(location.getId(), true)));
         }
+
+        if (sortStock)
+            contexts.sort((ctx1, ctx2) -> ctx2.stockCount - ctx1.stockCount);
 
         model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
