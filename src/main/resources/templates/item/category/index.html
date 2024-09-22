@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/create_new :: create_new (~{::.modal-body}, 'item/category')}">
+<div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'category')}">
     <div class="modal-body add" hx-swap="innerHTML">
         <div>
             <label for="name">Category name*</label>
@@ -31,11 +31,7 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.modal-body}, 'item/category')}">
-    <div class="modal-body">
-        <table class="to-delete">
-
-        </table>
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'category')}">
     <div class="modal-body delete">
         <div>Confirm delete these entries.</div>
         <table class="to-delete data-table"></table>
