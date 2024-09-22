@@ -53,7 +53,7 @@ public class ItemController {
             items = itemDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
         } else {
             totalResults = itemDao.selectAllByStockLevel(StockLevel.LOW, true);
-            items = itemDao.selectAllByStockLevel(StockLevel.LOW, page, pageSize);
+            items = itemDao.selectAllByStockLevel(StockLevel.LOW, ordering, orderingDirection, page, pageSize);
         }
 
         int totalStocks = 0;
