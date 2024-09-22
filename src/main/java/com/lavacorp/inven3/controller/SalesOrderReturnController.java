@@ -1,7 +1,8 @@
 package com.lavacorp.inven3.controller;
 
-import com.lavacorp.inven3.dao.*;
-import com.lavacorp.inven3.model.PurchaseOrderReturn;
+import com.lavacorp.inven3.dao.OrderDirection;
+import com.lavacorp.inven3.dao.SalesOrderDao;
+import com.lavacorp.inven3.dao.SalesOrderReturnDao;
 import com.lavacorp.inven3.model.SalesOrderReturn;
 import com.lavacorp.inven3.model.generic.Order;
 import jakarta.servlet.http.HttpServletResponse;

@@ -3,9 +3,10 @@ package com.lavacorp.inven3.dao.generic;
 import com.lavacorp.inven3.model.generic.Order;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class OrderDaoTests<T extends Order, K extends OrderDao<T>> extends DaoTests<T, K> {
 

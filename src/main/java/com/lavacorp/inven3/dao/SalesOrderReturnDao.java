@@ -1,7 +1,6 @@
 package com.lavacorp.inven3.dao;
 
 import com.lavacorp.inven3.dao.generic.ReturnOrderDao;
-import com.lavacorp.inven3.model.SalesOrder;
 import com.lavacorp.inven3.model.SalesOrderReturn;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;

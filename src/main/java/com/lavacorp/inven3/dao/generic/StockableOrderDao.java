@@ -1,15 +1,9 @@
 package com.lavacorp.inven3.dao.generic;
 
-import com.lavacorp.inven3.dao.StockDao;
-import com.lavacorp.inven3.model.PurchaseOrder;
-import com.lavacorp.inven3.model.SalesOrder;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.StockableOrder;
-import org.jdbi.v3.sqlobject.CreateSqlObject;
 import org.jdbi.v3.sqlobject.customizer.Bind;
-import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.customizer.Define;
-import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.sqlobject.transaction.Transaction;

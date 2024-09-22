@@ -3,7 +3,6 @@ package com.lavacorp.inven3.controller;
 import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.dao.SalesOrderDao;
 import com.lavacorp.inven3.dao.StockDao;
-import com.lavacorp.inven3.model.PurchaseOrder;
 import com.lavacorp.inven3.model.SalesOrder;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;
@@ -14,11 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/sales")

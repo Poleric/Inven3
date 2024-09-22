@@ -3,9 +3,7 @@ package com.lavacorp.inven3.controller;
 import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.dao.PurchaseOrderDao;
 import com.lavacorp.inven3.dao.PurchaseOrderReturnDao;
-import com.lavacorp.inven3.model.PurchaseOrder;
 import com.lavacorp.inven3.model.PurchaseOrderReturn;
-import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/purchase/return")

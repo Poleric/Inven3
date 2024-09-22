@@ -2,7 +2,6 @@ package com.lavacorp.inven3.dao;
 
 import com.lavacorp.inven3.dao.generic.ReturnOrderDao;
 import com.lavacorp.inven3.model.PurchaseOrderReturn;
-import com.lavacorp.inven3.model.SalesOrderReturn;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;
 import org.jdbi.v3.core.result.LinkedHashMapRowReducer;
@@ -12,7 +11,6 @@ import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.Define;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
-import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import org.jdbi.v3.sqlobject.statement.UseRowReducer;
 import org.jdbi.v3.sqlobject.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;

@@ -4,7 +4,7 @@ import com.lavacorp.inven3.model.generic.StockableOrder;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class StockableOrderDaoTests<T extends StockableOrder, K extends StockableOrderDao<T>> extends OrderDaoTests<T, K> {
 

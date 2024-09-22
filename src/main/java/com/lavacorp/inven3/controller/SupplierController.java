@@ -5,20 +5,15 @@ import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.dao.SupplierDao;
 import com.lavacorp.inven3.model.Supplier;
 import jakarta.servlet.http.HttpServletResponse;
-import org.jdbi.v3.core.JdbiException;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/supplier")
