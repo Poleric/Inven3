@@ -35,6 +35,13 @@ public class SupplierController {
             @RequestParam(name = "ordering", defaultValue = "id") String ordering,
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
+        model.addAttribute("ordering", ordering);
+        boolean sort_item = false;
+        if (ordering.equals("number_of_items")) {
+            ordering = "id";
+            sort_item = true;
+        }
+
         int totalResults = supplierDao.selectAllByNameLike(query, true);
 
         List<Supplier> suppliers = supplierDao.selectAllByNameLike(query, ordering, orderingDirection, page, pageSize);
@@ -44,6 +51,9 @@ public class SupplierController {
             assert supplier.getId() != null;
             contexts.add(new SupplierContext(supplier, itemDao.selectAllBySupplierId(supplier.getId(), true)));
         }
+
+        if (sort_item)
+            contexts.sort((ctx1, ctx2) -> ctx2.itemCount - ctx1.itemCount);
 
         model.addAttribute("contexts", contexts);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));

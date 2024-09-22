@@ -4,10 +4,10 @@
     <thead>
         <tr>
             <th:block th:replace="~{fragments/table :: head}"></th:block>
-            <th>Supplier Name</th>
-            <th>Contact Number</th>
-            <th>Address</th>
-            <th>Number of items</th>
+            <th><label><input type="radio" name="ordering" value="name" th:checked="${ordering} == 'name'"> Supplier Name</label></th>
+            <th><label><input type="radio" name="ordering" value="phone_number" th:checked="${ordering} == 'phone_number'"> Contact Number</label></th>
+            <th><label><input type="radio" name="ordering" value="address" th:checked="${ordering} == 'address'"> Address</label></th>
+            <th><label><input type="radio" name="ordering" value="number_of_items" th:checked="${ordering} == 'number_of_items'"> Number of items</label></th>
         </tr>
     </thead>
 
