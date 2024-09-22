@@ -1,0 +1,3 @@
+<th:block th:each="purchaseOrder : ${purchaseOrders}" th:remove="tag">
+    <option th:value="${purchaseOrder.getId()}" th:text="|PO-${purchaseOrder.getId()} (${purchaseOrder.getStocks().size()} stocks)|"></option>
+</th:block>

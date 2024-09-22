@@ -2,6 +2,7 @@ package com.lavacorp.inven3.controller;
 
 import com.lavacorp.inven3.dao.*;
 import com.lavacorp.inven3.model.PurchaseOrder;
+import com.lavacorp.inven3.model.PurchaseOrderReturn;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;
 import jakarta.servlet.http.HttpServletResponse;
@@ -108,5 +109,12 @@ public class PurchaseOrderController {
         response.setStatus(HttpStatus.OK.value());
         response.setHeader("HX-Trigger", "update");
         return "fragments/status";
+    }
+
+    @GetMapping("/options")
+    public String getOptions(Model model) {
+        List<PurchaseOrder> returns  = purchaseOrderDao.selectAll();
+        model.addAttribute("purchaseOrders", returns.stream().filter((po) -> po.getStatus() != Order.OrderStatus.REFUNDED).toList());
+        return "purchase/options";
     }
 }
