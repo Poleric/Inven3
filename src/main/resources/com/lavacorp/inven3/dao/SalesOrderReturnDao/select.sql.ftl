@@ -74,7 +74,7 @@ FROM SalesOrderReturn SOR
 </#if>
 
 <#if count?? && count?? == true>
-GROUP BY POR.id)
+GROUP BY SOR.id)
 </#if>
 
 <#if orderColumn?? && orderDirection??>
