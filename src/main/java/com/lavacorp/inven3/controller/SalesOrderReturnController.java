@@ -1,11 +1,8 @@
 package com.lavacorp.inven3.controller;
 
-import com.lavacorp.inven3.dao.OrderDirection;
-import com.lavacorp.inven3.dao.PurchaseOrderDao;
-import com.lavacorp.inven3.dao.PurchaseOrderReturnDao;
-import com.lavacorp.inven3.model.PurchaseOrder;
+import com.lavacorp.inven3.dao.*;
 import com.lavacorp.inven3.model.PurchaseOrderReturn;
-import com.lavacorp.inven3.model.Stock;
+import com.lavacorp.inven3.model.SalesOrderReturn;
 import com.lavacorp.inven3.model.generic.Order;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
@@ -17,18 +14,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
-@RequestMapping("/purchase/return")
-public class PurchaseOrderReturnController {
-    PurchaseOrderDao purchaseOrderDao;
-    PurchaseOrderReturnDao purchaseOrderReturnDao;
+@RequestMapping("/sales/return")
+public class SalesOrderReturnController {
+    SalesOrderDao salesOrderDao;
+    SalesOrderReturnDao salesOrderReturnDao;
 
     @Autowired
-    public PurchaseOrderReturnController(PurchaseOrderReturnDao purchaseOrderReturnDao, PurchaseOrderDao purchaseOrderDao) {
-        this.purchaseOrderReturnDao = purchaseOrderReturnDao;
-        this.purchaseOrderDao = purchaseOrderDao;
+    public SalesOrderReturnController(SalesOrderReturnDao purchaseOrderReturnDao, SalesOrderDao purchaseOrderDao) {
+        this.salesOrderReturnDao = purchaseOrderReturnDao;
+        this.salesOrderDao = purchaseOrderDao;
     }
 
     @PostMapping("/search")
@@ -38,26 +34,26 @@ public class PurchaseOrderReturnController {
             @RequestParam(name = "ordering", defaultValue = "Stock.id") String ordering,
             @RequestParam(name = "ordering-direction", defaultValue = "ASC") OrderDirection orderingDirection,
             Model model) {
-        int totalResults = purchaseOrderReturnDao.selectAll(true);
+        int totalResults = salesOrderReturnDao.selectAll(true);
 
-        List<PurchaseOrderReturn> pos = purchaseOrderReturnDao.selectAll(ordering, orderingDirection, page, pageSize);
+        List<SalesOrderReturn> pos = salesOrderReturnDao.selectAll(ordering, orderingDirection, page, pageSize);
 
         model.addAttribute("contexts", pos);
         model.addAttribute("pageContext", new PageContext(pageSize, totalResults, page));
 
-        return "purchase/return/search";
+        return "sales/return/search";
     }
 
     @PostMapping("/create")
-    public String create(@RequestBody NewPurchaseOrderReturnContext context, Model model, HttpServletResponse response) {
-        PurchaseOrderReturn por = new PurchaseOrderReturn();
-        por.setStatus(Order.OrderStatus.FULFILLED);
-        por.setOrderReturned(purchaseOrderDao.selectById(context.purchaseOrderId));
-        por.setReturnDate(LocalDateTime.now());
-        por.setReference(context.reference);
+    public String create(@RequestBody NewSalesOrderReturnContext context, Model model, HttpServletResponse response) {
+        SalesOrderReturn sor = new SalesOrderReturn();
+        sor.setStatus(Order.OrderStatus.FULFILLED);
+        sor.setOrderReturned(salesOrderDao.selectById(context.salesOrderId));
+        sor.setReturnDate(LocalDateTime.now());
+        sor.setReference(context.reference);
 
         try {
-            purchaseOrderReturnDao.insert(por);
+            salesOrderReturnDao.insert(sor);
         } catch (UnableToExecuteStatementException e) {
             model.addAttribute("status","bad");
             model.addAttribute("message", "Failed to create Return Order.");
@@ -72,13 +68,13 @@ public class PurchaseOrderReturnController {
         return "fragments/status";
     }
 
-    public record NewPurchaseOrderReturnContext(int purchaseOrderId, String reference, LocalDateTime returnDate) {}
+    public record NewSalesOrderReturnContext(int salesOrderId, String reference, LocalDateTime returnDate) {}
 
     @DeleteMapping("/delete")
     public String delete(@RequestParam(name = "selected") int[] ids, Model model, HttpServletResponse response) {
         for (int id : ids)
             try {
-                purchaseOrderReturnDao.deleteById(id);
+                salesOrderReturnDao.deleteById(id);
             } catch (UnableToExecuteStatementException e) {
                 model.addAttribute("status","bad");
                 model.addAttribute("message", "Failed to delete Return Order(s).");

@@ -1,0 +1,32 @@
+<div th:fragment="table" th:replace="~{fragments/table :: table('purchase/return', ~{:: .data-table})}">
+
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th:block th:replace="~{fragments/table :: head}"></th:block>
+            <th>Sales Order Return ID</th>
+            <th>Reference</th>
+            <th>Status</th>
+            <th>Returned Date</th>
+            <th>Returned Order</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:if="${contexts == null || contexts.isEmpty()}">
+            <td colspan="10"> No Sales Order </td>
+        </tr>
+
+        <tr th:each="context, iter : ${contexts}">
+            <th:block th:replace="~{fragments/table :: row(${iter.count + pageContext.currentRow - 1}, ${context.getId()})}"></th:block>
+            <td><span th:text="|POR-${context.getId()}|"></span></td>
+            <td><span th:text="${context.getReference()}"></span></td>
+            <td><span th:text="${context.getStatus().name()}"></span></td>
+            <td><time th:datetime="${context.getReturnDate()}"
+                      th:text="${#temporals.format(context.getReturnDate(), 'dd-MM-yyyy')}"></time></td>
+            <td><span th:text="|PO-${context.getOrderReturned().getId()} (${context.getOrderReturned().getStocks().size()} stocks)|"></span></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

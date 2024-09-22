@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::head}, ~{::body}, 'purchase')}">
+      th:replace="~{fragments/layout :: layout (~{::head}, ~{::body}, 'Purchase Returns')}">
 
 <head></head>
 
@@ -13,17 +13,29 @@
     </nav>
 
     <div class="column">
-        <form th:fragment="category" th:replace="~{fragments/list_table :: list_table ('purchase', 'Purchase Orders')}"></form>
+        <form th:replace="~{fragments/list_table :: list_table ('purchase/return', 'Purchase Order Returns')}"></form>
     </div>
 </div>
 
-<div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'purchase')}">
+<div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'return')}">
     <div class="modal-body add" hx-swap="innerHTML">
-
+        <div>
+            <label for="purchaseOrderId">Purchase Order</label>
+            <select th:hx-get="@{/purchase/options}" hx-trigger="load, click from:button.add" hx-target="this"
+                    name="purchaseOrderId" id="purchaseOrderId" required></select>
+        </div>
+        <div>
+            <label for="returnDate">Return Date</label>
+            <input type="datetime-local" name="returnDate" id="returnDate">
+        </div>
+        <div>
+            <label for="reference">Reference</label>
+            <input type="text" name="reference" id="reference">
+        </div>
     </div>
 </div>
 
-<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'purchase')}">
+<div th:replace="~{fragments/confirm_delete :: confirm_delete(~{::.delete}, 'return')}">
     <div class="modal-body delete">
         <div>Confirm delete these entries.</div>
         <table class="to-delete data-table"></table>
