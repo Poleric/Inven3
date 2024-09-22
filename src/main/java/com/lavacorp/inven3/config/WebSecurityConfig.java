@@ -20,8 +20,8 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
+                        .loginPage("/login").permitAll()
+                        .defaultSuccessUrl("/")
                 )
                 .logout((logout) -> logout.permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
