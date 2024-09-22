@@ -87,7 +87,7 @@ public class ItemController {
         } catch (UnableToExecuteStatementException e) {
             model.addAttribute("status","bad");
             model.addAttribute("message", "Failed to create Item.");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setStatus(HttpStatus.OK.value());
             return "fragments/status";
         }
 

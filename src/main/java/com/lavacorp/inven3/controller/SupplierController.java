@@ -65,7 +65,7 @@ public class SupplierController {
         } catch (UnableToExecuteStatementException e) {
             model.addAttribute("status","bad");
             model.addAttribute("message", "Failed to create supplier.");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setStatus(HttpStatus.OK.value());
             return "fragments/status";
         }
 

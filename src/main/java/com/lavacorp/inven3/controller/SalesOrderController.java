@@ -68,7 +68,7 @@ public class SalesOrderController {
         } catch (UnableToExecuteStatementException e) {
             model.addAttribute("status","bad");
             model.addAttribute("message", "Failed to create Sales Order.");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setStatus(HttpStatus.OK.value());
             return "fragments/status";
         }
 
