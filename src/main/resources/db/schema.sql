@@ -193,14 +193,14 @@ CREATE OR REPLACE TRIGGER setRefundStatus
     FOR EACH ROW
 EXECUTE FUNCTION setPoRefundStatus();
 
-CREATE OR REPLACE TRIGGER setRefundStatus
-    AFTER INSERT
+CREATE OR REPLACE TRIGGER revertRefundStatus
+    AFTER DELETE
     ON PurchaseOrderReturn
     FOR EACH ROW
-EXECUTE FUNCTION setPoRefundStatus();
+EXECUTE FUNCTION revertPoRefundStatus();
 
 CREATE OR REPLACE TRIGGER setRefundStatus
     AFTER INSERT
-    ON PurchaseOrderReturn
+    ON SalesOrderReturn
     FOR EACH ROW
-EXECUTE FUNCTION setPoRefundStatus();
+EXECUTE FUNCTION setSoRefundStatus();
