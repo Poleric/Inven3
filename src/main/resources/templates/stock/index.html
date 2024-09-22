@@ -18,7 +18,7 @@
 </div>
 
 <div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'stock')}">
-    <div class="modal-body add">
+    <div class="modal-body add" hx-swap="innerHTML">
         <div>
             <div>
                 <label for="itemId">Item</label>

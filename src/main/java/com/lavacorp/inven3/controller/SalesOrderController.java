@@ -7,6 +7,7 @@ import com.lavacorp.inven3.model.PurchaseOrder;
 import com.lavacorp.inven3.model.SalesOrder;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;
+import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,8 +51,7 @@ public class SalesOrderController {
     }
 
     @PostMapping("/create")
-    @ResponseBody
-    public HttpStatus create(@RequestBody NewSalesOrderContext context) {
+    public String create(@RequestBody NewSalesOrderContext context, Model model, HttpServletResponse response) {
         SalesOrder so = new SalesOrder();
         so.setSalesDate(context.salesDate);
         so.setShipmentDate(context.shipmentDate);
@@ -66,24 +66,37 @@ public class SalesOrderController {
         try {
             salesOrderDao.insert(so);
         } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            model.addAttribute("status","bad");
+            model.addAttribute("message", "Failed to create Sales Order.");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return "fragments/status";
         }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully created new Sales Order.");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     public record NewSalesOrderContext(int supplierId, LocalDateTime salesDate, LocalDateTime shipmentDate, String reference, int[] stockId, int[] quantity) {}
 
     @DeleteMapping("/delete")
-    @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+    public String delete(@RequestParam(name = "selected") int[] ids, Model model, HttpServletResponse response) {
         for (int id : ids)
             try {
                 salesOrderDao.deleteById(id);
             } catch (UnableToExecuteStatementException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+                model.addAttribute("status","bad");
+                model.addAttribute("message", "The Sales Order(s) is referenced by other Stocks.");
+                response.setStatus(HttpStatus.OK.value());
+                return "fragments/status";
             }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully deleted Sales Order(s).");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 }

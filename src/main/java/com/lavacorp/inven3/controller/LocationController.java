@@ -4,6 +4,7 @@ import com.lavacorp.inven3.dao.LocationDao;
 import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.dao.StockDao;
 import com.lavacorp.inven3.model.Location;
+import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,28 +55,40 @@ public class LocationController {
     public record LocationContext(Location location, int stockCount) {}
 
     @PostMapping("/create")
-    @ResponseBody
-    public HttpStatus create(@RequestBody Location location) {
+    public String create(@RequestBody Location location, Model model, HttpServletResponse response) {
         try {
             locationDao.insert(location);
         } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            model.addAttribute("status","bad");
+            model.addAttribute("message", "Failed to create Stock location.");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return "fragments/status";
         }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully created new Stock location.");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     @DeleteMapping("/delete")
-    @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+    public String delete(@RequestParam(name = "selected") int[] ids, Model model, HttpServletResponse response) {
         for (int id : ids)
             try {
                 locationDao.deleteById(id);
             } catch (UnableToExecuteStatementException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+                model.addAttribute("status","bad");
+                model.addAttribute("message", "The Stock location(s) is referenced by other Stocks.");
+                response.setStatus(HttpStatus.OK.value());
+                return "fragments/status";
             }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully deleted Stock location(s).");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     @GetMapping("/options")

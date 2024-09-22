@@ -2,6 +2,7 @@ package com.lavacorp.inven3.controller;
 
 import com.lavacorp.inven3.dao.*;
 import com.lavacorp.inven3.model.Item;
+import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -71,8 +72,7 @@ public class ItemController {
     public record ItemContext(Item item, int stockCount) {}
 
     @PostMapping("/create")
-    @ResponseBody
-    public HttpStatus create(@RequestBody NewItemContext context) {
+    public String create(@RequestBody NewItemContext context, Model model, HttpServletResponse response) {
         Item item = new Item();
         item.setName(context.name);
         item.setDescription(context.description);
@@ -85,25 +85,38 @@ public class ItemController {
         try {
             itemDao.insert(item);
         } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            model.addAttribute("status","bad");
+            model.addAttribute("message", "Failed to create Item.");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return "fragments/status";
         }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully created new Item.");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     public record NewItemContext(String name, String description, Double basePrice, String unit, int categoryId, int minStock) {}
 
     @DeleteMapping("/delete")
-    @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+    public String delete(@RequestParam(name = "selected") int[] ids, Model model, HttpServletResponse response) {
         for (int id : ids)
             try {
                 itemDao.deleteById(id);
             } catch (UnableToExecuteStatementException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+                model.addAttribute("status","bad");
+                model.addAttribute("message", "The Item(s) is referenced by other Stocks.");
+                response.setStatus(HttpStatus.OK.value());
+                return "fragments/status";
             }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully deleted Item(s).");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     @GetMapping("/options")

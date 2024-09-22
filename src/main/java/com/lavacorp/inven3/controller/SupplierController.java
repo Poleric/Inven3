@@ -4,9 +4,12 @@ import com.lavacorp.inven3.dao.ItemDao;
 import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.dao.SupplierDao;
 import com.lavacorp.inven3.model.Supplier;
+import jakarta.servlet.http.HttpServletResponse;
+import org.jdbi.v3.core.JdbiException;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,28 +59,40 @@ public class SupplierController {
     public record SupplierContext(Supplier supplier, int itemCount) {}
 
     @PostMapping("/create")
-    @ResponseBody
-    public HttpStatus create(@RequestBody Supplier supplier) {
+    public String create(@RequestBody Supplier supplier, Model model, HttpServletResponse response) {
         try {
             supplierDao.insert(supplier);
         } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            model.addAttribute("status","bad");
+            model.addAttribute("message", "Failed to create supplier.");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return "fragments/status";
         }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully created new supplier.");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     @DeleteMapping("/delete")
-    @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+    public String delete(@RequestParam(name = "selected") int[] ids, Model model, HttpServletResponse response) {
         for (int id : ids)
             try {
                 supplierDao.deleteById(id);
             } catch (UnableToExecuteStatementException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+                model.addAttribute("status","bad");
+                model.addAttribute("message", "The Item(s) is still referenced by other items");
+                response.setStatus(HttpStatus.OK.value());
+                return "fragments/status";
             }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully deleted.");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     @GetMapping("/options")

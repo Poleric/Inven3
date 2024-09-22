@@ -4,6 +4,7 @@ import com.lavacorp.inven3.dao.CategoryDao;
 import com.lavacorp.inven3.dao.ItemDao;
 import com.lavacorp.inven3.dao.OrderDirection;
 import com.lavacorp.inven3.model.Category;
+import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -55,28 +56,40 @@ public class CategoryController {
     public record CategoryContext(Category category, int itemCount) {}
 
     @PostMapping("/create")
-    @ResponseBody
-    public HttpStatus create(@RequestBody Category category) {
+    public String create(@RequestBody Category category, Model model, HttpServletResponse response) {
         try {
             categoryDao.insert(category);
         } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            model.addAttribute("status","bad");
+            model.addAttribute("message", "Failed to create Item category.");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return "fragments/status";
         }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully created new Item category.");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     @DeleteMapping("/delete")
-    @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+    public String delete(@RequestParam(name = "selected") int[] ids, Model model, HttpServletResponse response) {
         for (int id : ids)
             try {
                 categoryDao.deleteById(id);
             } catch (UnableToExecuteStatementException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+                model.addAttribute("status","bad");
+                model.addAttribute("message", "The Item category(s) is referenced by other Items.");
+                response.setStatus(HttpStatus.OK.value());
+                return "fragments/status";
             }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully deleted Item category(s).");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     @GetMapping("/options")

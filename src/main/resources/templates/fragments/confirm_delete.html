@@ -1,6 +1,6 @@
 <div th:fragment="confirm_delete (body, menu)"
      class="modal confirm-delete">
-    <form th:hx-delete="@{__${menu}__/delete}" hx-include="[name='selected']" onsubmit="close_modal_box(this)">
+    <form th:hx-delete="@{__${menu}__/delete}" hx-target="find .status" hx-swap="outerHTML">
         <header>
             <h2 th:text="|Delete ${#strings.capitalizeWords(#strings.listSplit(menu, '/').getLast())}|"></h2>
             <button class="close" onclick="close_modal_box(this)">X</button>
@@ -10,6 +10,8 @@
         </div>
 
         <footer>
+            <div class="status" style="display: none"></div>
+
             <button type="reset" class="cancel" onclick="close_modal_box(this)">Cancel</button>
             <button type="submit" class="delete">Delete</button>
         </footer>

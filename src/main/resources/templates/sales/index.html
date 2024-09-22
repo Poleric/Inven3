@@ -18,7 +18,7 @@
 </div>
 
 <div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'sales')}">
-    <div class="modal-body add">
+    <div class="modal-body add" hx-swap="innerHTML">
         <div>
             <label for="salesDate">Sales Date</label>
             <input type="datetime-local" name="salesDate" id="salesDate" required>

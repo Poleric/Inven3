@@ -4,6 +4,7 @@ import com.lavacorp.inven3.dao.*;
 import com.lavacorp.inven3.model.PurchaseOrder;
 import com.lavacorp.inven3.model.Stock;
 import com.lavacorp.inven3.model.generic.Order;
+import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,8 +52,7 @@ public class PurchaseOrderController {
     }
 
     @PostMapping("/create")
-    @ResponseBody
-    public HttpStatus create(@RequestBody NewPurchaseOrderContext context) {
+    public String create(@RequestBody NewPurchaseOrderContext context, Model model, HttpServletResponse response) {
         PurchaseOrder po = new PurchaseOrder();
         po.setSupplier(supplierDao.selectById(context.supplierId));
         po.setPurchaseDate(context.purchaseDate);
@@ -76,24 +76,37 @@ public class PurchaseOrderController {
         try {
             purchaseOrderDao.insert(po);
         } catch (UnableToExecuteStatementException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+            model.addAttribute("status","bad");
+            model.addAttribute("message", "Failed to create Purchase Order.");
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return "fragments/status";
         }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully created new Purchase Order.");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 
     public record NewPurchaseOrderContext(int supplierId, LocalDateTime purchaseDate, LocalDateTime targetDate, String reference, int[] itemId, int[] locationId, int[] quantity) {}
 
     @DeleteMapping("/delete")
-    @ResponseBody
-    public HttpStatus delete(@RequestParam(name = "selected") int[] ids) {
+    public String delete(@RequestParam(name = "selected") int[] ids, Model model, HttpServletResponse response) {
         for (int id : ids)
             try {
                 purchaseOrderDao.deleteById(id);
             } catch (UnableToExecuteStatementException e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+                model.addAttribute("status","bad");
+                model.addAttribute("message", "The Purchase Order(s) is referenced by other Stocks.");
+                response.setStatus(HttpStatus.OK.value());
+                return "fragments/status";
             }
 
-        return HttpStatus.OK;
+        model.addAttribute("status", "ok");
+        model.addAttribute("message", "Successfully deleted Purchase Order(s).");
+        response.setStatus(HttpStatus.OK.value());
+        response.setHeader("HX-Trigger", "update");
+        return "fragments/status";
     }
 }

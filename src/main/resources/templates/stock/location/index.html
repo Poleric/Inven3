@@ -18,7 +18,7 @@
 </div>
 
 <div th:replace="~{fragments/create_new :: create_new (~{::.modal-body}, 'stock/location')}">
-    <div class="modal-body">
+    <div class="modal-body add" hx-swap="innerHTML">
         <div>
             <label for="name">Location name*</label>
             <input type="text" name="name" id="name" required>

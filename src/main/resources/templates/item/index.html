@@ -19,7 +19,7 @@
 </div>
 
 <div th:replace="~{fragments/create_new :: create_new (~{::.add}, 'item')}">
-    <div class="modal-body add">
+    <div class="modal-body add" hx-swap="innerHTML">
         <div>
             <label for="name">Item Name*</label>
             <input type="text" name="name" id="name" required>

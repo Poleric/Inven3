@@ -19,7 +19,7 @@
 </div>
 
 <div th:replace="~{fragments/create_new :: create_new (~{::.modal-body}, 'item/category')}">
-    <div class="modal-body">
+    <div class="modal-body add" hx-swap="innerHTML">
         <div>
             <label for="name">Category name*</label>
             <input type="text" name="name" id="name" required>
