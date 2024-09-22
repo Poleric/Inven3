@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Item (
     description     TEXT,
     base_price      NUMERIC,
     unit            TEXT,
-    category_id     INTEGER REFERENCES Category (id),
+    category_id     INTEGER     REFERENCES Category (id) ON DELETE SET NULL,
     min_stock       INTEGER CHECK ( min_stock >= 0 ) DEFAULT 0,
 
     created_at      TIMESTAMP                        DEFAULT NOW(),
@@ -40,9 +40,9 @@ CREATE TABLE IF NOT EXISTS Location (
 
 CREATE TABLE IF NOT EXISTS Stock (
     id              SERIAL PRIMARY KEY,
-    item_id         INTEGER NOT NULL REFERENCES Item (id),
-    supplier_id     INTEGER NOT NULL REFERENCES Supplier (id),
-    location_id     INTEGER NOT NULL REFERENCES Location (id),
+    item_id         INTEGER NOT NULL REFERENCES Item (id) ON DELETE CASCADE,
+    supplier_id     INTEGER NOT NULL REFERENCES Supplier (id) ON DELETE SET NULL,
+    location_id     INTEGER NOT NULL REFERENCES Location (id) ON DELETE SET NULL,
     quantity        INTEGER NOT NULL CHECK ( quantity >= 0 ),
     status          TEXT    NOT NULL,
     expiry_date     DATE,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Stock (
 CREATE TABLE IF NOT EXISTS PurchaseOrder (
     id            SERIAL PRIMARY KEY,
     status        TEXT    NOT NULL,
-    supplier_id   INTEGER NOT NULL REFERENCES Supplier (id),
+    supplier_id   INTEGER NOT NULL REFERENCES Supplier (id) ON DELETE SET NULL,
     purchase_date TIMESTAMP DEFAULT NOW(),
     target_date   TIMESTAMP,
     arrived_date  TIMESTAMP,
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS PurchaseOrder (
 );
 
 CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
-    purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id),
-    stock_id          INTEGER NOT NULL REFERENCES Stock (id),
+    purchase_order_id INTEGER NOT NULL REFERENCES PurchaseOrder (id) ON DELETE CASCADE,
+    stock_id          INTEGER NOT NULL REFERENCES Stock (id) ON DELETE CASCADE,
     order_quantity    INTEGER NOT NULL,
     PRIMARY KEY (purchase_order_id, stock_id)
 );
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS PurchaseOrderLine (
 CREATE TABLE IF NOT EXISTS PurchaseOrderReturn (
     id          SERIAL PRIMARY KEY,
     status      TEXT    NOT NULL,
-    order_id    INTEGER NOT NULL REFERENCES PurchaseOrder (id),
+    order_id    INTEGER NOT NULL REFERENCES PurchaseOrder (id) ON DELETE CASCADE,
     return_date TIMESTAMP DEFAULT NOW(),
     reference   TEXT
 );
@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS SalesOrder (
 );
 
 CREATE TABLE IF NOT EXISTS SalesOrderLine (
-    sales_order_id INTEGER NOT NULL REFERENCES SalesOrder (id),
-    stock_id       INTEGER NOT NULL REFERENCES Stock (id),
+    sales_order_id INTEGER NOT NULL REFERENCES SalesOrder (id) ON DELETE CASCADE,
+    stock_id       INTEGER NOT NULL REFERENCES Stock (id) ON DELETE CASCADE,
     order_quantity INTEGER NOT NULL,
     PRIMARY KEY (sales_order_id, stock_id)
 );
@@ -95,14 +95,14 @@ CREATE TABLE IF NOT EXISTS SalesOrderLine (
 CREATE TABLE IF NOT EXISTS SalesOrderReturn (
     id          SERIAL PRIMARY KEY,
     status      TEXT    NOT NULL,
-    order_id    INTEGER NOT NULL REFERENCES PurchaseOrder (id),
+    order_id    INTEGER NOT NULL REFERENCES PurchaseOrder (id) ON DELETE CASCADE,
     return_date TIMESTAMP DEFAULT NOW(),
     reference   TEXT
 );
 
 CREATE TABLE IF NOT EXISTS ItemSupplier (
-    item_id         INTEGER NOT NULL REFERENCES Item (id),
-    supplier_id     INTEGER NOT NULL REFERENCES Supplier (id),
+    item_id         INTEGER NOT NULL REFERENCES Item (id) ON DELETE CASCADE,
+    supplier_id     INTEGER NOT NULL REFERENCES Supplier (id) ON DELETE CASCADE,
     sold_price      NUMERIC NOT NULL,
     last_updated_at TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (item_id, supplier_id)
@@ -133,11 +133,9 @@ BEGIN
 
     UPDATE Stock
     SET status = 'RETURNED'
-    WHERE id IN (
-        SELECT stock_id
-        FROM PurchaseOrderLine
-        WHERE purchase_order_id = NEW.order_id
-        );
+    WHERE id IN (SELECT stock_id
+                 FROM PurchaseOrderLine
+                 WHERE purchase_order_id = NEW.order_id);
 
     RETURN NEW;
 END;
